@@ -105,9 +105,7 @@ export default Vue.extend({
       if (this.searchText === undefined && this.showSearchInput === false) {
         this.showSearchInput = true
       } else {
-        if (this.searchText != undefined) {
-          this.search(this.searchText)
-        }
+        this.search(this.searchText)
       }
     },
     selectTab(tab: string): void {
@@ -121,9 +119,7 @@ export default Vue.extend({
       this.$router.go(-1)
     },
     onInput(): void {
-      if (this.searchText != undefined) {
-        this.search(this.searchText)
-      }
+      this.search(this.searchText)
     }
   }
 })
