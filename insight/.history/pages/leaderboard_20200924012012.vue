@@ -19,7 +19,6 @@
           <HobbySelector
             :active="hobby.code_name === selected.code_name"
             :hobby="hobby"
-            @select="hobbySelected"
           />
         </div>
       </div>
@@ -56,10 +55,7 @@ export default Vue.extend({
     ...mapState('leaderboard', ['hobbies', 'users', 'selected'])
   },
   methods: {
-    ...mapActions('leaderboard', ['fetch']),
-    hobbySelected(hobby: Hobby): void {
-      this.fetch([hobby.code_name])
-    }
+    ...mapActions('leaderboard', ['fetch'])
   }
 })
 </script>

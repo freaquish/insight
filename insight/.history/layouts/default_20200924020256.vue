@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div v-if="!this.isAuthRoute()">
+    <div v-if="this.isAuthRoute()">
       <BottomBar />
     </div>
   </div>

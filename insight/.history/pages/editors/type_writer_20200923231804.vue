@@ -6,9 +6,6 @@
     >
       <div class="flex flex-col h-16 w-full px-4">
         <div class="w-full h-auto flex justify-between">
-          <span @click="$router.go(-1)" class="material-icons"
-            >keyboard_backspace</span
-          >
           <h1 class="font-lato font-semibold text-2xl text-black">
             Type Writer
           </h1>

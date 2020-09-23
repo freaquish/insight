@@ -19,19 +19,8 @@
           <HobbySelector
             :active="hobby.code_name === selected.code_name"
             :hobby="hobby"
-            @select="hobbySelected"
           />
         </div>
-      </div>
-    </div>
-
-    <!-- Scoreboard -->
-    <div
-      class="w-full mt-10 flex flex-col overflow-y-scroll"
-      style="height:82vh;"
-    >
-      <div v-for="user in users" :key="user.account.account_id">
-        <RankCardBox :scorecard="user" />
       </div>
     </div>
   </div>
@@ -42,24 +31,19 @@ import Vue from 'vue'
 import { RankCard, Hobby } from '@/types/index'
 import { mapState, mapActions } from 'vuex'
 import HobbySelector from '@/components/leaderboard/HobbySelector.vue'
-import RankCardBox from '@/components/leaderboard/RankCardBox.vue'
 
 export default Vue.extend({
   mounted() {
     this.fetch([])
   },
   components: {
-    HobbySelector,
-    RankCardBox
+    HobbySelector
   },
   computed: {
     ...mapState('leaderboard', ['hobbies', 'users', 'selected'])
   },
   methods: {
-    ...mapActions('leaderboard', ['fetch']),
-    hobbySelected(hobby: Hobby): void {
-      this.fetch([hobby.code_name])
-    }
+    ...mapActions('leaderboard', ['fetch'])
   }
 })
 </script>

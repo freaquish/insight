@@ -59,9 +59,3 @@ export interface RankCard {
     score: number
     rank: number
 }
-
-export interface Leaderboard {
-    hobbies: Hobby[]
-    users: RankCard[]
-    selected?: Hobby
-}

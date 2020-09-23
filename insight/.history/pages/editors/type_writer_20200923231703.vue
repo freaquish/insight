@@ -2,13 +2,10 @@
   <client-only>
     <div
       class="overflow-hidden w-full flex flex-col pt-6"
-      style="margin-bottom:5vh; height:95vh;"
+      style="margin-bottom:5vh; height:95vh"
     >
       <div class="flex flex-col h-16 w-full px-4">
         <div class="w-full h-auto flex justify-between">
-          <span @click="$router.go(-1)" class="material-icons"
-            >keyboard_backspace</span
-          >
           <h1 class="font-lato font-semibold text-2xl text-black">
             Type Writer
           </h1>
@@ -32,7 +29,7 @@
           @focus="activateFocus()"
           @blur="infocus = false"
           @change="insertDataInState()"
-          class="overflow-auto w-full h-full border-2 font-bold font-lg border-purple-600 focus:outline-none rounded-sm px-4 py-4"
+          class="overflow-auto w-full h-full border border-2 font-bold font-lg border-purple-600 focus:outline-none rounded-sm px-4 py-4"
         >
           {{ data }}
         </div>
@@ -90,7 +87,7 @@
       </div>
 
       <div
-        class="absolute bottom-0 rounded-md dash-width h-12 mb-12 py-2 flex justify-around"
+        class="absolute bottom-0 rounded-md dash-width h-12 my-4 py-2 flex justify-around"
       >
         <i
           @click="pickerClicked('image-picker')"

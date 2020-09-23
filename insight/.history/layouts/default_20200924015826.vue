@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div v-if="!this.isAuthRoute()">
+    <div>
       <BottomBar />
     </div>
   </div>
@@ -35,14 +35,9 @@ export default Vue.extend({
   components: {
     BottomBar
   },
-  methods: {
-    isAuthRoute(): boolean {
-      //this function tell whether current route is any auth(login/register) route in order to hide bottom bar
-      return (
-        this.$route.name != undefined &&
-        this.$route.name != null &&
-        this.$route.name.includes('auth')
-      )
+  computed: {
+    getCurrentRounte(): string | null | undefined {
+      return this.$route.name
     }
   }
 })

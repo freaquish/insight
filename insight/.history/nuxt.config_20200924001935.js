@@ -19,7 +19,7 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/freaquishlogo.ico' },
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
@@ -106,7 +106,7 @@ export default {
    */
   axios: {
     baseURL: 'https://condom.freaquish.com/api/v1/'
-    // baseURL: 'http://localhost:8080/api/v1/'
+    // baseURL: "http://localhost:8080/api/v1/"
   },
   router: {},
   /*
