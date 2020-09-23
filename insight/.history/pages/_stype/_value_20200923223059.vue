@@ -26,7 +26,7 @@
           {{ sanitizedStype }}
         </p>
       </div>
-      <div class="w-full h-full mt-2 post-grid pb-4">
+      <div class="w-full h-full mt-2 post-grid">
         <div v-for="post in posts" :key="post.post_id">
           <ShallowPostBox :post="post" />
         </div>

@@ -44,16 +44,7 @@ export default Vue.extend({
     navigation(): void {
       this.$router.push(`/profile/${this.user.username}`)
     },
-    onClickFollow(): void {
-      console.log('hello')
-
-      this.followactions({
-        aid: this.user.account_id,
-        onComplete: () => {
-          this.followedUser(this.user.account_id)
-        }
-      })
-    }
+    onClickFollow(): void {}
   }
 })
 </script>

@@ -18,7 +18,7 @@
         </div>
         <p
           :class="
-            `font-lato font-bold mt-1 ${
+            `font-lato font-bold ${
               this.stype === 'hobby' ? 'text-pink-600' : 'text-blue-600'
             }`
           "
@@ -26,7 +26,7 @@
           {{ sanitizedStype }}
         </p>
       </div>
-      <div class="w-full h-full mt-2 post-grid pb-4">
+      <div class="w-full h-full mt-2 post-grid">
         <div v-for="post in posts" :key="post.post_id">
           <ShallowPostBox :post="post" />
         </div>

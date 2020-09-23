@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="w-full fixed flex flex-col pt-4 px-2">
       <div class="w-full flex">
-        <span @click="goBack()" class="material-icons stroke-current text-white"
+        <span
+          @click="$router.go(-1)"
+          class="material-icons stroke-current text-white"
           >keyboard_backspace</span
         >
         <div class="w-full h-full flex flex-row-reverse">
@@ -100,7 +102,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('search', ['search']),
-    ...mapMutations('search', ['clear']),
+
     onClickSearch(): void {
       if (this.searchText === undefined && this.showSearchInput === false) {
         this.showSearchInput = true
@@ -113,10 +115,6 @@ export default Vue.extend({
     },
     isTabActive(tab: string): boolean {
       return this.selectedTab === 'All' || this.selectedTab === tab
-    },
-    goBack(): void {
-      this.clear()
-      this.$router.go(-1)
     }
   }
 })

@@ -7,10 +7,7 @@
         >keyboard_backspace</span
       >
     </div>
-    <div
-      class="w-full flex flex-col overflow-y-scroll mt-10"
-      style="height:90vh;"
-    >
+    <div class="w-full h-full flex flex-col overflow-y-scroll mt-10">
       <div class="w-full h-auto py-2 px-2 flex justify-between">
         <div class="flex w-auto h-full">
           <p class="font-lato text-3xl text-white">{{ name }}</p>
@@ -18,7 +15,7 @@
         </div>
         <p
           :class="
-            `font-lato font-bold mt-1 ${
+            `font-lato font-bold ${
               this.stype === 'hobby' ? 'text-pink-600' : 'text-blue-600'
             }`
           "
@@ -26,7 +23,7 @@
           {{ sanitizedStype }}
         </p>
       </div>
-      <div class="w-full h-full mt-2 post-grid pb-4">
+      <div class="w-full h-auto mt-2 post-grid">
         <div v-for="post in posts" :key="post.post_id">
           <ShallowPostBox :post="post" />
         </div>
