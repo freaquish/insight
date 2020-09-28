@@ -5,28 +5,12 @@
         class="h-full rounded-md shadow-md  pt-2 text-white flex flex-row justify-around "
         style="background-color:rgb(86, 70, 166);"
       >
-        <div
-          :class="
-            `${
-              isCurrentRoute('index')
-                ? 'border-4 border-t-0 border-l-0 border-r-0 border-white'
-                : ''
-            }`
-          "
-        >
+        <div class="border-4 border-t-0 border-l-0 border-r-0 border-white">
           <span @click="navigate('/', true)" class="material-icons text-3xl"
             >home</span
           >
         </div>
-        <div
-          :class="
-            `${
-              isCurrentRoute('search')
-                ? 'border-4 border-t-0 border-l-0 border-r-0 border-white'
-                : ''
-            }`
-          "
-        >
+        <div>
           <span
             @click="navigate('/search', false)"
             class="material-icons text-3xl"
@@ -34,15 +18,7 @@
           >
         </div>
 
-        <div
-          :class="
-            `${
-              isCurrentRoute('post-hobby_window')
-                ? 'border-4 border-t-0 border-l-0 border-r-0 border-white'
-                : ''
-            }`
-          "
-        >
+        <div>
           <span
             @click="navigate('/post/hobby_window', false)"
             class="material-icons text-3xl"
@@ -50,15 +26,7 @@
           >
         </div>
 
-        <div
-          :class="
-            `${
-              isCurrentRoute('notifications')
-                ? 'border-4 border-t-0 border-l-0 border-r-0 border-white'
-                : ''
-            }`
-          "
-        >
+        <div>
           <span
             @click="navigate('/notifications', false)"
             class="material-icons text-3xl"
@@ -66,15 +34,7 @@
           >
         </div>
 
-        <div
-          :class="
-            `${
-              isCurrentRoute('settings')
-                ? 'border-4 border-t-0 border-l-0 border-r-0 border-white'
-                : ''
-            }`
-          "
-        >
+        <div>
           <span
             @click="navigate('/settings', false)"
             class="material-icons text-3xl"
@@ -101,7 +61,7 @@ export default Vue.extend({
       return (
         this.$route.name != null &&
         this.$route.name != undefined &&
-        this.$route.name === route
+        this.$route.name.includes(route)
       )
     }
   }

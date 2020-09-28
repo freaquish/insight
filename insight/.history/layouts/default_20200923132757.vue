@@ -25,11 +25,6 @@
 <script></script>
 
 <style>
-.grided {
-  display: grid;
-  grid-template-rows: 95vh 5vh;
-}
-
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;

@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <div>
+  <div class="grided">
+    <div style="margin-bottom:5vh;">
       <div
         v-if="!$device.isMobile"
         class="w-full h-full flex flex-col justify-center"
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div v-if="!this.isAuthRoute()" class="">
+    <div v-if="!this.isAuthRoute()" class="fixed">
       <BottomBar />
     </div>
   </div>
