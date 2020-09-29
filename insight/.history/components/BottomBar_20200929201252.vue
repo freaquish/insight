@@ -2,7 +2,7 @@
   <client-only>
     <section class="block px-0 pt-3  fixed inset-x-0 bottom-0 z-10 w-full h-16">
       <div
-        class="h-full rounded-md shadow-md border border-b-0 border-l-0 border-r-0 border-gray-400 bg-white  pt-2 text-black flex flex-row justify-around "
+        class="h-full rounded-md shadow-md border border-b-0 border-l-0 border-r-0 border-gray-500 bg-white  pt-2 text-black flex flex-row justify-around "
       >
         <div
           :class="
