@@ -49,8 +49,8 @@
 
     <!-- Body -->
     <div
-      class="w-full overflow-y-scroll flex flex-col pb-16"
-      style="margin-top:14vh;height:90vh;"
+      class="w-full overflow-y-scroll flex flex-col"
+      style="margin-top:14vh;height:83vh;"
     >
       <div v-if="this.isTabActive('Tag')">
         <div v-for="tag in tags" :key="tag.tag">

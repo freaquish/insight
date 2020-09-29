@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full py-2 px-2 overflow-hidden ">
+  <div class="w-full h-full py-2 px-2 overflow-hidden shadow-lg ">
     <p
       class="wrap-text text-lg flex flex-col"
       style="height:48vh; width:100%; overflow-y:scroll;touch-action: pan-y !important;"

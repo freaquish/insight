@@ -18,7 +18,7 @@
           <div class="h-full w-full flex flex-row-reverse px-4 py-2"></div>
         </div>
 
-        <div class="body flex flex-col pb-16">
+        <div class="body flex flex-col pb-16 ">
           <div v-for="post in posts" :key="posts.indexOf(post)">
             <post-box
               :propsAsset="post"
