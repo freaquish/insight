@@ -1,7 +1,7 @@
 <template>
   <div
-    class="w-full post-box bg-white my-4 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
-    style="touch-action: pan-y !important;"
+    class="w-full post-box bg-white my-4 overflow-hidden border-t-0 border-r-0 border-l-0 border-black"
+    style="touch-action: pan-y !important;border:0.8px;"
     @scroll="monitorAssets"
     @click="$emit('current-index', index)"
   >

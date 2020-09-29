@@ -4,10 +4,7 @@
       class="w-full body flex flex-col slider"
       style="touch-action: pan-y !important;"
     >
-      <div
-        class="w-full px-2 py-1  bg-white"
-        style="height:98%; max-height:100;"
-      >
+      <div class="w-full px-2 bg-white" style="height:98%; max-height:100;">
         <!-- <loader-view :loading="loading" > -->
         <div styles="width:100%;height:50vh;" v-if="this.isActive('text')">
           <text-box :data="getSrc()" :media="getTextMedia()" />
@@ -19,7 +16,7 @@
           <img
             :src="getSrc()"
             v-show="!this.infinite"
-            class="w-full rounded-md"
+            class="w-full"
             style="height:98%;max-height:50vh;touch-action: pan-y !important;"
             @load="loadingComplete"
             @error="changestate({ loading: false, error: true })"
@@ -35,7 +32,7 @@
             controls
             :src="getSrc()"
             @play="managePlayState"
-            class="w-full rounded-md"
+            class="w-full"
             style="max-height:50vh;height:100%;touch-action: pan-y !important;"
             @load="loading = false"
             @error="changestate({ loading: false, error: true })"

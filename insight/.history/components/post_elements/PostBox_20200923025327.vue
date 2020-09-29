@@ -1,11 +1,13 @@
 <template>
   <div
-    class="w-full post-box bg-white my-4 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
+    class="w-full post-box bg-white my-4 overflow-hidden"
     style="touch-action: pan-y !important;"
     @scroll="monitorAssets"
     @click="$emit('current-index', index)"
   >
-    <div class="header w-full h-16 px-2 flex flex-row flex-no-wrap py-2 ">
+    <div
+      class="header w-full h-16 px-2 flex flex-row flex-no-wrap py-2 border border-gray-300 border-l-0 border-t-0 border-r-0"
+    >
       <img
         @click="$router.push(`/profile/${username}`)"
         :src="avatar"
@@ -44,7 +46,7 @@
       <!-- truncated Caption -->
       <div
         v-if="this.caption != undefined && !this.fullCaption"
-        class="w-full h-auto px-2 py-2 flex"
+        class="w-full h-auto py-1 px-2 py-2 flex"
       >
         <div class="h-full" style="width:73%;">
           <div
@@ -164,7 +166,7 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import { avatarDefault } from '@/static/js/assets'
 import IsInViewport from '@/static/js/in-viewport.js'
 export default {
-  props: ['commentActive', 'propsAsset', 'index', 'cindex', 'bind'],
+  props: ['commentActive', 'propsAsset', 'index', 'cindex','bind'],
   components: {
     AssetSlider
   },
@@ -178,17 +180,16 @@ export default {
     let self = this
     this.$nextTick().then(() => {
       self.viewMonitor = new IsInViewport(this.$el)
-      self.viewMonitor.$init(self.$el, entry => {
+      self.viewMonitor.$init(self.$el, (entry) => {
         // console.log(self.index,entry.intersectionRatio);
-        if (
-          entry.intersectionRatio >= 0.22 &&
+        if (entry.intersectionRatio >=0.22 && 
           self.nextFetchIndex.includes(self.index) &&
           !self.nextFetchedIndex.includes(self.index)
         ) {
           // console.log(self.nextFetchIndex, self.nextFetchedIndex, self.index)
           self.fetchFeed(self.index)
         }
-        if (entry.intersectionRatio >= 0.65 && self.actions.viewed === false) {
+        if (entry.intersectionRatio >=0.65 && self.actions.viewed === false) {
           self.bindAction('view')
         }
       })
@@ -299,17 +300,18 @@ export default {
       }
     },
     followClickListener: function() {
-      this.following = false
+      this.following = false;
       this.followUser({
         fid: this.account_id,
-        action: 'follow',
+        action:'follow',
         func: () => {
           this.updateAssociation({
             aid: this.account_id,
-            action: 'follow'
+            action:  'follow'
           })
         }
       })
+      
     },
     showFullCaption: function() {
       this.fullCaption = true
@@ -319,8 +321,8 @@ export default {
     },
 
     bindAction: function(type) {
-      if (this.bind === false) {
-        return null
+      if(this.bind === false){
+        return null;
       }
       if (type === 'love') {
         this.microActionPost({
@@ -356,7 +358,7 @@ export default {
           navigator
             .share({
               title: `Post on ${this.hobbyName} by ${this.username}`,
-              text: `Post on ${this.hobbyName} by ${this.username}`,
+              text: '',
               url: shareurl
             })
             .then(() => {

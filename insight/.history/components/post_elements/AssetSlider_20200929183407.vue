@@ -35,7 +35,7 @@
             controls
             :src="getSrc()"
             @play="managePlayState"
-            class="w-full rounded-md"
+            class="w-full"
             style="max-height:50vh;height:100%;touch-action: pan-y !important;"
             @load="loading = false"
             @error="changestate({ loading: false, error: true })"

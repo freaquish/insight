@@ -1,11 +1,13 @@
 <template>
   <div
-    class="w-full post-box bg-white my-4 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
+    class="w-full post-box bg-white my-4 overflow-hidden"
     style="touch-action: pan-y !important;"
     @scroll="monitorAssets"
     @click="$emit('current-index', index)"
   >
-    <div class="header w-full h-16 px-2 flex flex-row flex-no-wrap py-2 ">
+    <div
+      class="header w-full h-16 px-2 flex flex-row flex-no-wrap py-2 border border-gray-300 border-l-0 border-t-0 border-r-0"
+    >
       <img
         @click="$router.push(`/profile/${username}`)"
         :src="avatar"
@@ -44,7 +46,7 @@
       <!-- truncated Caption -->
       <div
         v-if="this.caption != undefined && !this.fullCaption"
-        class="w-full h-auto px-2 py-2 flex"
+        class="w-full h-auto py-1 px-2 py-2 flex"
       >
         <div class="h-full" style="width:73%;">
           <div

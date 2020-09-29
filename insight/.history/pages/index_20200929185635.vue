@@ -10,7 +10,7 @@
             :src="avatar"
             class="w-12 h-12 rounded-full"
           />
-          <div class="w-auto ml-4 mt-0 h-full flex flex-col justify-center">
+          <div class="w-auto ml-4 mt-1 h-full flex flex-col justify-center">
             <p @click="navigateToSelf" class="font-lato font-semibold text-lg">
               <span class="font-normal">Hello! </span>{{ firstName }}
             </p>
@@ -18,7 +18,7 @@
           <div class="h-full w-full flex flex-row-reverse px-4 py-2"></div>
         </div>
 
-        <div class="body flex flex-col ">
+        <div class="body flex flex-col bg-gray-200">
           <div v-for="post in posts" :key="posts.indexOf(post)">
             <post-box
               :propsAsset="post"
