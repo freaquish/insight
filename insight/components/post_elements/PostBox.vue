@@ -41,29 +41,11 @@
 
     <!-- Footer -->
     <div class="w-full h-auto flex flex-col footer">
-      <!-- truncated Caption -->
-      <div
-        v-if="this.caption != undefined && !this.fullCaption"
-        class="w-full h-auto px-4 py-2 flex"
-      >
-        <div class="h-full" style="width:73%;">
-          <div
-            class="w-full truncate font-muli font-medium text-base"
-            v-html="caption"
-          ></div>
-        </div>
-        <button
-          v-if="this.caption != undefined && this.caption.length > 0"
-          @click="showFullCaption()"
-          class="px-4 bg-transparent outline-none border-0 text-gray-500 text-sm"
-        >
-          Read More
-        </button>
-      </div>
+      
 
       <!-- Actions -->
       <div class="w-full px-4 h-16 flex overflow-hidden">
-        <div class="w-full h-auto flex px-0 py-2">
+        <div class="w-full h-auto flex px-0 pt-2">
           <button
             @click="bindAction('love')"
             :class="`w-auto focus:outline-none h-auto py-0 px-2`"
@@ -141,10 +123,30 @@
         </button>
       </div>
 
+      <!-- truncated Caption -->
+      <div
+        v-if="this.caption != undefined && !this.fullCaption"
+        class="w-full h-auto px-6 flex"
+      >
+        <div class="h-full" style="width:73%;">
+          <div
+            class="w-full truncate font-muli font-medium text-base"
+            v-html="caption"
+          ></div>
+        </div>
+        <button
+          v-if="this.caption != undefined && this.caption.length > 0"
+          @click="showFullCaption()"
+          class="px-4 bg-transparent outline-none border-0 text-gray-500 text-sm"
+        >
+          Read More
+        </button>
+      </div>
+
       <!-- Full Caption -->
       <div
         v-if="this.caption != undefined && this.fullCaption"
-        class="w-full h-auto py-2 px-4 flex flex-col"
+        class="w-full h-auto px-6 flex flex-col"
       >
         <div class="w-full h-auto word">
           <p class="word font-muli font-medium text-base" v-html="caption"></p>
