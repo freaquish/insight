@@ -8,18 +8,18 @@
           :class="
             `${
               isCurrentRoute('index')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block rounded-md text-pink-600'
                 : ''
             }`
           "
-        >
-          <p class="flex">
-            <span @click="navigate('/', true)" class="material-icons text-3xl"
+          >
+          <p class="flex flex-col">
+            <span @click="navigate('/', true)" class="material-icons text-2xl text-center"
               >home</span
             >
             <span
               v-if="this.isCurrentRoute('index')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
+              class="font-lato text-xs pb-1 font-semibold text-pink-600"
               >Home</span
             >
           </p>
@@ -28,20 +28,20 @@
           :class="
             `${
               isCurrentRoute('search')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block rounded-md text-pink-600'
                 : ''
             }`
           "
         >
-          <p class="flex">
+          <p class="flex flex-col">
             <span
               @click="navigate('/search', false)"
-              class="material-icons text-3xl"
+              class="material-icons text-2xl text-center"
               >search</span
             >
             <span
               v-if="this.isCurrentRoute('search')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
+              class="font-lato text-xs pb-1 font-semibold text-pink-600"
               >Search</span
             >
           </p>
@@ -51,20 +51,20 @@
           :class="
             `${
               isCurrentRoute('post-hobby_window')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block rounded-md text-pink-600'
                 : ''
             }`
           "
         >
-          <p class="flex">
+          <p class="flex flex-col">
             <span
               @click="navigate('/post/hobby_window', false)"
-              class="material-icons text-3xl"
+              class="material-icons text-2xl text-center"
               >add</span
             >
             <span
               v-if="this.isCurrentRoute('post-hobby_window')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
+              class="font-lato text-xs pb-1 font-semibold text-pink-600"
               >Add</span
             >
           </p>
@@ -74,20 +74,20 @@
           :class="
             `${
               isCurrentRoute('leaderboard')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block rounded-md text-pink-600'
                 : ''
             }`
           "
         >
-          <p class="flex">
+          <p class="flex flex-col">
             <span
               @click="navigate('/leaderboard', false)"
-              class="material-icons text-3xl"
+              class="material-icons text-2xl text-center"
               >assessment</span
             >
             <span
               v-if="this.isCurrentRoute('leaderboard')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
+              class="font-lato text-xs pb-1 font-semibold text-pink-600"
               >Leaderboard</span
             >
           </p>
@@ -97,20 +97,20 @@
           :class="
             `${
               isCurrentRoute('settings')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block rounded-md text-pink-600'
                 : ''
             }`
           "
         >
-          <p class="flex">
+          <p class="flex flex-col">
             <span
               @click="navigate('/settings', false)"
-              class="material-icons text-3xl"
+              class="material-icons text-2xl text-center"
               >settings</span
             >
             <span
               v-if="this.isCurrentRoute('settings')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
+              class="font-lato text-xs pb-1 font-semibold text-pink-600"
               >Settings</span
             >
           </p>
