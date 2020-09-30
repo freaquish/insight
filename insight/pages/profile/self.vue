@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full overflow-hidden bg-purple-900">
+  <div class="w-full h-full overflow-hidden">
     <!-- profile main page -->
     <loading-container :loading="loading" :text="loadingText">
       <image-viewer
