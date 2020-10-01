@@ -24,13 +24,13 @@
         </p>
       </div>
       <div class="w-full h-full flex flex-row-reverse px-2">
-        <button
+        <div
           v-if="this.following"
           @click="followClickListener()"
-          class="font-lato font-semibold text-base text-gray-800 rounded-md h-8 px-4 border border-gray-700"
+          class="font-lato font-semibold pt-1 text-base text-gray-800 rounded-md h-8 px-4 bg-gray-200"
         >
           Follow
-        </button>
+        </div>
       </div>
     </div>
 

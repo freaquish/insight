@@ -98,12 +98,12 @@
           <!-- edit bio -->
           <!-- v-if="!this.descriptionEditable" -->
           <div> 
-            <button
+            <div
               @click="toggleDescriptionEnable(true)"
               class="mx-auto px-4 py-1 mt-4 font-lato outline-none rounded-full bg-gray-300"
               >
               Edit Bio
-            </button>
+            </div>
           </div>
           <!-- edit bio -->
           <!-- following -->

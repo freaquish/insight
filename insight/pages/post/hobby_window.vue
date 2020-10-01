@@ -19,7 +19,7 @@
       </div>
     </div>
     <hr />
-     <div class="w-full flex flex-wrap px-2 py-4">
+     <div class="w-full flex flex-wrap px-2 py-4 mb-12">
       <div v-for="hobby in hobby_list" :key="hobby_list.indexOf(hobby)">
         <hobby-chip :hobby="hobby" />
       </div>
