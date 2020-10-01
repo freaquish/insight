@@ -1,0 +1,61 @@
+<template>
+  <div class="w-full h-full pb-16 flex flex-col">
+    <div class="bloack fixed w-full h-10 pt-2 glex px-2 bg-black">
+      <span class="material-icons text-white">keyboard_backspace</span>
+    </div>
+    <!-- Post Box -->
+    <div v-if="JSON.stringify(this.post) != '{}'" class="w-full h-auto pt-10">
+      <PostBox
+        :propsAsset="post"
+        :isComment="true"
+        :onep="true"
+        @ecomment="enableComment()"
+      />
+    </div>
+
+    <!-- Comments -->
+    <div class="w-full h-full overflow-x-hidden overflow-y-scroll"></div>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { mapState, mapActions } from 'vuex'
+import { OnePost, Comment } from '@/types/index'
+import PostBox from '@/components/post_elements/PostBox.vue'
+
+export default Vue.extend({
+  asyncData({ params }) {
+    return { pid: params.pid }
+  },
+  data() {
+    return {
+      pid: '',
+      showComments: true as boolean
+    }
+  },
+  components: {
+    PostBox
+  },
+  mounted() {
+    if (this.pid.length > 0) {
+      this.fetchPost(this.pid)
+    }
+  },
+  computed: {
+    ...mapState('post/one_post', ['post'])
+  },
+  methods: {
+    ...mapActions('post/one_post', [
+      'fetchPost',
+      'fetchComment',
+      'createComment'
+    ]),
+    enableComment() {
+      this.showComments = !this.showComments
+    }
+  }
+})
+</script>
+
+<style scoped></style>
