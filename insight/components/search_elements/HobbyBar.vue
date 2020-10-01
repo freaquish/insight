@@ -1,12 +1,12 @@
 <template>
   <div
     @click="navigate()"
-    class="w-full mb-1 h-16 py-2 px-2 flex bg-tint-purple-shallow"
+    class="hobbar w-auto mx-2 rounded-lg mb-2 h-16 py-2 px-2 flex shadow-md"
   >
     <p class="px-2 py-1 my-2 rounded-md font-muli text-white bg-pink-600">
       {{ getHobbyAvatar }}
     </p>
-    <p class="ml-2 mt-3 font-muli text-white">{{ hobby.name }}</p>
+    <p class="ml-2 mt-3 font-muli text-black">{{ hobby.name }}</p>
   </div>
 </template>
 
@@ -37,3 +37,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.hobbar {
+  background: linear-gradient(16.1deg, rgba(0, 0, 0, 0) 0%, rgba(180, 179, 180, 0.51) 100%);
+}
+</style>

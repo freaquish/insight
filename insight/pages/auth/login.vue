@@ -23,7 +23,7 @@
       <!-- <div class="text-right mt-4 mr-6 text-gray-600">Forget Password ?</div> -->
       <div class="w-full h-16 py-2 px-2 mt-10 flex">
 
-         <button @click="login" class="lgnbtn w-full py-2 mx-5 font-muli font-bold focus:outline-none text-center text-white rounded-full">Login</button>
+         <div @click="login" class="lgnbtn w-full py-2 mx-5 font-muli font-bold focus:outline-none text-center text-white rounded-full"><h1 class="pt-1">LOGIN</h1></div>
       </div>
       <div class="ml-8 mr-8 text-center text-gray-600 mt-12 mb-8">
         <div class="text-md">Don't have any account, join us <br></div>

@@ -1,21 +1,21 @@
 <template>
-  <div class="w-full h-full grided bg-tint-purple">
+  <div class="w-full h-full grided">
     <!-- Header -->
     <div class="w-full fixed flex flex-col pt-4 px-2">
       <div class="w-full flex">
-        <span @click="goBack()" class="material-icons stroke-current text-white"
+        <span @click="goBack()" class="material-icons stroke-current text-black"
           >keyboard_backspace</span
         >
         <div class="w-full h-full flex flex-row-reverse">
           <span
             @click="onClickSearch()"
-            class="material-icons stroke-current text-white"
+            class="material-icons stroke-current text-black mt-1"
             >search</span
           >
           <transition name="slide-fade">
             <input
               v-if="this.showSearchInput"
-              class="w-full ml-6 mr-4 py-1 rounded-md focus:outline-none text-white font-muli bg-tint-purple-shallow placeholder-white px-2"
+              class="w-full ml-6 mr-4 py-1 rounded-full focus:outline-none text-black font-muli bg-gray-200 placeholder-gray-500 px-2"
               placeholder="Type name, hobby or tag..."
               v-model="searchText"
               @input="onInput()"
@@ -26,21 +26,25 @@
       <div class="w-full h-auto flex">
         <SearchTab
           :text="'All'"
+          class="mx-auto"
           :active="selectedTab === 'All'"
           @tabbed="selectTab"
         />
         <SearchTab
           :text="'Tag'"
+          class="mx-auto"
           :active="selectedTab === 'Tag'"
           @tabbed="selectTab"
         />
         <SearchTab
           :text="'User'"
+          class="mx-auto"
           :active="selectedTab === 'User'"
           @tabbed="selectTab"
         />
         <SearchTab
           :text="'Hobby'"
+          class="mx-auto"
           :active="selectedTab === 'Hobby'"
           @tabbed="selectTab"
         />
@@ -50,7 +54,7 @@
     <!-- Body -->
     <div
       class="w-full overflow-y-scroll flex flex-col pb-16"
-      style="margin-top:14vh;height:90vh;"
+      style="margin-top:15vh;height:85vh;"
     >
       <div v-if="this.isTabActive('Tag')">
         <div v-for="tag in tags" :key="tag.tag">
@@ -133,6 +137,7 @@ export default Vue.extend({
 .grided {
   display: grid;
   grid-template-rows: 12vh 83vh;
+
 }
 
 .slide-fade-enter-active {
