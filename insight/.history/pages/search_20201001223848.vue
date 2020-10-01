@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full grided bg-tint-purple">
     <!-- Header -->
-    <div class="w-full fixed flex flex-col pt-4 px-2 bg-tint-purple">
+    <div class="w-full fixed flex flex-col pt-4 px-2">
       <div class="w-full flex">
         <span @click="goBack()" class="material-icons stroke-current text-white"
           >keyboard_backspace</span

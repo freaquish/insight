@@ -1,8 +1,5 @@
 <template>
-  <div
-    @click="$router.push(`/post/${post.post_id}`)"
-    class="relative w-full h-32"
-  >
+  <div class="relative w-full h-32">
     <div class="w-full h-full absolute z-0" v-html="html"></div>
     <div class="w-full h-full absolute z-10 flex flex-col-reverse">
       <div class="w-full h-auto px-1 pb-1 flex">
