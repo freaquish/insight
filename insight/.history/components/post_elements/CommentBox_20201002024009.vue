@@ -14,10 +14,8 @@
           >@{{ comment.account.username }}</span
         >
       </div>
-      <div class="w-full h-full flex flex-row-reverse pr-4">
-        <p class="font-lato text-sm text-gray-600">
-          {{ expand_time(comment.created) }}
-        </p>
+      <div class="w-full h-full flex flex-row-reverse">
+        <p>{{ comment.created }}</p>
       </div>
     </div>
     <div class="h-auto pr-12 mt-1" style="padding-left:3.2rem;">
@@ -37,20 +35,6 @@ export default Vue.extend({
   },
   props: {
     comment: {} as PropOptions<Comment>
-  },
-  methods: {
-    expand_time(time: string): string {
-      let t = time
-      if (t.includes('d')) {
-        return t
-      }
-      let number = parseFloat(t.replace('h', ''))
-      // console.log(number * 60)
-      if (number * 60 < 60) {
-        t = `${(number * 60).toFixed(0)}min`
-      }
-      return t
-    }
   }
 })
 </script>

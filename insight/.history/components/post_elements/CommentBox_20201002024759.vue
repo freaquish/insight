@@ -45,7 +45,7 @@ export default Vue.extend({
         return t
       }
       let number = parseFloat(t.replace('h', ''))
-      // console.log(number * 60)
+      console.log(number * 60)
       if (number * 60 < 60) {
         t = `${(number * 60).toFixed(0)}min`
       }

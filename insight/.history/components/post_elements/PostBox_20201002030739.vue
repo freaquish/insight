@@ -23,9 +23,9 @@
           {{ hobbyName }}
         </p>
       </div>
-      <!-- <p class="font-lato text-sm text-gray-600">
+      <p class="font-lato text-sm text-gray-600">
         {{ expand_time(created_at) }}
-      </p> -->
+      </p>
       <div class="w-full h-full flex flex-row-reverse px-2">
         <button
           v-if="this.following"
@@ -294,7 +294,7 @@ export default {
       if (number * 60 < 60) {
         t = `${(number * 60).toFixed(0)}min`
       } else {
-        t = `${number.toFixed(2)}h`
+        r = `${number.toFixed(2)}h`
       }
       return t
     },

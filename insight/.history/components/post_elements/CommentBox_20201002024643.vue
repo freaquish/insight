@@ -41,11 +41,8 @@ export default Vue.extend({
   methods: {
     expand_time(time: string): string {
       let t = time
-      if (t.includes('d')) {
-        return t
-      }
-      let number = parseFloat(t.replace('h', ''))
-      // console.log(number * 60)
+      let number = parseFloat(t.replace(t.includes('d') ? 'd' : 'h', ''))
+      console.log(number * 60)
       if (number * 60 < 60) {
         t = `${(number * 60).toFixed(0)}min`
       }

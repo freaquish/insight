@@ -23,9 +23,6 @@
           {{ hobbyName }}
         </p>
       </div>
-      <!-- <p class="font-lato text-sm text-gray-600">
-        {{ expand_time(created_at) }}
-      </p> -->
       <div class="w-full h-full flex flex-row-reverse px-2">
         <button
           v-if="this.following"
@@ -177,10 +174,7 @@ export default {
     AssetSlider
   },
   beforeDestroy() {
-    if (
-      this.viewMonitor != undefined &&
-      (this.onep === false || this.onep === undefined)
-    ) {
+    if (this.onep === false || this.onep === undefined) {
       this.viewMonitor.$unbind(this.$el)
     }
   },
@@ -237,8 +231,7 @@ export default {
       comments: 0,
       saves: 0,
       views: 0,
-
-      created_at: '',
+      created: undefined,
       actions: {
         loved: false,
         shared: false,
@@ -265,11 +258,11 @@ export default {
           ? this.avatar
           : avatarDefault
       this.hobbyName = this.propsAsset.header.hobby_name
-
+      this.created = this.propsAsset.meta.created
       this.account_id = this.propsAsset.meta.account_id
       this.assets = this.propsAsset.body
       this.caption = this.propsAsset.caption
-      this.created_at = this.propsAsset.meta.created
+      this.created = this.propsAsset.meta.created
       this.bindActionAssets()
       this.userurl = `/post/${this.username}`
       // console.log(this.assets);
@@ -280,23 +273,6 @@ export default {
       } else {
         return text
       }
-    },
-    expand_time(time) {
-      if (time === undefined) {
-        return ''
-      }
-      let t = time
-      if (t.includes('d')) {
-        return t
-      }
-      let number = parseFloat(t.replace('h', ''))
-      // console.log(number * 60)
-      if (number * 60 < 60) {
-        t = `${(number * 60).toFixed(0)}min`
-      } else {
-        t = `${number.toFixed(2)}h`
-      }
-      return t
     },
     bindActionAssets: function() {
       for (let [key, value] of Object.entries(this.propsAsset.meta.actions)) {
