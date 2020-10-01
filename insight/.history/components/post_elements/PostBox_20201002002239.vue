@@ -138,9 +138,7 @@
           <span class="material-icons text-3xl stroke-current ">
             comment
           </span>
-          <span class="font-montserrat ml-1 text-gray-700 text-sm mt-1">{{
-            sanitize(comments)
-          }}</span>
+          <span class="font-montserrat ml-1 text-gray-700">{{ comments }}</span>
         </button>
       </div>
 
@@ -334,12 +332,6 @@ export default {
       this.fullCaption = false
     },
 
-    sanitize(num) {
-      if (num >= 1000) {
-        return `${(num / 1000).toFixed(1)}K`
-      }
-      return num.toString()
-    },
     bindAction: function(type) {
       if (type === 'love') {
         this.microActionPost({

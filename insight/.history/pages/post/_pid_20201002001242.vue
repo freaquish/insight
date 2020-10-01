@@ -10,19 +10,6 @@
       <PostBox :propsAsset="post" :onep="true" @ecomment="enableComment()" />
     </div>
 
-    <!-- Comment Count --->
-    <div
-      v-if="
-        this.post.footer != undefined && this.post.footer.comments != undefined
-      "
-      class="w-full h-10 py-2 px-2"
-    >
-      <p class="font-lato text-gray-500">
-        {{ sanitize(post.footer.action_map.comment) }}
-        <span class="ml-2">Comments</span>
-      </p>
-    </div>
-
     <!-- Comments -->
     <div
       v-if="
@@ -91,12 +78,6 @@ export default Vue.extend({
     navigateBack(): void {
       this.clear()
       this.$router.go(-1)
-    },
-    sanitize(num: number): string {
-      if (num >= 1000) {
-        return `${(num / 1000).toFixed(1)}K`
-      }
-      return num.toString()
     }
   }
 })

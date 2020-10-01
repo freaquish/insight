@@ -28,6 +28,7 @@ export const mutations: MutationTree<RootState> & Mutations = {
     },
     insertPostData(state, post): void {
         state.post = post
+        console.log(state.post)
         if (state.post.header.avatar.length === 0) {
             state.post.header.avatar = avatarDefault
         }

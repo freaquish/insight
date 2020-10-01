@@ -44,7 +44,7 @@ export default Vue.extend({
       return ''
     },
     decorate(text: string): string {
-      return `<a href="${this.getUrl(text)}"><span class="font-montserrat ${
+      return `<a href="${this.getUrl(text)}"></a><span class="font-montserrat ${
         text.includes('@') ? 'text-blue-700' : 'text-blue-500'
       }">${text}</span></a>`
     },

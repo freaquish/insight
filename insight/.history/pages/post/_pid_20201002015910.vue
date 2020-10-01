@@ -17,10 +17,11 @@
       "
       class="w-full h-10 py-2 px-2"
     >
-      <p class="font-lato text-gray-500">
-        {{ sanitize(post.footer.action_map.comment) }}
-        <span class="ml-2">Comments</span>
-      </p>
+      <a href="/profile/self">
+        <p class="font-lato text-gray-500">
+          {{ sanitize(post.footer.action_map.comment) }} Comments
+        </p></a
+      >
     </div>
 
     <!-- Comments -->

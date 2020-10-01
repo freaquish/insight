@@ -15,8 +15,8 @@
         >
       </div>
     </div>
-    <div class="h-auto pr-12 mt-1" style="padding-left:3.2rem;">
-      <p class="font-muli break-words" v-html="comment.comment"></p>
+    <div class="h-auto pr-12" style="padding-left:3.2rem;">
+      <p class="font-muli break-words">{{ comment.comment }}</p>
     </div>
   </div>
 </template>

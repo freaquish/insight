@@ -138,9 +138,10 @@
           <span class="material-icons text-3xl stroke-current ">
             comment
           </span>
-          <span class="font-montserrat ml-1 text-gray-700 text-sm mt-1">{{
-            sanitize(comments)
-          }}</span>
+          <span
+            class="font-montserrat ml-1 text-gray-700 text-sm inline-block m-auto"
+            >{{ comments }}</span
+          >
         </button>
       </div>
 

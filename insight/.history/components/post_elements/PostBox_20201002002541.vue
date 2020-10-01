@@ -138,8 +138,8 @@
           <span class="material-icons text-3xl stroke-current ">
             comment
           </span>
-          <span class="font-montserrat ml-1 text-gray-700 text-sm mt-1">{{
-            sanitize(comments)
+          <span class="font-montserrat ml-1 text-gray-700 text-sm mt-">{{
+            sanitize(123056)
           }}</span>
         </button>
       </div>

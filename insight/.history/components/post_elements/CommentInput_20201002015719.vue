@@ -11,7 +11,7 @@
         class="w-full pl-2 font-muli text-gray-700 py-1 pr-1 rounded-md focus:outline-none  bg-gray-300 mr-1"
       ></textarea>
       <div
-        @click="send()"
+        :href="`/profile/self`"
         class="w-auto h-auto px-3 bg-pink-600 inline-block m-auto rounded-md"
       >
         <span class="material-icons mt-2 text-white">send</span>
@@ -35,18 +35,10 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('post/one_post', ['createComment']),
-    getUrl(text: string): string {
-      if (text.includes('@')) {
-        return `/profile/${text.replace('@', '')}`
-      } else if (text.includes('#')) {
-        return `/hastag/${text.replace('#', '')}`
-      }
-      return ''
-    },
     decorate(text: string): string {
-      return `<a href="${this.getUrl(text)}"><span class="font-montserrat ${
+      return `<span class="font-montserrat ${
         text.includes('@') ? 'text-blue-700' : 'text-blue-500'
-      }">${text}</span></a>`
+      }">${text}</span>`
     },
     commentInput(): void {
       if (

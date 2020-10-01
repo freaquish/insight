@@ -5,18 +5,15 @@
       class="h-auto flex"
     >
       <ImageBox :src="comment.account.avatar" class="w-10 h-10 rounded-full" />
-      <div class="flex flex-col w-auto h-full">
-        <p class="ml-3 font-lato font-bold truncate">
-          {{ comment.account.name }}
-        </p>
-        <span
-          class="ml-3 text-blue-700 font-montserrat font-medium text-sm truncate"
+      <p class="ml-3 block m-auto font-lato font-bold">
+        {{ comment.account.name }}
+        <span class="text-blue-700 font-montserrat font-medium text-sm"
           >@{{ comment.account.username }}</span
         >
-      </div>
+      </p>
     </div>
-    <div class="h-auto pr-12 mt-1" style="padding-left:3.2rem;">
-      <p class="font-muli break-words" v-html="comment.comment"></p>
+    <div class="h-auto pr-12" style="padding-left:3.2rem;">
+      <p class="font-muli break-words">{{ comment.comment }}</p>
     </div>
   </div>
 </template>

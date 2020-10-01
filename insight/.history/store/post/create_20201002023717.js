@@ -190,7 +190,7 @@ export const actions = {
       })
     }
     let url = `post/create`
-    const storage = new FrozenStorage()
+    let storage = new FrozenStorage()
     let token = storage.get('token')
     if (token === null || token === undefined) {
       commit('interactError', {
@@ -202,9 +202,7 @@ export const actions = {
     } else {
       //TODO: Token insertion, more security required
       // console.log(data);
-      if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
-        this.$axios.setToken(storage.get('token'))
-      }
+      this.$axios.setHeader('Authorization', token)
       this.$axios
         .post(url, JSON.stringify(data))
         .then(res => {

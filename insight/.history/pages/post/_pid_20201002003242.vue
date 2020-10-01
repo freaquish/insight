@@ -19,7 +19,6 @@
     >
       <p class="font-lato text-gray-500">
         {{ sanitize(post.footer.action_map.comment) }}
-        <span class="ml-2">Comments</span>
       </p>
     </div>
 

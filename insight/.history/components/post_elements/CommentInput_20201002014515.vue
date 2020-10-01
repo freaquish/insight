@@ -35,18 +35,10 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('post/one_post', ['createComment']),
-    getUrl(text: string): string {
-      if (text.includes('@')) {
-        return `/profile/${text.replace('@', '')}`
-      } else if (text.includes('#')) {
-        return `/hastag/${text.replace('#', '')}`
-      }
-      return ''
-    },
     decorate(text: string): string {
-      return `<a href="${this.getUrl(text)}"><span class="font-montserrat ${
+      return `<span class="font-montserrat ${
         text.includes('@') ? 'text-blue-700' : 'text-blue-500'
-      }">${text}</span></a>`
+      }">${text}</span>`
     },
     commentInput(): void {
       if (
@@ -57,26 +49,11 @@ export default Vue.extend({
         this.row = broken.length
       }
     },
-    engageTags(): string {
-      let text = this.commentText as string
-      if (
-        this.commentText != undefined &&
-        (this.commentText.includes('@') || this.commentText.includes('#'))
-      ) {
-        let tags = text.match(/@[a-z0-9]+|#[a-z0-9]+/gi)
-        if (tags != null) {
-          for (let tag of tags) {
-            text = text.replace(tag, this.decorate(tag))
-          }
-        }
-      }
-      return text
-    },
     send(): void {
       if (this.commentText != undefined && this.commentText.length > 0) {
-        let text = this.createComment({
+        this.createComment({
           post_id: this.pid,
-          comment: this.engageTags(),
+          comment: this.commentText,
           complete: () => {
             this.commentText = undefined
             this.row = 1

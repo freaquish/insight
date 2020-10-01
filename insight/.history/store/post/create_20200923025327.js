@@ -2,7 +2,7 @@ import { StorageVaultBeta } from '@/plugins/FirebasePlugin.js'
 import FrozenStorage from '@/static/js/local_storage'
 export const state = () => ({
   hobby_list: [],
-  hobbyText: '',
+  hobbyText:'',
   hobby: {},
   assets: {},
   editor: undefined,
@@ -29,11 +29,11 @@ export const mutations = {
     state.text.fontName = payload.fontName
     state.text.fontColor = payload.fontColor
     state.text.bgColor = payload.bgColor
-    state.editor = payload.editor
+    state.editor = payload.editor;
   },
   insertAssets: function(state, payload) {
     if ('images' in payload) {
-      state.assets.images = payload.images
+      state.assets.images = payload.images;
     }
     if ('video' in payload) {
       state.assets.video = payload.video
@@ -41,9 +41,9 @@ export const mutations = {
     if ('audio' in payload) {
       state.assets.audio = payload.audio
     }
-    state.editor = payload.editor
-    console.log(payload)
-    this.$router.push('/post/caption_page')
+    state.editor = payload.editor;
+    console.log(payload);
+    this.$router.push('/post/caption_page');
   },
   insertCaption: function(state, payload) {
     state.caption = payload
@@ -76,28 +76,28 @@ export const mutations = {
   },
   interactError: function(state, err) {
     state.error = err.error
-    state.errorMessage = err.msg
+    state.errorMessage = err.msg;
     state.nextUrl = '/'
   },
   setHobbies: function(state, data) {
-    state.hobby_list = data.filter(h => {
-      return h.name.length > 0 && h.code_name.length > 0 && h.editors.length > 0
-    })
+    state.hobby_list = data.filter(h=>{
+      return h.name.length > 0 && h.code_name.length > 0 && h.editors.length >0;
+    } );
   },
-  setCompleted: function(state, payload) {
-    if (payload.images != undefined) {
-      state.assets.images = payload.images
+  setCompleted: function(state,payload) {
+    if(payload.images != undefined){
+        state.assets.images = payload.images
     }
-    if (payload.video != undefined) {
+    if(payload.video != undefined){
       state.assets.video = payload.video
     }
-    if (payload.audio != undefined) {
-      state.assets.audio = payload.audio
-    }
-    state.completed = true
+   if(payload.audio != undefined){
+       state.assets.audio = payload.audio
+   }
+    state.completed = true;
   },
-  setHobby: function(state, payload) {
-    state.hobby = { ...payload }
+  setHobby: function(state, payload){
+    state.hobby = {...payload};
   },
   reset: function(state) {
     state.assets = {}
@@ -123,8 +123,8 @@ export const mutations = {
     state.error = false
   },
 
-  updateProgress: function(state, data) {
-    state.progress = data
+  updateProgress: function(state, data){
+    state.progress = data;
   },
   setNextUrl: function(state, data) {
     state.nextUrl = data
@@ -133,7 +133,7 @@ export const mutations = {
 
 export const actions = {
   fetchHobbies: function({ commit }) {
-    let url = `fetch_hobby`
+    let url = `fetch_hobby`;
     this.$axios
       .get(url)
       .then(res => {
@@ -149,7 +149,7 @@ export const actions = {
         })
       })
   },
-  sendDataToServer: function({ state, commit }) {
+  sendDataToServer: function({state, commit}) {
     let data = {
       assets: {},
       hobby: state.hobby.code_name,
@@ -178,7 +178,7 @@ export const actions = {
       data['atags'] = data['atags'].concat(
         state.caption.match(/#[a-z0-9_?]+/gi) || []
       )
-    } else {
+    }else{
       data['caption'] = ''
     }
     if (window.navigator.geolocation) {
@@ -189,22 +189,21 @@ export const actions = {
         }
       })
     }
+    console.log(data);
     let url = `post/create`
-    const storage = new FrozenStorage()
+    let storage = new FrozenStorage()
     let token = storage.get('token')
     if (token === null || token === undefined) {
       commit('interactError', {
         error: true,
         msg: "Couldn't find account details."
-      })
+      });
       commit('reset')
       commit('setNextUrl', '/auth/login')
     } else {
       //TODO: Token insertion, more security required
       // console.log(data);
-      if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
-        this.$axios.setToken(storage.get('token'))
-      }
+      this.$axios.setHeader('Authorization', token)
       this.$axios
         .post(url, JSON.stringify(data))
         .then(res => {
@@ -218,81 +217,78 @@ export const actions = {
           commit('interactError', {
             error: true,
             msg: 'You should login, or register if you are new.'
-          })
-          commit('reset')
-          commit('setNextUrl', '/auth/login')
+          });
+          commit('reset');
+          commit('setNextUrl', '/auth/login');
         })
     }
   },
-  uploadFilesToFirebase: function({ state, commit }, func) {
-    if (window.navigator.onLine) {
-      let storage = new StorageVaultBeta(state.assets)
+  uploadFilesToFirebase: function({ state, commit},func) {
+    if(window.navigator.onLine){
+      let storage = new StorageVaultBeta(state.assets);
       storage.bulk_upload({
-        complete: assets => {
-          let isImagesComplete = false
-          let isVideoComplete = false
-          let isAudioComplete = false
-
-          if (state.assets.images === undefined) {
-            isImagesComplete = true
-          } else if (state.assets.images.length === assets.images.length) {
-            isImagesComplete = true
-          } else {
+        complete:(assets) => {
+          let isImagesComplete = false;
+          let isVideoComplete = false;
+          let isAudioComplete = false;
+          
+          if(state.assets.images === undefined){
+            isImagesComplete = true;
+          }else if(state.assets.images.length === assets.images.length){
+            isImagesComplete = true;
+          }else{
             isImagesComplete = false
           }
 
-          if (state.assets.video === undefined) {
-            isVideoComplete = true
-          } else if (assets.video != undefined) {
-            isVideoComplete = true
-          } else {
-            isVideoComplete = false
+          if(state.assets.video === undefined){
+            isVideoComplete = true;
+          }else if(assets.video != undefined){
+            isVideoComplete = true;
+          }else{
+            isVideoComplete = false;
           }
 
-          if (state.assets.audio === undefined) {
-            isAudioComplete = true
-          } else if (assets.audio != undefined) {
-            isAudioComplete = true
-          } else {
-            isAudioComplete = false
+          if(state.assets.audio === undefined){
+            isAudioComplete = true;
+          }else if(assets.audio != undefined){
+            isAudioComplete = true;
+          }else{
+            isAudioComplete = false;
           }
 
-          if (isImagesComplete && isVideoComplete && isAudioComplete) {
-            commit('setCompleted', assets)
-            console.log(
-              JSON.stringify(assets) === JSON.stringify(assets),
-              assets,
-              state.assets
-            )
-            func()
-          }
-        },
-        progress: progress => {
-          commit('updateProgress', progress)
-        },
-        error: error => {
-          commit('interactError', {
-            error: true,
-            msg: 'Something bad happend'
-          })
-        }
-      })
-    } else {
-      commit('interactError', {
+          if(isImagesComplete && isVideoComplete && isAudioComplete
+            ){
+              commit('setCompleted',assets);
+              console.log(JSON.stringify(assets) === JSON.stringify(assets),assets,state.assets);
+              func();
+            }
+      },
+      progress:(progress) => {
+        commit('updateProgress',progress)
+      },
+      error: (error) =>{
+        commit('interactError', {
+          error: true,
+          msg: "Something bad happend"
+        })
+      }
+    });
+   }else{
+    commit('interactError', {
         error: true,
         msg: 'No Internet Connection.'
-      })
-    }
-  },
+      });
+   }
+ },
 
-  createPost: function({ state, commit, dispatch }) {
-    //  console.log(state.assets)
-    if (JSON.stringify(state.assets) != JSON.stringify({})) {
-      dispatch('uploadFilesToFirebase', () => {
-        dispatch('sendDataToServer')
-      })
-    } else {
-      dispatch('sendDataToServer')
-    }
-  }
+ createPost: function({state, commit, dispatch}){
+  //  console.log(state.assets)
+   if (JSON.stringify(state.assets) != JSON.stringify({})){
+     dispatch('uploadFilesToFirebase', () =>{
+       dispatch('sendDataToServer');
+     });
+   }else{
+     dispatch('sendDataToServer');
+   }
+ }
 }

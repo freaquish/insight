@@ -133,14 +133,12 @@
         <button
           v-if="this.isComment != undefined && this.isComment === true"
           @click="onClickComment"
-          class="w-auto focus:outline-none flex h-12 pt-2 px-2 outline-none rounded-lg mt-2 mr-2"
+          class="w-auto focus:outline-none h-12 pt-2 px-2 outline-none rounded-lg mt-2 mr-2"
         >
           <span class="material-icons text-3xl stroke-current ">
             comment
           </span>
-          <span class="font-montserrat ml-1 text-gray-700 text-sm mt-1">{{
-            sanitize(comments)
-          }}</span>
+          <span>{{ comments }}</span>
         </button>
       </div>
 
@@ -334,12 +332,6 @@ export default {
       this.fullCaption = false
     },
 
-    sanitize(num) {
-      if (num >= 1000) {
-        return `${(num / 1000).toFixed(1)}K`
-      }
-      return num.toString()
-    },
     bindAction: function(type) {
       if (type === 'love') {
         this.microActionPost({
