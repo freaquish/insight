@@ -4,7 +4,7 @@
       @click="$router.push(`/profile/${comment.account.username}`)"
       class="h-auto flex"
     >
-      <ImageBox :src="comment.account.avatar" class="w-10 h-10 rounded-full" />
+      <ImageBox :src="comment.account.avatar" class="'w-10 h-10 rounded-md'" />
       <p class="ml-3 inline-block m-auto font-lato font-bold">
         {{ comment.account.name }}
       </p>

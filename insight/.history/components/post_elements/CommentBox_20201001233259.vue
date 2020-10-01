@@ -4,7 +4,7 @@
       @click="$router.push(`/profile/${comment.account.username}`)"
       class="h-auto flex"
     >
-      <ImageBox :src="comment.account.avatar" class="w-10 h-10 rounded-full" />
+      <image :src="comment.account.avatar" :class="'w-10 h-10 rounded-full'" />
       <p class="ml-3 inline-block m-auto font-lato font-bold">
         {{ comment.account.name }}
       </p>
@@ -18,11 +18,11 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { Comment } from '@/types/index'
-import ImageBox from '@/components/utli/ImageBox.vue'
+import Image from '@/components/utli/Image.vue'
 
 export default Vue.extend({
   components: {
-    ImageBox
+    Image
   },
   props: {
     comment: {} as PropOptions<Comment>
