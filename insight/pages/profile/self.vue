@@ -10,10 +10,7 @@
         @stateloading="changeloading"
       />
       <div v-if="!this.imageView && !this.placeBox">
-      <div class="w-auto mx-2 mt-2 pb-4 shadow-md relative bg-white" style="border-radius:1rem;">
-        <div class="w-full h-full absolute z-0">
-          <img :src="avatar" class="w-full h-full " style="border-radius:1rem;filter: blur(2px);opacity: 0.6;"/>
-        </div>
+      <div class="w-full pb-4 relative">
         <div class="px-2 mt-2">
           <span @click="$router.go(-1)" class="material-icons relative mt-2">
             keyboard_backspace</span>
@@ -91,16 +88,26 @@
         <!-- username and name -->
       <div class="flex flex-row" style="position:relative;">
           <!-- followers -->
-          <div @click="$router.push('/profile/followers')" class=" text-center ml-10 mr-auto">
+          <div @click="$router.push('/profile/followers')" class=" text-center mx-auto">
             <h1 class="text-purple-700 font-bold text-2xl" style="text-shadow: 0px 8px 6px rgba(0, 0, 0, 0.25);">{{ retroText(followers) }}</h1>
             <h1 class="text-sm font-lato font-semibold">
               Followers
             </h1>
           </div>
           <!-- followers -->
-          
+          <!-- edit bio -->
+          <!-- v-if="!this.descriptionEditable" -->
+          <div> 
+            <button
+              @click="toggleDescriptionEnable(true)"
+              class="mx-auto px-4 py-1 mt-4 font-lato outline-none rounded-full bg-gray-300"
+              >
+              Edit Bio
+            </button>
+          </div>
+          <!-- edit bio -->
           <!-- following -->
-          <div @click="$router.push('/profile/followings')" class="text-center mr-10 ml-auto">
+          <div @click="$router.push('/profile/followings')" class="text-center mx-auto">
             <h1 class="text-purple-700 font-bold text-2xl" style="text-shadow: 0px 8px 6px rgba(0, 0, 0, 0.25);">{{ retroText(following) }}</h1>            
             <h1 class="text-sm font-lato font-semibold">
               Following
@@ -112,7 +119,7 @@
       </div>
 
         <!-- user bio -->
-        <div class="w-auto h-full mx-2 my-2 flex flex-col shadow-md bg-white" style="border-radius:1rem;">
+        <div class="w-full h-full flex flex-col">
           <p
             :contenteditable="descriptionEditable"
             id="profile-description"
@@ -124,13 +131,6 @@
             style="width:90%;"
             v-html="descriptionText"
           ></p>
-          <button
-              v-if="!this.descriptionEditable"
-              @click="toggleDescriptionEnable(true)"
-              class="mx-auto px-8 py-1 mt-4 font-lato outline-none rounded-full bg-gray-300"
-            >
-              Edit Bio
-          </button>
           <div
             class="w-full flex flex-row-reverse py-2 px-4 focus:outline-none"
            > 
@@ -152,7 +152,7 @@
         </div>
 
         <!--- Collections and Leaderboard -->
-        <div class="w-auto mx-2 h-auto pb-16 flex flex-col shadow-md bg-white" style="min-height:30vh; border-radius:1rem;">
+        <div class="w-full h-auto pb-16 flex flex-col" style="min-height:30vh;">
           <div class="w-full h-16 flex px-6 py-2">
             <p class="font-muli text-gray-700 font-bold">Collections</p>
           </div>
