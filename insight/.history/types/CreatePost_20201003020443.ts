@@ -1,0 +1,111 @@
+import { Assets, Hobby, Coords } from '@/types/index'
+export interface CreatePost {
+    hobby: Hobby
+    assets: Assets
+    caption: string
+    hastags: string[]
+    atags: string[]
+    coords?: Coords
+}
+
+
+
+
+export class Post {
+    post: CreatePost
+
+    constructor() {
+        this.post = {} as CreatePost
+        this.post.hastags = [] as string[]
+        this.post.atags = [] as string[]
+    }
+
+    getAssets(): CreatePost {
+        return { ... this.post }
+    }
+
+    isSimilarAsset(asset: Assets): boolean {
+        let isSimilarImages = this.isImagePresent() || (asset.images != undefined && this.post.assets.images?.length === asset.images.length)
+        let isSimilarVideo = this.isVideoPresent() || (asset.video != undefined && asset.video.length > 0)
+        let isSimilarAudio = this.isAudioPresent() || (asset.audio != undefined && asset.audio.length > 0)
+        return isSimilarImages && isSimilarVideo && isSimilarAudio
+    }
+
+    renderToData(): CreatePost {
+        return this.post
+    }
+
+    isImagePresent(): boolean {
+        return this.post.assets != undefined && this.post.assets.images != undefined && this.post.assets.images.length > 0
+    }
+
+    isVideoPresent(): boolean {
+        return this.post.assets != undefined && this.post.assets.video != undefined && this.post.assets.video.length > 0
+    }
+
+    isAudioPresent(): boolean {
+        return this.post.assets != undefined && this.post.assets.audio != undefined && this.post.assets.audio.length > 0
+    }
+
+    isTextPresent(): boolean {
+        return this.post.assets != undefined && this.post.assets.text != undefined && JSON.stringify(this.post.assets.text) != '{}'
+    }
+
+
+    addCoords(coords: Coords): void {
+        this.post.coords = coords
+    }
+
+    addHobby(hobby: Hobby): void {
+        this.post.hobby = hobby
+    }
+
+    addImage(image: string): void {
+        if (this.post.assets != undefined && this.post.assets.images != undefined) {
+            this.post.assets.images.push(image)
+        } else {
+            this.post.assets.images = [image]
+        }
+    }
+
+    addVideo(video: string): void {
+        this.post.assets.video = video
+    }
+
+    addAudio(audio: string): void {
+        this.post.assets.audio = audio
+    }
+
+    addText(data: {
+        data: string
+        bgColor: string
+        fontName: string
+        fontColor: string
+    }): void {
+        this.post.assets.text = data
+    }
+
+    addCaption(caption: string): void {
+        this.post.caption = caption
+        let tags = this.filtertags(caption)
+        this.post.hastags = (tags.hastags != undefined) ? tags.hastags : []
+        this.post.atags = (tags.atags != undefined) ? tags.atags : []
+    }
+
+    filtertags(text: string): { hastags?: string[], atags?: string[] } {
+        let data = {} as { hastags?: string[], atags?: string[] }
+        let tags = text.match(/@[a-z0-9]+|#[a-z0-9]+/gi)
+        if (tags != null) {
+            data.hastags = tags.filter((tag: string, index: number) => {
+                return tag.includes('#')
+            })
+            data.atags = tags.filter((tag, index) => {
+                return tag.includes('@')
+            })
+        }
+        return data
+    }
+
+
+
+}

@@ -37,19 +37,17 @@ export interface SearchQuery {
     hobby?: string
 }
 
-export interface TextAsset {
-    data: string
-    bgColor: string
-    fontName: string
-    fontColor: string
-}
-
 
 export interface Assets {
     images?: string[]
     video?: string
     audio?: string
-    text?: TextAsset
+    text?: {
+        data: string
+        bgColor: string
+        fontName: string
+        fontColor: string
+    }
 }
 
 export interface ShallowPost {

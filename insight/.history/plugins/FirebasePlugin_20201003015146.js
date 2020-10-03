@@ -119,7 +119,7 @@ export function StorageVaultBeta(data) {
                   if (snapshot.state === firebase.storage.TaskState.RUNNING) {
                     self.progress_listener({
                       progress: progress,
-                      url: asset.url,
+                      src: asset.url,
                       type: asset.type
                     })
                   }

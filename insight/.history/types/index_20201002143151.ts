@@ -37,19 +37,17 @@ export interface SearchQuery {
     hobby?: string
 }
 
-export interface TextAsset {
-    data: string
-    bgColor: string
-    fontName: string
-    fontColor: string
-}
-
 
 export interface Assets {
     images?: string[]
     video?: string
     audio?: string
-    text?: TextAsset
+    text?: {
+        data: string
+        bgColor: string
+        fontName: string
+        fontColor: string
+    }
 }
 
 export interface ShallowPost {
@@ -89,7 +87,6 @@ export interface OnePost {
         influencer: number
     },
     caption: string
-    body: Assets
     footer: {
         action_map: {
             love: number
@@ -115,9 +112,6 @@ export interface OnePost {
     post_id: string
 }
 
-export interface Coords {
-    lat: number
-    long: number
-}
+
 
 

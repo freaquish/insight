@@ -44,10 +44,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('post/create', ['hobby_list'])
+    ...mapState('post/create_post', ['hobby_list'])
   },
   methods: {
-    ...mapActions('post/create', ['fetchHobbies']),
+    ...mapActions('post/create_post', ['fetchHobbies']),
     searchText: function() {
       // console.log('p');
       if (this.searchHobby != undefined && this.searchHobby.length > 0) {
