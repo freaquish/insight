@@ -2,7 +2,7 @@
   <div
     @click="$emit('select', hobby)"
     :class="
-      `w-auto h-auto px-4 py-2 shadow-xl  mx-1 rounded-md ${
+      `w-auto h-auto px-4 py-2 shadow-xl  mx-1 rounded-lg ${
         active ? 'text-white bg-pink-600' : 'text-blue-600 bg-white'
       }`
     "

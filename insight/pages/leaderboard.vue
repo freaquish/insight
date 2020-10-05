@@ -27,11 +27,13 @@
 
     <!-- Scoreboard -->
     <div
-      class="w-full px-2 bg-white pb-4 mt-10 pt-4 flex flex-col overflow-y-scroll"
-      style="height:85vh;border-top-right-radius:1rem;border-top-left-radius:1rem;"
+      class="w-full px-2 bg-white pb-4 mt-10 pt-4 flex flex-col fixed"
+      style="height:82vh;margin-top:18vh;border-top-right-radius:1rem;border-top-left-radius:1rem;"
     >
-      <div v-for="user in users" :key="user.account.account_id">
+      <div class="w-full h-full overflow-y-scroll mb-12">
+        <div v-for="user in users" :key="user.account.account_id">
         <RankCardBox :scorecard="user" />
+        </div>
       </div>
     </div>
   </div>
@@ -66,11 +68,7 @@ export default Vue.extend({
 
 <style scoped>
 .bg {
-  background: linear-gradient(
-    90.53deg,
-    #0868f7 4.13%,
-    rgba(83, 149, 248, 0.89) 92.58%
-  );
+  background: #0868f7 4.13%;
   display: grid;
   grid-template-rows: 5vh 12vh 80vh;
 }

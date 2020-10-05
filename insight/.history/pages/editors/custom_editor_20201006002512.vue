@@ -115,14 +115,14 @@ export default {
         return url;
     },
     catchInputChange: function(data){
-      //console.log(data);
+      console.log(data);
         if(data.type === "image"){
             for(let file of data.files){
                 this.collection.push({src:this.fileReader(file),contenttype:data.type});
             }
         }else if(data.type === "video" || data.type === "audio"){
             let index = this.collection.presentAt(data.type);
-            //console.log(index);
+            console.log(index);
             if(index === null){
                 this.collection.push({src:this.fileReader(data.files[0]),contenttype:data.type});
             }else{
