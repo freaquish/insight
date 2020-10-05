@@ -11,12 +11,7 @@
       >
         keyboard_backspace
       </span>
-      <button
-        @click="nextClick()"
-        class="font-muli font-bold text-white px-2 py-1"
-      >
-        Next
-      </button>
+      <button class="font-muli font-bold text-white px-2 py-1">Next</button>
     </div>
     <!-- Body -->
     <div class="w-full h-auto flex flex-col pt-2 px-4">
@@ -64,8 +59,7 @@ export default {
   methods: {
     ...mapMutations('post/create', ['insertCaption']),
     nextClick: function() {
-      let editor = this.$el.querySelector('#caption-editor')
-      this.insertCaption(editor.innerText)
+      this.insertCaption(this.editor.innerText)
       this.$router.push('/post/uploading_data')
     },
     applyAsset: function() {

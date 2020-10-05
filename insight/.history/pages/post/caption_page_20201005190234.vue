@@ -11,12 +11,7 @@
       >
         keyboard_backspace
       </span>
-      <button
-        @click="nextClick()"
-        class="font-muli font-bold text-white px-2 py-1"
-      >
-        Next
-      </button>
+      <button class="font-muli font-bold text-white px-2 py-1">Next</button>
     </div>
     <!-- Body -->
     <div class="w-full h-auto flex flex-col pt-2 px-4">
@@ -24,6 +19,16 @@
       <div
         contenteditable="true"
         id="caption-editor"
+        class="w-full px-2 py-2 focus:outline-none text-white font-montserrat border-2 border-l-0 border-r-0 border-t-0 border-white"
+      ></div>
+      <p class="mt-6 font-lato text-white font-lato">
+        Tags<span
+          class="ml-2 font-montserrat text-sm px-2 py-1 rounded-md bg-tint-purple-shallow"
+        ></span>
+      </p>
+      <div
+        contenteditable="true"
+        id="tags-editor"
         class="w-full px-2 py-2 focus:outline-none text-white font-montserrat border-2 border-l-0 border-r-0 border-t-0 border-white"
       ></div>
     </div>
@@ -64,8 +69,7 @@ export default {
   methods: {
     ...mapMutations('post/create', ['insertCaption']),
     nextClick: function() {
-      let editor = this.$el.querySelector('#caption-editor')
-      this.insertCaption(editor.innerText)
+      this.insertCaption(this.editor.innerText)
       this.$router.push('/post/uploading_data')
     },
     applyAsset: function() {

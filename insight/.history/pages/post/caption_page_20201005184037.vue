@@ -11,12 +11,6 @@
       >
         keyboard_backspace
       </span>
-      <button
-        @click="nextClick()"
-        class="font-muli font-bold text-white px-2 py-1"
-      >
-        Next
-      </button>
     </div>
     <!-- Body -->
     <div class="w-full h-auto flex flex-col pt-2 px-4">
@@ -26,7 +20,32 @@
         id="caption-editor"
         class="w-full px-2 py-2 focus:outline-none text-white font-montserrat border-2 border-l-0 border-r-0 border-t-0 border-white"
       ></div>
+      <p class="mt-6 font-lato text-white font-lato">
+        Tags<span
+          class="ml-2 font-montserrat text-sm px-2 py-1 bg-tint-purple-shallow"
+          >only # and @ tags are allowed</span
+        >
+      </p>
     </div>
+    <!-- <div class="w-full h-auto flex flex-col justify-between px-4 my-6">
+      <div class="w-full h-auto">
+        <div class="overflow-hidden w-full rounded-md bg-white flex flex-col">
+          <div class="w-full h-12 p-2">
+            <p class="font-lato font-semibold text-base">{{firstName}}</p>
+          </div>
+          <hr />
+          <div id="cap-body" class="w-full h-56"></div>
+          <hr />
+          <div class="w-full var-height flex flex-col">
+            <p class="font-montserrat font-semibold mx-2">Caption</p>
+            <div id="editor" contenteditable="true" @input="keyPress" class="bg-gray-200 outline-none overflow-auto my-2 mx-2 px-1 py-1 font-muli text-sm "></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full h-12 px-4 mt-6">
+        <button @click="nextClick" class="w-full py-2 bg-pink-500 rounded-md font-lato font-semibold text-white">Next</button>
+    </div> -->
   </div>
 </template>
 
@@ -64,8 +83,7 @@ export default {
   methods: {
     ...mapMutations('post/create', ['insertCaption']),
     nextClick: function() {
-      let editor = this.$el.querySelector('#caption-editor')
-      this.insertCaption(editor.innerText)
+      this.insertCaption(this.editor.innerText)
       this.$router.push('/post/uploading_data')
     },
     applyAsset: function() {
