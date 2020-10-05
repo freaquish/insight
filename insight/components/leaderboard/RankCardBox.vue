@@ -12,7 +12,10 @@
       <p class="text-sm text-pink-600">@{{ scorecard.account.username }}</p>
       <p class="font-bold truncate">{{ scorecard.account.name }}</p>
     </div>
-    <p class="inline-block m-auto font-muli text-green-400 font-bold">
+    <p
+      v-if="false"
+      class="inline-block m-auto font-muli text-green-400 font-bold"
+    >
       {{ san_score }}
     </p>
   </div>
