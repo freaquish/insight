@@ -5,12 +5,12 @@
       style="touch-action: pan-y !important;"
     >
       <div
-        class="w-full px-4 py-1  bg-white"
+        class="w-full px-2 py-1  bg-white"
         style="height:98%; max-height:100;"
       >
         <!-- <loader-view :loading="loading" > -->
-        <div styles="width:100%;height:50vh;" v-if="this.isActive('text')">
-          <text-box :data="getSrc()" :media="getTextMedia()" />
+        <div class="stylseet" styles="width:100%;height:50vh;" v-if="this.isActive('text')">
+          <text-box style="border-radius:16px;" :data="getSrc()" :media="getTextMedia()" />
         </div>
         <div
           class="w-full h-full"
@@ -19,7 +19,7 @@
           <img
             :src="getSrc()"
             v-show="!this.infinite"
-            class="w-full rounded-md shadow-lg"
+            class="stylseet w-full"
             style="height:98%;max-height:50vh;touch-action: pan-y !important;"
             @load="loadingComplete"
             @error="changestate({ loading: false, error: true })"
@@ -35,7 +35,7 @@
             controls
             :src="getSrc()"
             @play="managePlayState"
-            class="w-full rounded-md"
+            class="stylseet w-full"
             style="max-height:50vh;height:100%;touch-action: pan-y !important;"
             @load="loading = false"
             @error="changestate({ loading: false, error: true })"
@@ -49,7 +49,7 @@
           <audio-box
             :audio="getSrc()"
             :active="playAudio"
-            style="touch-action: pan-y !important;"
+            style="stylseet touch-action: pan-y !important;"
             @state="changestate"
           />
         </div>
@@ -236,5 +236,10 @@ export default {
 
 .slider {
   max-height: 55vh;
+}
+
+.stylseet {
+  box-shadow:0px 14px 17px rgba(129, 129, 129, 0.35);
+  border-radius:1rem;
 }
 </style>

@@ -6,7 +6,7 @@
             <div class=" w-12 h-6 mt-4 ml-3">
                 <ArrowBack @click="$router.go(-1)" />
             </div>
-            <div @click="$router.push('/settings')" class=" font-lato  text-xl mt-4 ml-1"> Settings</div>
+            <div @click="$router.push('/settings')" class=" font-lato text-center  text-xl mt-4"> Settings</div>
             </div>
             <!-- <div class="border-b-2 border-gray-400 mt-2"></div> -->
             <div class="px-4 pt-4">

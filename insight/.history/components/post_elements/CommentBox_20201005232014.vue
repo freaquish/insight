@@ -41,8 +41,9 @@ export default Vue.extend({
   methods: {
     expand_time(time: string): string {
       let t = time
-      if (t.includes('days')) {
-        return t.split(',')[0]
+      console.log(time)
+      if (t.includes('d')) {
+        return t
       }
       let number = parseFloat(t.replace('h', ''))
       // console.log(number * 60)
