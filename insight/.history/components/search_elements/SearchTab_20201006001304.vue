@@ -11,7 +11,7 @@
   >
     <p
       :class="
-        `font-lato text-xl text-white ${
+        `font-lato text-xl text-black ${
           active ? 'font-bold text-white' : 'font-normal'
         }`
       "
