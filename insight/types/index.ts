@@ -108,3 +108,35 @@ export interface OnePost {
     }
     post_id: string
 }
+
+
+// community
+export interface CreateCommunity {
+    communityName?: string,
+    communityTag?: string,
+    discription?: string,
+    communityTagAvailabel?: string,
+    selectedHobbies: [],   
+}
+
+export interface CommunityPage {
+    banner?: string,
+    communityName?: string,
+    communityTag?: string,
+    discription?: string,
+    team: 0,
+    members: 0,
+    feeds?: [],
+    loading: boolean
+
+}
+
+export interface Members {
+    team?: [],
+    members?: [],
+    username?: string,
+    loading: boolean
+
+}
+
+// community
