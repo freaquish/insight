@@ -14,7 +14,6 @@ export const state = (): CommunityPage => ({
     team: 0,
     members: 0,
     feeds: [],
-    loading: false
 })
 
 
@@ -34,14 +33,10 @@ export const mutations: MutationTree<RootState> & Mutations = {
         state.members = data.members
         state.feeds = data.feeds
     },
-    setLoadingState(state, loading): void {
-        state.loading = loading
-      },
 }
 
 export const actions: ActionTree<RootState, RootState> = {
     fetchCommunityData({state, commit}): void {
-        commit('setLoadingState', true)
         let url = `community/page?`
         const storage = new FrozenStorage()
         if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
@@ -50,12 +45,9 @@ export const actions: ActionTree<RootState, RootState> = {
         this.$axios.get(url).then(res => {
             if (res.status === 200) {
                 commit('setCommunityPageData', res.data)
-            }else {
-                commit('setLoadingState', false) 
             }
         })
         .catch(error => {
-            commit('setLoadingState', false)
             commit('setErrorState', true)
           })
     }

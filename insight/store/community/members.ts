@@ -6,7 +6,6 @@ import { avatarDefault } from '~/static/js/assets'
 export const state = (): Members => ({
     team: [],
     members: [],
-    loading: false,
     username: undefined
   })
 
@@ -20,9 +19,6 @@ export const mutations: MutationTree<RootState> & Mutations = {
     setMembersData(state, data): void {
         state.team = data.team
         state.members = data.members
-        },
-    setLoading(state, value): void {
-        state.loading = value
         },
     setAccount(state, data): void {
         state.username = data
@@ -52,26 +48,11 @@ export const actions: ActionTree<RootState, RootState> = {
       .then(res => {
         if (res.status === 200) {
           commit('setMembersData', res.data)
-          commit('setLoading', false)
         }
       })
       .catch(err => {
         console.log(err)
-        commit('setLoading', false)
         this.$router.push('/auth/login')
       })
     },
-
-    teamview({ commit, state }, payload) {
-        const storage = new FrozenStorage()
-        let token = storage.get('token')
-        if (token == null) {
-          this.$router.push('/auth/login')
-        } else {
-          this.$axios.setHeader('Authorization', token)
-        }
-        this.$axios.get(`association/team/${payload.team}`).then(res => {
-          payload.onComplete()
-        })
-      }
 }

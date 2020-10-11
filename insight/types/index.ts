@@ -114,20 +114,19 @@ export interface OnePost {
 export interface CreateCommunity {
     communityName?: string,
     communityTag?: string,
-    discription?: string,
-    communityTagAvailabel?: string,
-    selectedHobbies: [],   
+    description?: string,
+    isTagAvailabel: boolean,
+    selectedHobbies: Hobby[],   
 }
 
 export interface CommunityPage {
     banner?: string,
     communityName?: string,
     communityTag?: string,
-    discription?: string,
+    description?: string,
     team: 0,
     members: 0,
     feeds?: [],
-    loading: boolean
 
 }
 
@@ -135,7 +134,7 @@ export interface Members {
     team?: [],
     members?: [],
     username?: string,
-    loading: boolean
+
 
 }
 

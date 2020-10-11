@@ -36,7 +36,7 @@ export const actions: ActionTree<RootState, RootState> = {
     async checkcommunityTagAvailabel({commit,state}, communityTag){
         const url = `auth/community_check?community_tag=${communityTag}`;
         let {data, status}= await this.$axios.get(url);
-        if(status === 200 && data['available'] === 1){
+        if(status === 200 && data['exist'] === 1){
             commit('isTagAvailabel', true);
         }else{
             commit('isTagAvailabel', false);
