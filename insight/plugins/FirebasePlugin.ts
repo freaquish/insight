@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app'
 import 'firebase/storage'
 var randomstring = require('randomstring')
+import { Assets } from '@/types/index'
 
 
 // TODO: Transfer every key to .env
@@ -23,24 +24,38 @@ if (!firebase.apps.length) {
 let storage = firebase.storage()
 const firestore = storage.ref()
 
-interface StorageData {
+export interface StorageData {
     images?: string[]
     video?: string
     audio?: string
     [index: string]: string[] | string | undefined
 }
 
-interface ProgressAsset {
+export interface ProgressAsset {
     url: string
     type: string
     progress: number
     size: number
 }
 
-interface StorageVault {
-    listeners: { complete: Function, progress: Function, error: Function };
+export interface CompleteListener {
+    (data: StorageData): void
+}
 
-    init(data: StorageData, listeners: { complete: Function, progress: Function, error: Function }): void;
+export interface ProgressListener {
+    (array: ProgressAsset[]): void
+}
+
+export interface Listener {
+    complete: CompleteListener;
+    progress: ProgressListener;
+    error: Function
+}
+
+interface StorageVault {
+    listeners: Listener;
+
+    init(data: Assets, listeners: Listener): void;
 
     // Assets Uploaded to server
     uploadedAssets: StorageData;
@@ -111,7 +126,7 @@ export class StorageVaultBeta implements StorageVault {
     uploadedAssets = {} as StorageData
     data = {} as StorageData
     dataAsArray = [] as ProgressAsset[]
-    listeners = {} as { complete: Function, progress: Function, error: Function };
+    listeners = {} as Listener;
 
     constructor() { }
 
@@ -131,8 +146,17 @@ export class StorageVaultBeta implements StorageVault {
         }
     }
 
-    init(data: StorageData, listeners: { complete: Function, progress: Function, error: Function }): void {
-        this.data = data
+    init(data: Assets, listeners: Listener): void {
+        this.data = {} as StorageData
+        if (data.images != undefined) {
+            this.data.images = data.images
+        }
+        if (data.video != undefined) {
+            this.data.video = data.video
+        }
+        if (data.audio != undefined) {
+            this.data.audio = data.audio
+        }
         this.listeners = listeners
     }
 

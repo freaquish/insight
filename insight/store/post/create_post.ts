@@ -1,7 +1,7 @@
 import { ActionTree, MutationTree } from 'vuex'
 import { Post } from '@/types/CreatePost'
 import { Assets, Hobby, TextAsset } from '@/types/index'
-import { StorageVaultBeta } from '@/plugins/FirebasePlugin.js'
+import { StorageVaultBeta, ProgressAsset } from '@/plugins/FirebasePlugin'
 import FrozenStorage from '@/static/js/local_storage'
 
 
@@ -11,18 +11,11 @@ const URLS = {
     success: '/'
 }
 
-// Interface will store data of every url stored with progress and type
-// After finishing they will replace assets accordingly
-interface ProgressMeter {
-    url: string
-    type: string
-    progress: number
-}
 
 export const state = () => ({
     hobby_list: [] as Hobby[],
     post: undefined as Post | undefined,
-    progression: [] as ProgressMeter[]
+    progression: [] as ProgressAsset[]
 })
 
 export type RootState = ReturnType<typeof state>
@@ -40,7 +33,7 @@ type Mutations = {
     insertCaption(state: RootState, caption: string): void
 
     // Update progress of current uploading asset using for loop
-    updateProgress(state: RootState, progress: ProgressMeter): void
+    updateProgress(state: RootState, progress: ProgressAsset[]): void
 
     insertHobby(state: RootState, hobby: Hobby): void
 
@@ -89,13 +82,8 @@ export const mutations: MutationTree<RootState> & Mutations = {
         if (state.post != undefined) { state.post.addCaption(caption) }
     },
 
-    updateProgress(state, progress) {
-        for (let index = 0; index < state.progression.length; index++) {
-            if (state.progression[index].url === progress.url) {
-                state.progression[index].progress = progress.progress
-                break
-            }
-        }
+    updateProgress(state, progression) {
+        state.progression = progression
     },
     insertHobby(state, hobby) {
         if (state.post === undefined) {
@@ -107,7 +95,7 @@ export const mutations: MutationTree<RootState> & Mutations = {
     reset(state) {
         state.hobby_list = [] as Hobby[]
         state.post = undefined
-        state.progression = [] as ProgressMeter[]
+        state.progression = [] as ProgressAsset[]
     }
 
 }
@@ -129,23 +117,23 @@ export const actions: ActionTree<RootState, RootState> = {
     },
 
     uploadFilesToFirebase({ commit, state }, func: Function): void {
+        let self = this
         if (window.navigator.onLine && state.post != undefined) {
-            const firestore = new StorageVaultBeta(state.post.getAssets())
-            firestore.bulk_upload({
-                progress: (progress: ProgressMeter) => {
-                    commit('updateProgress', progress)
+            const firestore = new StorageVaultBeta()
+            firestore.init(state.post.getAssets(), {
+                complete: function (data) {
+                    commit('insertAssets', data)
+                    // Jump back to home hobby_window -> editor -> caption -> uploader
+                    self.$router.go(-3)
                 },
-                error: (err: any) => {
-                    console.log(err);
-                    // TODO: Error handline while upload
+                progress: function (array) {
+                    commit('updateProgress', array)
                 },
-                complete: (assets: Assets) => {
-                    if (state.post != undefined && state.post.isSimilarAsset(assets)) {
-                        commit('insertAssets', assets)
-                        func()
-                    }
+                error: function (error: Error) {
+                    // TODO: Failed
                 }
             })
+            firestore.bulkUpload()
         }
     },
 
