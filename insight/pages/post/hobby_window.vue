@@ -19,7 +19,7 @@
       </div>
     </div>
     <hr />
-     <div class="w-full flex flex-wrap px-2 py-4 mb-12">
+    <div class="w-full flex flex-wrap px-2 py-4">
       <div v-for="hobby in hobby_list" :key="hobby_list.indexOf(hobby)">
         <hobby-chip :hobby="hobby" />
       </div>
@@ -35,7 +35,7 @@ export default {
     HobbyChip
   },
   mounted() {
-    this.fetchHobbies();
+    this.fetchHobbies()
   },
   data() {
     return {
@@ -44,17 +44,17 @@ export default {
     }
   },
   computed: {
-    ...mapState('post/create', ['hobby_list', 'hobbyText'])
+    ...mapState('post/create', ['hobby_list'])
   },
   methods: {
     ...mapActions('post/create', ['fetchHobbies']),
     searchText: function() {
       // console.log('p');
       if (this.searchHobby != undefined && this.searchHobby.length > 0) {
-        this.searched = this.hobby_list.filter(h=>{
-          return h.code_name.indexOf(this.searchHobby.toLowerCase())== 0
-        });
-        console.log(this.searched);
+        this.searched = this.hobby_list.filter(h => {
+          return h.code_name.indexOf(this.searchHobby.toLowerCase()) == 0
+        })
+        console.log(this.searched)
       }
     }
   }
