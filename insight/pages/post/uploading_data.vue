@@ -32,7 +32,7 @@ export default {
     UploadMeter
   },
   computed: {
-    ...mapState('post/create', [
+    ...mapState('post/create_post', [
       'completed',
       'sentData',
       'error',
@@ -58,8 +58,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions('post/create', ['createPost']),
-    ...mapMutations('post/create',['reset']),
+    ...mapActions('post/create_post', ['createPost']),
+    ...mapMutations('post/create_post',['reset']),
     clearStore: function(){
       this.reset();
       this.$router.push('/');

@@ -56,7 +56,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/AppPlugin.js', ssr: false },
-    { src: '~/plugins/FirebasePlugin.js', ssr: false }
+    { src: '~/plugins/FirebasePlugin', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules

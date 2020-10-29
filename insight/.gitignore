@@ -91,3 +91,5 @@ sw.*
 
 # Local git history
 .history
+
+.vscode

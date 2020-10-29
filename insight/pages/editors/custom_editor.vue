@@ -87,7 +87,7 @@ export default {
   },
 
   methods: {
-      ...mapMutations('post/create', ['insertAssets']),
+      ...mapMutations('post/create_post', ['insertAssets']),
     navigateBack: function() {
       if (this.collection != undefined) {
         this.collection.revoke()

@@ -41,7 +41,9 @@ export default Vue.extend({
       return (
         this.$route.name != undefined &&
         this.$route.name != null &&
-        this.$route.name.includes('auth')
+        (this.$route.name.includes('auth') ||
+         this.$route.name.includes('intro')
+        )
       )
     }
   }

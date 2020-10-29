@@ -47,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('post/create', ['assets'])
+    ...mapState('post/create_post', ['assets'])
   },
   updated() {
     // this.editor = document.getElementById('editor')
@@ -62,7 +62,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations('post/create', ['insertCaption']),
+    ...mapMutations('post/create_post', ['insertCaption']),
     nextClick: function() {
       let editor = this.$el.querySelector('#caption-editor')
       this.insertCaption(editor.innerText)

@@ -175,10 +175,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('post/create', ['text'])
+    ...mapState('post/create_post', ['text'])
   },
   methods: {
-    ...mapMutations('post/create', ['insertTextData', 'insertAssets']),
+    ...mapMutations('post/create_post', ['insertTextData', 'insertAssets']),
     activateFocus: function() {
       this.infocus = true
     },
