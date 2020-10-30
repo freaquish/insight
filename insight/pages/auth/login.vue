@@ -1,18 +1,22 @@
 <template>
   <div class="w-full h-screen overflow-hidden bck">
     <div class="formpnl" v-show="showLoginForm">
-      <div v-if="this.error" class="h-12 rounded-lg w-full px-4 py-2 bg-red-600">
-         <p class="font-lato font-bold text-white">Invalid Credentials, try again</p>
-      </div>
-      <div class="absolute top-0 right-0 h-32 w-32 ">
+
+        <div class="absolute top-0 right-0 h-32 w-32 z-0">
         <img src="@/assets/svg/loginPage/Group 75.svg">
       </div>
-      <div class="absolute top-0 left-0 h-24 w-24 ">
+      <div class="absolute top-0 left-0 h-24 w-24 z-0">
         <img src="@/assets/svg/loginPage/dot svg.svg">
       </div>
+
+
+      <div v-if="this.error" class="h-12 rounded-lg w-full px-4 py-2 bg-red-600 z-10">
+         <p class="font-lato font-bold text-white">Invalid Credentials, try again</p>
+      </div>
+      
        
       <div class="mx-4 text-white font-bold font-muli text-3xl mt-10">Welcome<br class="mx-4 text-white font-bold font-muli text-3xl" />Back!</div>
-      <div class="mx-4 text-gray-500 font-lato text-md ">Enter your email address or mobile number to get access your account</div>
+      <div class="mx-4 text-gray-500 font-lato text-md ">Enter your mobile number and password to get access your account</div>
       <div class="w-auto mx-8 mt-8 h-16 bgc rounded-tl-lg rounded-tr-lg border-b border-gray-700">
           <i class="fa fa-user-circle mt-6 text-white ml-4" aria-hidden="true"></i>
         <input
