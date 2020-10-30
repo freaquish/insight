@@ -16,6 +16,7 @@ export class Post {
 
     constructor() {
         this.post = {} as CreatePost
+        this.post.assets = {} as Assets
         this.post.hastags = [] as string[]
         this.post.atags = [] as string[]
     }
@@ -30,6 +31,11 @@ export class Post {
         let isSimilarAudio = this.isAudioPresent() || (asset.audio != undefined && asset.audio.length > 0)
         return isSimilarImages && isSimilarVideo && isSimilarAudio
     }
+
+    resetAssets(): void {
+        this.post.assets = {} as Assets
+    }
+
 
     renderToData(): CreatePost {
         return { ...this.post }
@@ -82,6 +88,7 @@ export class Post {
         fontName: string
         fontColor: string
     }): void {
+        if(this.post.assets === undefined) this.post.assets = {}
         this.post.assets.text = data
     }
 

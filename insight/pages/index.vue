@@ -2,16 +2,16 @@
   <div class="w-full h-full" id="home">
     <loading-container :loading="loading">
       <div
-        class="w-full h-full py-2 flex flex-col overflow-x-hidden overflow-y-scroll"
+        class="w-full h-full pb-2 flex flex-col overflow-x-hidden overflow-y-scroll"
       >
-        <div v-if="this.registered" class="header py-2 flex px-4">
+        <div v-if="this.registered" class="header py-2 flex px-4 shadow-lg bg-purple-700">
           <img
             @click="navigateToSelf"
             :src="avatar"
             class="w-12 h-12 rounded-full"
           />
           <div class="w-auto ml-4 mt-0 h-full flex flex-col justify-center">
-            <p @click="navigateToSelf" class="font-lato font-semibold text-lg">
+            <p @click="navigateToSelf" class="font-lato font-semibold text-lg text-white">
               <span class="font-normal">Hello! </span>{{ firstName }}
             </p>
           </div>

@@ -119,6 +119,8 @@ interface StorageVault {
     // Upload all the assets in sequence Images -> Video --> Audio
     bulkUpload(): void;
 
+    delete(refString: string) : void
+
 }
 
 export class StorageVaultBeta implements StorageVault {
@@ -299,6 +301,10 @@ export class StorageVaultBeta implements StorageVault {
     bulkUpload(): void {
         this.unpackAssets()
         Promise.all(this.uploadPromise()).then(() => { })
+    }
+
+    delete(refString: string): void {
+        firestore.child(`assets/${refString}`).delete()
     }
 
 

@@ -6,7 +6,7 @@
     >
       <div
         class="w-full px-2 py-1  bg-white"
-        style="height:98%; max-height:100;"
+        style="max-height:100%;"
       >
         <!-- <loader-view :loading="loading" > -->
         <div class="stylseet" styles="width:100%;height:50vh;" v-if="this.isActive('text')">
@@ -19,8 +19,8 @@
           <img
             :src="getSrc()"
             v-show="!this.infinite"
-            class="stylseet w-full"
-            style="height:98%;max-height:50vh;touch-action: pan-y !important;"
+            class="rounded-md w-full"
+            style="max-height:50vh;touch-action: pan-y !important;"
             @load="loadingComplete"
             @error="changestate({ loading: false, error: true })"
           />
@@ -238,8 +238,8 @@ export default {
   max-height: 55vh;
 }
 
-.stylseet {
+/*.stylseet {
   box-shadow:0px 14px 17px rgba(129, 129, 129, 0.35);
   border-radius:1rem;
-}
+}*/
 </style>

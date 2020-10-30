@@ -87,11 +87,12 @@ export default {
   },
 
   methods: {
-      ...mapMutations('post/create_post', ['insertAssets']),
+      ...mapMutations('post/create_post', ['insertAssets','resetAssets']),
     navigateBack: function() {
       if (this.collection != undefined) {
         this.collection.revoke()
       }
+      this.resetAssets()
       this.$router.go(-1)
     },
     showDelete: function(){
@@ -162,8 +163,9 @@ export default {
                 assets[asset.getContentType()] = asset.getSrc();
               }
             });
-            assets.editor = 'custom_editor';
+            console.log(assets)
             this.insertAssets(assets);
+            this.$router.push('/post/caption_page')
 
         }
     }

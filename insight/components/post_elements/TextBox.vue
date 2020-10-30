@@ -2,7 +2,7 @@
   <div class="w-full h-full py-2 px-2 overflow-hidden ">
     <p
       class="wrap-text text-lg flex flex-col"
-      style="height:48vh; width:100%; overflow-y:scroll;touch-action: pan-y !important;"
+      style="width:100%; overflow-y:scroll;touch-action: pan-y !important;"
       v-html="text"
     ></p>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full post-box bg-white my-4 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
+    class="w-full post-box bg-white my-4 pb-2 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
     style="touch-action: pan-y !important;"
     @scroll="monitorAssets"
     @click="$emit('current-index', index)"
@@ -136,14 +136,14 @@
       >
         <div class="h-full" style="width:73%;">
           <div
-            class="w-full truncate font-muli font-medium text-base"
+            class="w-full truncate font-muli font-medium text-sm text-gray-800"
             v-html="caption"
           ></div>
         </div>
         <button
           v-if="this.caption != undefined && this.caption.length > 0"
           @click="showFullCaption()"
-          class="px-4 bg-transparent outline-none border-0 text-gray-500 text-sm"
+          class="px-4 bg-transparent outline-none border-0 text-gray-500 text-xs"
         >
           Read More
         </button>
@@ -497,7 +497,6 @@ export default {
 
 .body {
   max-height: 60vh;
-  min-height: 35vh;
 }
 
 .word {

@@ -40,9 +40,16 @@ type Mutations = {
     // Reset state to default
     reset(state: RootState): void
 
+    resetAssets(state: RootState): void
+
 }
 
 export const mutations: MutationTree<RootState> & Mutations = {
+
+    resetAssets(state): void {
+        if(state.post != undefined) state.post.resetAssets()
+    },
+
     insertHobbies(state, hobbies): void {
         state.hobby_list = hobbies.filter(h => {
             return h.name != undefined && h.name.length > 0 &&
@@ -76,6 +83,7 @@ export const mutations: MutationTree<RootState> & Mutations = {
         if (payload.audio != undefined) {
             state.post.addAudio(payload.audio)
         }
+        console.log(state.post)
     },
 
     insertCaption(state, caption) {
