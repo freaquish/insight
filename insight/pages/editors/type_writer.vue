@@ -2,7 +2,6 @@
   <client-only>
     <div
       class="overflow-hidden w-full flex flex-col pt-6"
-      style="margin-bottom:5vh; height:95vh;"
     >
       <div class="flex flex-col h-16 w-full px-4">
         <div class="w-full h-auto flex justify-between">
@@ -56,9 +55,9 @@
         />
         <button
           @click="removeMedia()"
-          class="mx-2 h-16 px-2 py-2 rounded-md shadow-md bg-black"
+          class="mx-2 h-10 px-2 py-2 rounded-md shadow-md bg-black"
         >
-          <delete-svg class="w-10 h-10 stroke-current stroke-4 text-white" />
+          <delete-svg class="w-6 h-6 stroke-current stroke-4 text-white" />
         </button>
       </div>
 
@@ -138,7 +137,7 @@
 </template>
 
 <script>
-import { colors, fonts } from '@/static/js/assets.js'
+import { colors, fonts } from '@/static/js/assets'
 import ColorBox from '@/components/editor_elements/ColorBox.vue'
 import FontBox from '@/components/editor_elements/FontBox.vue'
 import DeleteSvg from '@/assets/svg/DeleteSvg.vue'

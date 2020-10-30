@@ -18,7 +18,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
-import {errorSvg} from "@/static/js/assets.js";
+import {errorSvg} from "@/static/js/assets";
 import LoadingContainer from '@/components/LoadingContainer.vue';
 import UploadMeter from "@/components/post_elements/UploadMeter.vue";
 export default {

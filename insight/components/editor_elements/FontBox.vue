@@ -1,15 +1,15 @@
 <template>
   <div
-    class="w-20 h-20 border border-gray-300 px-2 py-2"
+    class="px-2 py-2"
     @click="$emit('font-selected', font)"
   >
-    <p class="text-base">Hey love!</p>
+    <p class="text-base text-white font-bold" style="white-space:nowrap;">{{font}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['font', 'bgColor', 'txtColor'],
+  props: ['font'],
   mounted(){
       this.patchChanges();
   },
@@ -19,8 +19,6 @@ export default {
   methods: {
     patchChanges: function() {
       this.$el.style.setProperty('font-family', this.font)
-      this.$el.style.setProperty('color', this.txtColor)
-      this.$el.style.setProperty('background-color', this.bgColor)
     }
   }
 }
