@@ -139,3 +139,16 @@ export interface Members {
 }
 
 // community
+
+// Notification
+
+export interface Notification {
+    header?: string,
+    avtar?: string,
+    body?: string,
+    time?: string,
+    alert?: number,
+}
+
+
+// Notification

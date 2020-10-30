@@ -47,9 +47,6 @@ export default {
         this.communityHobbies.push(this.hobby_list.indexOf());
         }
       },
-    // removeelement:function() {
-    //     this.communityHobbies.pop();
-    // },
      ...mapActions('post/create', ['fetchHobbies']),
   }
 }
