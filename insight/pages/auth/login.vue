@@ -27,12 +27,15 @@
       </div>
 
       <div class="flex flex-row justify-between m-12">
-        <h1><a @click="$router.push('/resetpassword/search_account')" class="mt-0 text-white font-bold text-md font-lato">Forget? </a></h1>
-        <div @click="login" class="bg-blue-500 font-muli font-bold focus:outline-none text-center text-white rounded-lg py-2 px-4 focus:bg-blue-300"><h1 class="px-4">Login</h1></div>
+        <div class="mt-3"><a @click="$router.push('/resetpassword/search_account')" class="text-white font-bold text-md font-lato text-center">Forget?</a></div>
+        <div class="flex flex-row" @click="login">
+          <div class="bg-indigo-500 font-muli font-bold focus:outline-none text-center text-white rounded-tl-md rounded-bl-md py-3 px-4 text-center focus:bg-blue-300"><span class="px-4 text-center">Login</span></div>
+          <div class="w-full h-full material-icons text-white bg-indigo-600 text-center rounded-br-md rounded-tr-md p-3 py-3">arrow_right_alt</div>
+        </div>
       </div>
-      <div class="ml-8 mr-8 text-gray-600 mt-12">
-        <div class="text-md">Don't have any account?</div>
-        <h1><a @click="$router.push('/auth/register')" class="mt-0 text-white font-bold text-md font-lato">CREATE ACCOUNT</a></h1>
+      <div class="ml-8 mr-8 text-gray-600 mt-20">
+        <div class="text-sm">Don't have any account?</div>
+        <h1><a @click="$router.push('/auth/register')" class="mt-0 text-white font-bold text-sm font-lato">CREATE ACCOUNT</a></h1>
       </div>
     </div>
   </div>

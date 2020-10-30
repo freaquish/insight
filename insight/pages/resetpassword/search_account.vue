@@ -15,7 +15,7 @@
             type="text" name="account_id">
         </div>
         <div class="mt-6 mx-6 position center">
-            <button class="w-full border rounded-lg bg-blue-600 outline-none h-10 text-white focus:outline-none">Get OTP</button>
+            <button class="w-full border rounded-lg bg-blue-600 outline-none h-10 text-white focus:outline-none" @click="$router.push('/resetpassword/otpconfirm')">Get OTP</button>
         </div>
     </div>
     </div>
