@@ -8,7 +8,7 @@
           :class="
             `${
               isCurrentRoute('index')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block pb-1 text-indigo-700'
                 : ''
             }`
           "
@@ -19,8 +19,8 @@
             >
             <span
               v-if="this.isCurrentRoute('index')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
-              >Home</span
+              
+              ></span
             >
           </p>
         </div>
@@ -28,7 +28,7 @@
           :class="
             `${
               isCurrentRoute('search')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block pb-1 text-indigo-700'
                 : ''
             }`
           "
@@ -41,8 +41,8 @@
             >
             <span
               v-if="this.isCurrentRoute('search')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
-              >Search</span
+              
+              ></span
             >
           </p>
         </div>
@@ -51,7 +51,7 @@
           :class="
             `${
               isCurrentRoute('post-hobby_window')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block pb-1 text-indigo-700'
                 : ''
             }`
           "
@@ -64,8 +64,8 @@
             >
             <span
               v-if="this.isCurrentRoute('post-hobby_window')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
-              >Add</span
+              
+              ></span
             >
           </p>
         </div>
@@ -74,7 +74,7 @@
           :class="
             `${
               isCurrentRoute('leaderboard')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block pb-1 text-indigo-700'
                 : ''
             }`
           "
@@ -87,8 +87,7 @@
             >
             <span
               v-if="this.isCurrentRoute('leaderboard')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
-              >Leaderboard</span
+              ></span
             >
           </p>
         </div>
@@ -97,7 +96,7 @@
           :class="
             `${
               isCurrentRoute('settings')
-                ? 'block px-2 pt-1 pb-1 rounded-md bg-gray-200 text-pink-600'
+                ? 'block pb-1 text-indigo-700'
                 : ''
             }`
           "
@@ -110,8 +109,8 @@
             >
             <span
               v-if="this.isCurrentRoute('settings')"
-              class="font-lato font-semibold text-pink-600 ml-2 mt-1"
-              >Settings</span
+              
+              ></span
             >
           </p>
         </div>
@@ -119,6 +118,7 @@
     </section>
   </client-only>
 </template>
+
 
 <script lang="ts">
 import Vue from 'vue'
