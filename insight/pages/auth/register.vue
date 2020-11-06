@@ -2,7 +2,7 @@
   <LoadingContainer :loading="loadingState && ! this.err">
     <div
       id="register"
-      class="max-w-full px-6 py-0  w-screen h-screen bg-white flex flex-col"
+      class="max-w-full px-6 py-0  w-screen h-screen flex flex-col"
     >
 
       <div class="w-full h-12 flex mt-2 mb-2">
@@ -13,7 +13,7 @@
           <span class="text-xl font-muli text-white">1</span>
         </div>
         <div v-else class="border border-gray-300 px-4 pt-2 rounded-full">
-          <span class="text-xl font-muli text-gray-900">1</span>
+          <span class="text-xl font-muli text-white">1</span>
         </div>
         <hr
           v-if="this.pageIndex > 1"
@@ -37,7 +37,7 @@
         <hr v-else class="horizontal-line mt-6" /> -->
 
         <div class="border border-gray-300 px-4 pt-2 rounded-full">
-          <span class="text-xl font-muli text-gray-900">2</span>
+          <span class="text-xl font-muli text-white">2</span>
         </div>
       </div>
 
@@ -47,9 +47,9 @@
      </div>
       <!-- Body -->
       <!-- First Page -->
-      <div class="w-full">
+      <div class="w-full text-white">
         <div v-if="this.pageIndex === 1" class="w-full flex flex-col">
-          <p class="text-2xl font-muli font-bold text-gray-800 my-4">
+          <p class="text-2xl font-muli font-bold text-white my-4">
             Tell us about yourself!
           </p>
 
@@ -58,12 +58,12 @@
             class="w-full email h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
             id="email-field"
           >
-            <label class="font-montserrat text-gray-600"
+            <label class="font-montserrat text-white"
               >Email<span class="text-green-400 font-bold"> *</span></label
             >
             <input
               v-model="email"
-              class="h-6 px-2 focus:outline-none caret-green font-muli"
+              class="h-6 bg-transparent text-white px-2 focus:outline-none caret-green font-muli"
             />
           </div>
           <!-- Email Ends -->
@@ -73,16 +73,16 @@
             class="w-full phone h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
             id="phone-field"
           >
-            <label class="font-montserrat text-gray-600"
+            <label class="font-montserrat text-white"
               >Phone<span class="text-green-400 font-bold"> *</span></label
             >
             <div>
-              <span class="px-2 py-2  font-muli text-gray-600">+91</span>
+              <span class="px-2 py-2  font-muli text-white">+91</span>
               <input
                 v-model="phoneNumber"
                 type="tel"
                 @input="accountCheck"
-                class="h-6 px-1 focus:outline-none caret-green font-muli"
+                class="h-6 px-1 focus:outline-none bg-transparent text-white caret-green font-muli"
               />
               <span
                 v-if="
@@ -106,19 +106,19 @@
             id="password-field"
             class="w-full h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
           >
-            <label class="font-montserrat text-gray-600"
+            <label class="font-montserrat text-white"
               >Password<span class="text-green-400 font-bold"> *</span></label
             >
             <input
               v-model="password"
               type="password"
-              class="h-6 px-2 focus:outline-none caret-green font-muli"
+              class="h-6 px-2 focus:outline-none bg-transparent text-white caret-green font-muli"
             />
           </div>
           <div
             class="w-full h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
           >
-            <label class="font-montserrat text-gray-600"
+            <label class="font-montserrat text-white"
               >Confirm Password<span class="text-green-400 font-bold">
                 *</span
               ></label
@@ -127,7 +127,7 @@
               v-model="confirmPassword"
               type="password"
               @input="matchPassword(undefined)"
-              class="h-6 px-2 focus:outline-none caret-green font-muli"
+              class="h-6 px-2 focus:outline-none caret-green bg-transparent text-white font-muli"
             />
           </div>
         </div>
@@ -152,7 +152,7 @@
         </div> -->
 
         <div v-if="this.pageIndex === 2" class="w-full flex flex-col">
-          <p class="text-2xl font-muli font-bold text-gray-800 my-4">
+          <p class="text-2xl font-muli font-bold text-white my-4">
             Let's get personal!
           </p>
 
@@ -160,14 +160,14 @@
             class="w-full h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
             id="username-field"
           >
-            <label class="font-montserrat text-gray-600"
+            <label class="font-montserrat text-white"
               >Username<span class="text-green-400 font-bold"> *</span></label
             >
             <div class="flex w-full justify-between pr-2">
               <input
                 v-model="username"
                 @input="usernameLookup()"
-                class="h-6 px-2 focus:outline-none caret-green font-muli"
+                class="h-6 px-2 focus:outline-none bg-transparent text-white caret-green font-muli"
               />
               <span
                 v-if="
@@ -190,24 +190,24 @@
             class="w-full  h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
             id="first-name"
           >
-            <label class="font-montserrat text-gray-600"
+            <label class="font-montserrat text-white"
               >FirstName<span class="text-green-400 font-bold"> *</span></label
             >
             <input
               v-model="firstName"
-              class="h-6 px-2 focus:outline-none caret-green font-muli"
+              class="h-6 px-2 focus:outline-none caret-green bg-transparent text-white font-muli"
             />
           </div>
           <div
             class="w-full h-auto border border-gray-400 rounded-md py-2 px-2 flex flex-col my-2"
             id="last-name"
           >
-            <label class="font-montserrat text-gray-600"
-              >Last Name<span class="text-green-400 font-bold"> *</span></label
+            <label class="font-montserrat text-white"
+              >Last Name<span class="text-green-400  text-white font-bold"> *</span></label
             >
             <input
               v-model="lastName"
-              class="h-6 px-2 focus:outline-none caret-green font-muli"
+              class="h-6 px-2 focus:outline-none bg-transparent text-white caret-green font-muli"
             />
           </div>
         </div>
@@ -220,7 +220,7 @@
         <p
         @click="$router.push('/auth/login')"
           v-if="this.pageIndex === 1"
-          class="font-lato font-semibold text-green-400 text-xl"
+          class="font-lato font-semibold text-green-400 mt-2 text-xl"
         >
           Login
         </p>
@@ -235,7 +235,7 @@
           @click="nextClick"
           v-if="this.pageIndex === 1"
           id="next-button"
-          class="px-24 py-2 rounded-md bg-blue-600 text-white font-lato font-semibold text-xl"
+          class="px-20 focus:outline-none py-3 rounded-md bg-blue-600 text-white font-lato font-semibold text-xl"
         >
           Next
         </button>
@@ -430,18 +430,20 @@ export default {
 </script>
 
 <style scoped>
-/* #register{
-    display: grid;
-    grid-template-rows: 4rem 60vh 6rem;
-} */
+#register{
+  background-color : rgb(16, 17, 21);
+}
 .special-green {
-  background-color: #2a9f50;
+  background-color: #5fbe64;
 }
 .horizontal-line {
   width: 80%;
 }
 
 .caret-green {
-  caret-color: #68d391;
+  caret-color: #71bb5b;
+}
+.bck{
+  background-color : rgb(16, 17, 21);
 }
 </style>
