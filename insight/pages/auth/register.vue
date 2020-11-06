@@ -21,21 +21,6 @@
         />
         <hr v-else class="horizontal-line mt-6" />
 
-        <!-- <div
-          v-if="this.pageIndex > 2"
-          class="px-4 pt-2 rounded-lg bg-green-400"
-        >
-          <span class="text-xl font-muli text-white">2</span>
-        </div>
-        <div v-else class="border border-gray-300 px-4 pt-2 rounded-lg">
-          <span class="text-xl font-muli text-gray-900">2</span>
-        </div>
-        <hr
-          v-if="this.pageIndex > 2"
-          class="horizontal-line mt-6 border border-green-400 "
-        />
-        <hr v-else class="horizontal-line mt-6" /> -->
-
         <div class="border border-gray-300 px-4 pt-2 rounded-full">
           <span class="text-xl font-muli text-gray-900">2</span>
         </div>
