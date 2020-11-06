@@ -16,4 +16,10 @@ export default function FrozenStorage() {
   this.clear = function(){
       window.localStorage.clear();
   }
+
+  this.logOut = function(){
+    this.remove('token')
+    this.remove('first_name')
+    this.remove('avatar')
+  }
 }
