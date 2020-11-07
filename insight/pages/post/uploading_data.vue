@@ -1,80 +1,60 @@
 <template>
-  <div class="w-full h-screen">
-    <loading-container
-      :loading="loadingState"
-      text="Your post is going live after the upload."
-    >
-      <div  class="w-full h-screen bg-white flex flex-col justify-center ">
-        <div v-if="this.showError()" class="w-full h-auto px-4 flex flex-col ">
-         <img src="@/assets/svg/error_svg.svg" class="w-48 m-auto" />
-         <p class="m-auto my-4 font-muli text-lg font-bold text-gray-800">{{errorMessage}}</p>
-         <button @click="clearStore" class="w-full py-4 shadow-md font-lato font-bold text-lg text-white rounded-lg bg-pink-500">Go Back</button>
-        </div>
-        <upload-meter v-else :src="progress.src" :perc="progress.progress" :type="progress.type" />
+  <div class="w-full h-full py-4 flex flex-col px-6">
+    <!-- Header -->
+    <div class="w-full flex flex-col overflow-hidden  rounded-md shadow-lg pt-3 pb-3 px-2">
+      <p class="font-muli font-bold text-2xl">Uploads</p>
+      <p class="font-lato font-sm text-gray-700 break-words leading-5"> Please do not leave this page untill the uploads are complete. We need your support to deliver the original content</p>
+      <div v-if="this.totalProgress > 0" class="w-full h-2 mt-4 rounded-full bg-gray-300">
+        <div
+          class="w-full h-2 rounded-md bg-purple-600"
+          :style="`width: ${totalProgress}%;`"
+        ></div>
       </div>
-    </loading-container>
+    </div>
+
+    <!-- Body -->
+    <div class="w-full mt-3 flex flex-col h-full py-2">
+      <div v-for="progress in progression" :key="progression.indexOf(progress)">
+        <UploadMeter :progress="progress" />
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-import { mapState, mapActions, mapMutations } from 'vuex';
-import {errorSvg} from "@/static/js/assets";
-import LoadingContainer from '@/components/LoadingContainer.vue';
-import UploadMeter from "@/components/post_elements/UploadMeter.vue";
-export default {
-  mounted(){
-      this.$nextTick().then(() => {
-          this.createPost();
-      })
-  },
+<script lang="ts">
+import { mapState, mapActions } from 'vuex'
+import Vue from 'vue'
+import { ProgressAsset } from '@/plugins/FirebasePlugin'
+import UploadMeter from '@/components/post_elements/UploadMeter.vue'
+
+export default Vue.extend({
   components: {
-    LoadingContainer,
     UploadMeter
   },
-  computed: {
-    ...mapState('post/create_post', [
-      'completed',
-      'sentData',
-      'error',
-      'errorMessage',
-      'nextUrl',
-      'progress'
-    ]),
-    loadingState: function() {
-      return false; //to be removed
-      if(this.error){
-          return false;
-      }else if(this.completed){
-          return !this.completed && !this.error;
-      }else{
-          return !this.completed && !this.error;
-      }
-    },
-
+  mounted(){
+    this.$nextTick().then(() => {
+      this.createPost()
+    })
   },
   data() {
     return {
-        errorSvg: errorSvg
+        
+    }
+  },
+  computed: {
+    ...mapState('post/create_post', ['progression']),
+    totalProgress(): number {
+      let total = 0.0
+      for (let index = 0; index < this.progression.length; index++) {
+        total += this.progression[index].progress
+      }
+      return total / this.progression.length
     }
   },
   methods: {
-    ...mapActions('post/create_post', ['createPost']),
-    ...mapMutations('post/create_post',['reset']),
-    clearStore: function(){
-      this.reset();
-      this.$router.push('/');
-    },
-    isProgressState: function(){
-      if(JSON.stringify(this.progress) != JSON.stringify({})){
-        return true;
-      }
-      return false;
-    },
-    showError: function(){
-      return this.error;
-    }
+    ...mapActions("post/create_post",['createPost'])
   }
-}
+})
 </script>
 
 <style scoped></style>

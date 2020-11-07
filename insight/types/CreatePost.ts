@@ -8,7 +8,15 @@ export interface CreatePost {
     coords?: Coords
 }
 
-
+interface PostData {
+    hobby: string
+    assets: Assets
+    caption: string
+    hastags: string[]
+    atags: string[]
+    is_global: number
+    coords?: Coords
+}
 
 
 export class Post {
@@ -37,8 +45,17 @@ export class Post {
     }
 
 
-    renderToData(): CreatePost {
-        return { ...this.post }
+    renderToData(is_global: boolean| undefined): PostData  {
+        return {
+            assets: {...this.getAssets()},
+            caption: this.post.caption,
+            hastags: this.post.hastags,
+            atags: this.post.atags,
+            hobby: this.post.hobby.code_name,
+            is_global: is_global === false ? 0 : 1,
+            coords: this.post.coords
+
+        }
     }
 
     isImagePresent(): boolean {

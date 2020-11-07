@@ -137,6 +137,9 @@ export const actions = {
     }
     if(token != null){
       this.$axios.setHeader('Authorization',token);
+    }else {
+      storage.logOut()
+      this.$router.replace('/auth/login')
     }
     this.$axios.get(url).then(res=>{
       commit('setAccountData', res.data);
@@ -148,9 +151,8 @@ export const actions = {
       commit('setLoadingState',false);
 
     }).catch(err => {
-      // console.log(err);
-      commit('setLoadingState',false);
-      commit('setErrorState',true);
+      storage.logOut()
+      this.$router.replace('/auth/login')
     })
   },
 

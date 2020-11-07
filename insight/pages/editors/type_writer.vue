@@ -4,7 +4,7 @@
     <div class="w-full pb-2 px-2 pt-2 flex flex-col justify-between">
       <div class="w-full h-auto py-2 flex justify-between">
         <span @click="navBack" class="material-icons">keyboard_backspace</span>
-        <p  class="font-lato font-semibold text-lg">Type Writer</p>
+        <p class="font-lato font-semibold text-lg">Type Writer</p>
         <button class="px-2 py-1">
           <span @click="next()" class="material-icons text-purple-600"
             >east</span
@@ -158,7 +158,11 @@ export default Vue.extend({
     this.editor.focus()
   },
   methods: {
-    ...mapMutations('post/create_post', ['insertTextData', 'insertAssets', 'resetAssets']),
+    ...mapMutations('post/create_post', [
+      'insertTextData',
+      'insertAssets',
+      'resetAssets'
+    ]),
     updateBgColor(colorHex: string): void {
       if (this.editor != undefined && colorHex.length > 0) {
         this.currentBgColor = colorHex
@@ -185,30 +189,40 @@ export default Vue.extend({
       }
     },
     removeMedia(): void {
-      if (this.image != undefined) URL.revokeObjectURL(this.image)
+      if (this.image != undefined) {
+        URL.revokeObjectURL(this.image)
+      }
       this.image = undefined
-      if (this.video != undefined) URL.revokeObjectURL(this.video)
+      if (this.video != undefined) {
+        URL.revokeObjectURL(this.video)
+      }
       this.video = undefined
     },
 
     dataPicked(uid: string): void {
+      console.log('working');
+      
       let data = this.$el.querySelector(`#${uid}`) as HTMLInputElement
-      if (data.files != null) {
+      console.log(data.files)
+      if (data.files != null && data.files.length > 0) {
         let url = URL.createObjectURL(data.files[0])
         switch (uid) {
           case 'image-picker':
             this.removeMedia()
             this.image = url
+            // Reseting files so to pick the same file again
+            data.files = null
             break
           case 'video-picker':
             this.removeMedia()
             this.video = url
+            data.files = null
             break
         }
       }
     },
 
-    navBack():void{
+    navBack(): void {
       this.resetAssets()
       this.$router.go(-1)
     },

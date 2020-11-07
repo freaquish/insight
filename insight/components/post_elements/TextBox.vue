@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-full py-2 px-2 overflow-hidden ">
+  <div class="w-full h-full pt-2 pb- px-2 overflow-hidden ">
     <p
       class="wrap-text text-lg flex flex-col"
-      style="width:100%; overflow-y:scroll;touch-action: pan-y !important;"
+      style="width:100%; overflow-y:scroll;touch-action: pan-y !important; max-height:50vh;"
       v-html="text"
     ></p>
   </div>
@@ -35,14 +35,14 @@ export default {
   methods: {
     getImage: function() {
       if (this.media != undefined && this.media.type === 'image') {
-        return `<div class="w-full mb-2 " style="min-height:25vh; max-height:30vh;">
+        return `<div class="w-full mb-2">
                   <img class="w-full h-full rounded-lg" src="${this.media.src}" />
                </div>`
       }
     },
     getVideo: function() {
       if (this.media != undefined && this.media.type === 'video') {
-        return `<div class="w-full mb-2 " style="min-height:25vh; max-height:30vh;">
+        return `<div class="w-full mb-2">
                   <video controls class="w-full h-full rounded-lg" src="${this.media.src}" />
                </div>`
       }

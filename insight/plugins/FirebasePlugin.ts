@@ -112,6 +112,9 @@ interface StorageVault {
 
     // If isNetUploadComplete is True then call completeListener else pass to next asset
     firebaseUplaodComplete(task: firebase.storage.UploadTask, type: string): void
+    
+    // Remove all urls containing blob at index 0
+    sanitizeUrls(): void
 
     // Watch and assign callbacks on uploadTask
     manageUploadTask(task: firebase.storage.UploadTask, index: number, asset: ProgressAsset): void
@@ -159,6 +162,8 @@ export class StorageVaultBeta implements StorageVault {
         if (data.audio != undefined) {
             this.data.audio = data.audio
         }
+        console.log(this.data);
+        
         this.listeners = listeners
     }
 
@@ -169,6 +174,8 @@ export class StorageVaultBeta implements StorageVault {
     }
     progressListener(index: number, type: string, progress: number, size: number): void {
         if (this.dataAsArray[index].type === type) {
+            console.log(this.dataAsArray[index]);
+            
             this.dataAsArray[index].progress = progress
             this.dataAsArray[index].size = size
         }
@@ -198,23 +205,27 @@ export class StorageVaultBeta implements StorageVault {
 
     compressImage(url: string, type: string): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            if (type != "image") {
-                resolve(url)
-            } else {
-                let canvas = document.createElement('canvas') as HTMLCanvasElement
-                let width = window.innerWidth as number
-                let height = 50 * window.innerHeight / 100 as number
-                canvas.width = width
-                canvas.height = height
-                let context = canvas.getContext('2d') as CanvasRenderingContext2D
-                let img = document.createElement('img') as HTMLImageElement
-                img.src = url
-                img.onload = function () {
-                    context.scale(width / img.width, height / img.height)
-                    context.drawImage(img, 0, 0)
-                    return canvas.toDataURL()
-                }
-            }
+            // Implementation of compressor has been put pause
+            // if (type != "image") {
+            //     resolve(url)
+            // } else {
+            //     let canvas = document.createElement('canvas') as HTMLCanvasElement
+            //     let width = window.innerWidth as number
+            //     let height = 50 * window.innerHeight / 100 as number
+            //     canvas.width = width
+            //     canvas.height = height
+            //     let context = canvas.getContext('2d') as CanvasRenderingContext2D
+            //     let img = document.createElement('img') as HTMLImageElement
+            //     img.src = url
+            //     img.onload = function () {
+            //         context.scale(width / img.width, height / img.height)
+            //         context.drawImage(img, 0, 0)
+            //         let link = canvas.toDataURL()
+            //         URL.revokeObjectURL(url)
+            //         resolve(link)
+            //     }
+            // }
+            resolve(url)
         })
     }
     isVideoUploadComplete(): boolean {
@@ -257,11 +268,31 @@ export class StorageVaultBeta implements StorageVault {
         }
     }
 
+    sanitizeUrls(): void {
+        if(this.uploadedAssets.images != undefined){
+            let images = []
+            for(let index in this.uploadedAssets.images){
+                if(this.uploadedAssets.images[index].indexOf("blob") != 0){
+                    images.push(this.uploadedAssets.images[index])
+                }
+            }
+            this.uploadedAssets.images = images
+        }
+        if( this.uploadedAssets.video != undefined && this.uploadedAssets.video.indexOf("blob") === 0) {
+            this.uploadedAssets.video = undefined
+        }
+
+        if(this.uploadedAssets.audio != undefined && this.uploadedAssets.audio.indexOf("blob") === 0){
+            this.uploadedAssets.audio = undefined
+        }
+    }
+
     firebaseUplaodComplete(task: firebase.storage.UploadTask, type: string): void {
         task.snapshot.ref.getDownloadURL().then(url => {
             this.insertAssetInUploaded(url, type)
             if (this.isNetUploadComplete()) {
                 this.revokeUrls()
+                this.sanitizeUrls()
                 this.uploadCompleteListener(this.uploadedAssets)
             }
         })
@@ -295,11 +326,13 @@ export class StorageVaultBeta implements StorageVault {
                     this.errorListener(error)
                 })
             })
-        })
+        })        
         return promises
     }
     bulkUpload(): void {
         this.unpackAssets()
+        console.log(this.dataAsArray);
+        
         Promise.all(this.uploadPromise()).then(() => { })
     }
 
