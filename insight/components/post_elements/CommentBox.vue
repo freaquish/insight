@@ -29,7 +29,7 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { Comment } from '@/types/index'
-import ImageBox from '@/components/utli/ImageBox.vue'
+import ImageBox from '@/components/util/ImageBox.vue'
 
 export default Vue.extend({
   components: {

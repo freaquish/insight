@@ -56,7 +56,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/AppPlugin.js', ssr: false },
-    { src: '~/plugins/FirebasePlugin', ssr: false }
+    { src: '~/plugins/FirebasePlugin', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -64,7 +64,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
   ],
   /*
    ** Nuxt.js modules

@@ -31,9 +31,19 @@
 <script lang="ts">
 import Vue from 'vue'
 import BottomBar from '@/components/BottomBar.vue'
+import FrozenStorage from "@/static/js/local_storage"
 export default Vue.extend({
   components: {
     BottomBar
+  },
+  mounted(){
+    const storage = new FrozenStorage()
+    let token = storage.get('token')
+    if(token == null){
+      this.restrictedPagesWithoutLogin()
+    }else{
+      this.restrictedPagesWithLogin()
+    }
   },
   methods: {
     isAuthRoute(): boolean {
@@ -47,7 +57,22 @@ export default Vue.extend({
          this.$route.name.includes('custom_editor')
         )
       )
+    },
+
+    restrictedPagesWithoutLogin(): void {
+      let pages = ['auth-login', 'auth-register', 'intro']
+      if(this.$route.name != null && !pages.includes(this.$route.name)){
+        this.$router.replace('/auth/login')
+      }
+
+    },
+    restrictedPagesWithLogin(): void {
+      let pages = ['auth-login', 'auth-register','intro']
+      if(this.$route.name != null && pages.includes(this.$route.name)) {
+        this.$router.replace('/')
+      }
     }
+
   }
 })
 </script>

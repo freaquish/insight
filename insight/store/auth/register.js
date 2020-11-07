@@ -90,6 +90,7 @@ export const actions = {
                 if (state.phoneNumber != undefined){
                     packet['account_id'] = state.phoneNumber;
                     packet['details']['phone_number'] = state.phoneNumber;
+                    packet['country_code'] = state.countryCode
                 }
                 if(state.coords != undefined){
                     packet['coords'] = state.coords;
