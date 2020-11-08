@@ -437,18 +437,20 @@ export default {
 </script>
 
 <style scoped>
-/* #register{
-    display: grid;
-    grid-template-rows: 4rem 60vh 6rem;
-} */
+#register{
+  background-color : rgb(16, 17, 21);
+}
 .special-green {
-  background-color: #2a9f50;
+  background-color: #5fbe64;
 }
 .horizontal-line {
   width: 80%;
 }
 
 .caret-green {
-  caret-color: #68d391;
+  caret-color: #71bb5b;
+}
+.bck{
+  background-color : rgb(16, 17, 21);
 }
 </style>

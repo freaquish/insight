@@ -1,33 +1,45 @@
 <template>
   <div class="w-full h-screen overflow-hidden bck">
     <div class="formpnl" v-show="showLoginForm">
-      <div v-if="this.error" class="h-12 rounded-lg w-full px-4 py-2 bg-red-600">
+
+        <div class="absolute top-0 right-0 h-32 w-32 z-0">
+        <img src="@/assets/svg/loginPage/Group 75.svg">
+      </div>
+      <div class="absolute top-0 left-0 h-24 w-24 z-0">
+        <img src="@/assets/svg/loginPage/dot svg.svg">
+      </div>
+
+
+      <div v-if="this.error" class="h-12 rounded-lg w-full px-4 py-2 bg-red-600 z-10">
          <p class="font-lato font-bold text-white">Invalid Credentials, try again</p>
       </div>
-      <div class="mx-auto w-32 h-32">
-        <img src="@/static/freaquishlogo.webp">
-      </div> 
-      <div class="title font-bold font-muli text-3xl mt-2">Freaquish</div>
-      <div class="w-auto mx-8 h-12 mt-8 border-b border-gray-600">
-        <i class="fa fa-user-circle mt-4 text-black ml-2" aria-hidden="true"></i>
+      
+       
+      <div class="mx-4 text-white font-bold font-muli text-3xl mt-10">Welcome<br class="mx-4 text-white font-bold font-muli text-3xl" />Back!</div>
+      <div class="mx-4 text-gray-500 font-lato text-md ">Enter your mobile number and password to get access your account</div>
+      <div class="w-auto mx-8 mt-8 h-16 bgc rounded-tl-lg rounded-tr-lg border-b border-gray-700">
+          <i class="fa fa-user-circle mt-6 text-white ml-4" aria-hidden="true"></i>
         <input
-        class="outline-none bg-transparent ml-4 text-black font-muli"
-        type="text" name="account_id"  placeholder="Phone Number" v-model="account_id">
+        class="outline-none bg-transparent ml-4 text-gray-500 font-muli"
+        type="text" name="account_id"  placeholder="Mobile Number" v-model="account_id">
       </div>
-      <div class="w-auto mx-8 h-12 mt-4 border-b border-gray-600">
-        <i class="fa fa-key mt-4 text-black ml-2" aria-hidden="true"></i>
+      <div class="w-auto mx-8 h-16 border-none bgc rounded-bl-lg rounded-br-lg">
+          <i class="fa fa-key mt-6 text-white ml-4" aria-hidden="true"></i>
         <input
-        class="outline-none bg-transparent ml-4 text-black font-muli"
-        type="password" name="Password"  placeholder="Password" v-model="password">
+        class="outline-none bg-transparent ml-4 text-gray-500 font-muli"
+        type="password" name="password"  placeholder="Password" v-model="password">
       </div>
-      <!-- <div class="text-right mt-4 mr-6 text-gray-600">Forget Password ?</div> -->
-      <div class="w-full h-16 py-2 px-2 mt-10 flex">
 
-         <div @click="login" class="lgnbtn w-full py-2 mx-5 font-muli font-bold focus:outline-none text-center text-white rounded-full"><h1 class="pt-1">LOGIN</h1></div>
+      <div class="flex flex-row justify-between m-12">
+        <div class="mt-3"><a @click="$router.push('/resetpassword/search_account')" class="text-white font-bold text-md font-lato text-center">Forget?</a></div>
+        <div class="flex flex-row" @click="login">
+          <div class="bg-indigo-500 font-muli font-bold focus:outline-none text-center text-white rounded-tl-md rounded-bl-md py-3 px-4 text-center focus:bg-blue-300"><span class="px-4 text-center">Login</span></div>
+          <div class="w-full h-full material-icons text-white bg-indigo-600 text-center rounded-br-md rounded-tr-md p-3 py-3">arrow_right_alt</div>
+        </div>
       </div>
-      <div class="ml-8 mr-8 text-center text-gray-600 mt-12 mb-8">
-        <div class="text-md">Don't have any account, join us <br></div>
-        <h1><a @click="$router.push('/auth/register')" class="mt-6 text-purple-500 font-bold text-xl font-muli">REGISTER</a></h1>
+      <div class="ml-8 mr-8 text-gray-600 mt-20">
+        <div class="text-sm">Don't have any account?</div>
+        <h1><a @click="$router.push('/auth/register')" class="mt-0 text-white font-bold text-sm font-lato">CREATE ACCOUNT</a></h1>
       </div>
     </div>
   </div>
@@ -93,26 +105,18 @@ export default {
   margin-top: 15%;
   overflow: hidden;
 }
-.title {
-  display: block;
- font-family: 'Nunito',sans-serif;
-  background-color: #f3ec78;
-  background-image: linear-gradient(45deg, #7a13aa,#892cd4,#ff38c3);
-  background-image: conic-gradient(45deg,  #7a13aa,#892cd4,#ff57cd);
-  background-size: 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  text-align: center;
+
+
+
+.bgc{
+  background-color: #262630;
 }
-.lgnbtn {
-  background-color: #f3ec78;
-  background-image: linear-gradient(45deg, #7a13aa,#892cd4,#ff38c3);
-}
+
 .bck{
-  background: linear-gradient(16.1deg, rgba(0, 0, 0, 0) 0%, rgba(180, 179, 180, 0.51) 100%);
+  background: rgb(16, 17, 21);
+  
   /* background: rgb(32, 32, 32); */
 }
+
+
 </style>
