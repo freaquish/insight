@@ -10,6 +10,12 @@ export interface Tag {
     avatar?: string
 }
 
+export interface CollectionPost {
+    post_id: string
+    assets: Assets
+    hobby: string
+  }
+
 export interface User {
     account_id: string
     username?: string

@@ -19,7 +19,7 @@
 
         <!-- Change Password -->
         <div
-          @click="navigate('/change_password')"
+          @click="navigate('/profile/change_password')"
           class="w-full h-12 pl-2 border-bold pt-3 font-muli font-semibold flex"
         >
           <span class="material-icons mr-2">vpn_key</span> Change Password

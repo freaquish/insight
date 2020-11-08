@@ -5,16 +5,14 @@
       :src="src"
       class="w-full rounded-lg h-full"
     />
-    <img
-      v-if="this.type === 'audio'"
-      :src="audImg"
-      class="w-full rounded-md h-full"
-    />
+    <div v-if="this.type === 'audio'" class="w-full rounded-md h-full">
+      <AudioWave />
+    </div>
     <video
       preload="auto"
-      :src="src"
+      :src="`${src}#t=1`"
       v-if="this.type === 'video'"
-      class="w-full h-full rounded-md"
+      class="w-full h-full rounded-md bg-orange-200"
     />
     <div
       class="w-full rounded-md h-full overflow-hidden"
@@ -26,7 +24,11 @@
 </template>
 
 <script>
+import AudioWave from '@/components/util/AudioWave.vue'
 export default {
+  components: {
+    AudioWave
+  },
   props: ['post'],
   mounted() {
     this.insertAsset()

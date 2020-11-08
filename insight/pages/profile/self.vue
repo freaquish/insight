@@ -207,7 +207,6 @@ export default {
   computed: {
     ...mapState('profile/profile', [
       'avatar',
-      'places',
       'description',
       'following',
       'followers',
@@ -217,15 +216,13 @@ export default {
       'username',
       'collections',
       'loading',
-      'error'
     ])
   },
   methods: {
-    ...mapActions('profile/profile', ['fetchProfile', 'updateProfileData']),
+    ...mapActions('profile/profile', ['fetchProfile', 'updateProfileData',]),
     ...mapMutations('profile/profile', [
       'setEditablity',
-      'setLoadingState',
-      'setImageView'
+      'setLoadingState', 
     ]),
     pickImage: function() {
       let elem = this.$el.querySelector('#image-picker')
