@@ -2,7 +2,7 @@
   <LoadingContainer :loading="loadingState && ! this.err">
     <div
       id="register"
-      class="max-w-full px-6 py-0  w-screen h-screen bg-white flex flex-col"
+      class="max-w-full px-6 py-0  w-screen h-screen bg-black flex flex-col"
     >
 
       <div class="w-full h-12 flex mt-2 mb-2">

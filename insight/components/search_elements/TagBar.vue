@@ -1,12 +1,13 @@
 <template>
   <div
     @click="onClick()"
-    class="w-full h-16 mb-1 py-2 px-2 flex bg-tint-purple-shallow"
+    class="w-auto mx-2 rounded-lg mb-4 h-12 py-2 px-2 flex shadow-lg"
+    style="background: #AC25FF;"
   >
-    <p class="px-2 my-2 py-2 bg-blue-500 rounded-md text-white font-muli">
+    <p class="w-8 h-8 text-center my-auto ml-2 pt-1 rounded-full font-muli text-purple-600 bg-white">
       {{ tag.avatar }}
     </p>
-    <p class="font-muli ml-2 mt-3 text-white">{{ tag.tag }}</p>
+    <p class="font-muli ml-6 mt-1 text-white">{{ tag.tag }}</p>
   </div>
 </template>
 

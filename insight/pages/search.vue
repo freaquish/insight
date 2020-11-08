@@ -1,29 +1,26 @@
 <template>
-  <div class="w-full h-full grided bg-tint-purple">
+  <div class="w-full h-full grided bg-white">
     <!-- Header -->
-    <div class="w-full fixed flex flex-col pt-4 px-2 bg-tint-purple">
+    <div class="w-full fixed flex flex-col pt-4 px-2 bg-white">
       <div class="w-full flex">
-        <span @click="goBack()" class="material-icons stroke-current text-white"
+        <span @click="goBack()" class="material-icons stroke-current"
           >keyboard_backspace</span
         >
         <div class="w-full h-full flex flex-row-reverse">
           <span
             @click="onClickSearch()"
-            class="material-icons stroke-current text-white"
+            class="material-icons stroke-current mr-2"
             >search</span
           >
-          <transition name="slide-fade">
-            <input
-              v-if="this.showSearchInput"
-              class="w-full ml-6 mr-4 py-1 rounded-md focus:outline-none text-white font-muli bg-tint-purple-shallow placeholder-white px-2"
+            <input             
+              class="w-full ml-6 mr-4 rounded-full focus:outline-none font-muli bg-transparent px-4 placeholder-gray-500"
               placeholder="Type name, hobby or tag..."
               v-model="searchText"
               @input="onInput()"
             />
-          </transition>
         </div>
       </div>
-      <div class="w-full h-auto flex">
+      <div class="w-full h-auto mt-2 flex">
         <SearchTab
           :text="'All'"
           :active="selectedTab === 'All'"
@@ -49,25 +46,30 @@
 
     <!-- Body -->
     <div
-      class="w-full overflow-y-scroll flex flex-col pb-16"
-      style="margin-top:14vh;height:82vh;"
+      class="w-full overflow-y-scroll flex flex-col pb-4"
+      style="margin-top:16vh;height:75vh; margin-bottom:9vh;"
     >
-      <div v-if="this.isTabActive('Tag')">
+      <div v-if="searchText != undefined">
+        <div v-if="this.isTabActive('Tag')">
         <div v-for="tag in tags" :key="tag.tag">
           <TagBar :tag="tag" />
         </div>
-      </div>
+        </div>
 
-      <div v-if="this.isTabActive('Hobby')">
-        <div v-for="hobby in hobbies" :key="hobby.code_name">
-          <HobbyBar :hobby="hobby" />
+        <div v-if="this.isTabActive('Hobby')">
+          <div v-for="hobby in hobbies" :key="hobby.code_name">
+            <HobbyBar :hobby="hobby" />
+          </div>
+        </div>
+
+        <div v-if="this.isTabActive('User')">
+          <div v-for="user in users" :key="user.account_id">
+            <AccountBar :user="user" />
+          </div>
         </div>
       </div>
-
-      <div v-if="this.isTabActive('User')">
-        <div v-for="user in users" :key="user.account_id">
-          <AccountBar :user="user" />
-        </div>
+      <div v-else class="w-auto h-auto mx-4 my-8" >
+        <img src="@/assets/searchImage.svg" alt="">
       </div>
     </div>
   </div>
@@ -90,7 +92,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      showSearchInput: false as boolean,
       searchText: undefined as string | undefined,
       selectedTab: 'All' as string
     }
@@ -102,12 +103,8 @@ export default Vue.extend({
     ...mapActions('search', ['search']),
     ...mapMutations('search', ['clear']),
     onClickSearch(): void {
-      if (this.searchText === undefined && this.showSearchInput === false) {
-        this.showSearchInput = true
-      } else {
         if (this.searchText != undefined) {
-          this.search(this.searchText)
-        }
+          this.search(this.searchText)       
       }
     },
     selectTab(tab: string): void {
