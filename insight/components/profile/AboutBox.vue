@@ -51,7 +51,8 @@
         >Description</label
       >
       <div
-        type="text"
+        @input="textInput"
+        id="text-box"
         v-html="description"
         :contenteditable="changing"
         :class="
@@ -66,11 +67,7 @@
     <div class="w-full h-auto px-2 py-2 mt-4 flex flex-wrap">
       <div v-for="hobby in hobbies" :key="hobby">
         <p
-          :class="
-            `px-2 mx-1 my-2 rounded-md py-1 font-muli ${
-              hobbyBoxColor()
-            }`
-          "
+          :class="`px-2 mx-1 my-2 rounded-md py-1 font-muli ${hobbyBoxColor()}`"
         >
           {{ hobby }}
         </p>
@@ -81,18 +78,23 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import { mapGetters } from 'vuex'
 export default Vue.extend({
-  props: {
-    editable: false as PropOptions<boolean>,
-    propName: '' as PropOptions<string>,
-    propDescription: '' as PropOptions<string>,
-    hobbies: [] as PropOptions<Array<any>>
+  props: ['editable', 'propName', 'propDescription', 'hobbies'],
+  mounted() {
+    this.name = this.propName
+    this.description = this.propDescription
+  },
+  updated() {
+    this.name = this.propName
+    this.description = this.propDescription
   },
   data() {
     return {
       changing: false as boolean,
-      name: this.propName as string,
-      description: this.propDescription as string,
+      name: '' as string,
+      description: '' as string,
+      newDescription: '' as string,
       colorClasses: [
         'bg-blue-100 text-blue-500',
         'bg-green-100 text-green-500',
@@ -102,39 +104,49 @@ export default Vue.extend({
       ]
     }
   },
+  computed: {
+    ...mapGetters('profile/profile', ['fullName', 'renderedDescription'])
+  },
   methods: {
     toggleChangeState(): void {
       this.changing = !this.changing
     },
     validateChanges(): boolean {
-      if (
-        this.name != this.propName &&
-        this.description != this.propDescription
+      return (
+        this.name != this.fullName ||
+        this.description != this.renderedDescription
       )
-        return true
-      return false
+    },
+    textInput(): void {
+      let textBox = this.$el.querySelector('#text-box') as HTMLDivElement
+      this.newDescription = textBox.innerText
     },
     onClickCancel(): void {
-      ;(this.name = this.propName), (this.description = this.propDescription)
+      this.name = this.propName
+      this.description = this.propDescription
       this.changing = false
     },
-    onClickSave(): void {
-      if (this.validateChanges()) {
+    onClickSave(): void {   
+      if (this.validateChanges() || true) {
         let nameSplit = this.name.split(' ') as string[]
         this.changing = false
         this.$emit('change', {
           first_name: nameSplit[0],
-          last_name: nameSplit,
-          description: this.description
+          last_name: nameSplit[1],
+          description: this.newDescription
         })
       } else {
         this.onClickCancel()
       }
     },
     hobbyBoxColor(): string {
-      return this.colorClasses[parseInt(this.getRandomArbitrary(0,this.colorClasses.length - 1).toFixed(0))]
+      return this.colorClasses[
+        parseInt(
+          this.getRandomArbitrary(0, this.colorClasses.length - 1).toFixed(0)
+        )
+      ]
     },
-    getRandomArbitrary(min: number, max: number):number {
+    getRandomArbitrary(min: number, max: number): number {
       return Math.random() * (max - min) + min
     }
   }

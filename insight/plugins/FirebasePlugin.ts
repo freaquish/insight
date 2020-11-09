@@ -162,8 +162,6 @@ export class StorageVaultBeta implements StorageVault {
         if (data.audio != undefined) {
             this.data.audio = data.audio
         }
-        console.log(this.data);
-        
         this.listeners = listeners
     }
 

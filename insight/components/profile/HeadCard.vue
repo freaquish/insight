@@ -1,16 +1,16 @@
 <template>
   <div class="w-full flex flex-col px-4 py-2 mt-2">
-    <img class="w-20 h-20 rounded-lg" :src="avatar" />
+    <img class="w-20 h-20 rounded-lg" :src="avatar" @click="$emit('launchimv')" />
     <div class="w-full h-full flex flex-col mt-4">
       <p class="font-lato text-blue-900 font-bold text-2xl">
         {{ username }}
       </p>
       <p class="font-muli text-base mx-1 pr-2 flex ">
-        <span
+        <span @click="$emit('assoctap','followers')"
           >Followers
           <span class="font-semibold">{{ metric(followers) }}</span></span
         >
-        <span class="ml-4"
+        <span class="ml-4" @click="$emit('assoctap','followings')"
           >Following
           <span class="font-semibold">{{ metric(following) }}</span></span
         >

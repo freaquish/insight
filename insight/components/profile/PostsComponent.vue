@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full">
+    <div class="w-full h-full pb-16">
         <div
             class="w-full h-auto px-2"
             style="display:grid;grid-template-columns: 1fr 1fr;grid-gap:0.2rem;"
@@ -19,8 +19,6 @@ export default Vue.extend({
     components: {
         AssetBox
     },
-    props: {
-        collections: [] as PropOptions<CollectionPost[]>
-    }
+    props: ['collections']
 })
 </script>

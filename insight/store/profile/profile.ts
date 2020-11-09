@@ -1,5 +1,5 @@
 import FrozenStorage from '~/static/js/local_storage'
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { StorageVaultBeta } from '~/plugins/FirebasePlugin'
 import { avatarDefault } from '~/static/js/assets'
 import { CollectionPost } from '@/types/index'
@@ -17,7 +17,7 @@ interface StoreData {
   isFollowing: boolean
   description?: string
   hobbies: string[]
-  loading: boolean
+  loading: boolean,
 }
 
 export const state = (): StoreData => ({
@@ -33,7 +33,7 @@ export const state = (): StoreData => ({
   description: undefined,
   avatar: avatarDefault,
   loading: false,
-  hobbies: [] as string[]
+  hobbies: [] as string[],
 })
 
 type RootState = ReturnType<typeof state>
@@ -75,6 +75,30 @@ type Mutation = {
   reset(state: RootState): void
 }
 
+export const getters: GetterTree<RootState, RootState> = {
+  fullName(state: RootState): string {
+    return state.firstName + ' ' + state.lastName
+  },
+  renderedDescription(state: RootState): string {
+    let text = state.description || ''
+      let match = text.match(/@[a-z0-9_?]+|#[a-z0-9_?]+/gi) || [] as string[]
+      for (let index = 0; index < match.length; index++) {
+        if (match[index].includes('#')) {
+          text = text.replace(
+            match[index],
+            `<span class="font-montserrat text-blue-500 italic">${match[index]}</span>`
+          )
+        } else if (match[index].includes('@')) {
+          text = text.replace(
+            match[index],
+            `<span class="font-montserrat text-blue-700">${match[index]}</span>`
+          )
+        }
+      }
+      return text
+  }
+}
+
 export const mutations: MutationTree<RootState> & Mutation = {
   insertProfileData: function(state, payload) {
     state.account_id = payload.account_id
@@ -94,7 +118,6 @@ export const mutations: MutationTree<RootState> & Mutation = {
     state.hobbies = payload.hobbies as string[]
     state.collections =
       payload.posts != undefined ? payload.posts : ([] as CollectionPost[])
-    
   },
 
   setLoadingState: function(state, loading) {
@@ -168,6 +191,8 @@ export const actions: ActionTree<RootState, RootState> = {
   // Update profile changes
   async updateProfileData({ commit }, payload): Promise<void> {
     let data = { ...payload }
+    console.log(data);
+    
     commit('setLoadingState', true)
     const storage = new FrozenStorage()
     let token = storage.get('token') as string | null
@@ -180,6 +205,8 @@ export const actions: ActionTree<RootState, RootState> = {
         .post(url, JSON.stringify(data))
         .then(res => {
           if (res.status === 202) {
+            console.log(res.data);
+            
             commit('insertProfileData', res.data)
             commit('setEditability', true)
             commit('setLoadingState', false)
@@ -199,6 +226,8 @@ export const actions: ActionTree<RootState, RootState> = {
         {
           complete: assets => {
             if (assets.images != undefined) {
+              console.log(assets);
+              
               dispatch('updateProfileData', { avatar: assets.images[0] })
               payload.func()
             }
@@ -207,6 +236,7 @@ export const actions: ActionTree<RootState, RootState> = {
           error: () => {}
         }
       )
+      storage.bulkUpload()
     }
   },
 
@@ -223,7 +253,7 @@ export const actions: ActionTree<RootState, RootState> = {
     })
   },
 
-  fetchThirdProfile: function({ state, commit }, load) {
+  fetchThirdProfile: function({ state, commit }, load: {aid: string, func: Function}) {
     commit('setLoadingState', true)
     const storage = new FrozenStorage()
     let token = storage.get('token') as string
@@ -239,8 +269,8 @@ export const actions: ActionTree<RootState, RootState> = {
           if (res.data.self != undefined && res.data.self === 1) {
             this.$router.replace('/profile/self')
           } else {
-            commit('insertProfileData', res.data)
-            commit('setEditability', false)
+            commit('insertProfileData', res.data.data)
+            commit('setEditability', res.data.self === 1)
             commit('setLoadingState', false)
             load.func()
           }

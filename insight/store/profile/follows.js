@@ -18,6 +18,11 @@ export const mutations = {
   },
   setAccount: function(state, data) {
     state.username = data
+  },
+  resetFollows(state){
+    state.followers = []
+    state.followings = []
+    state.username = undefined
   }
 }
 
