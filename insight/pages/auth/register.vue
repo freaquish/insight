@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full bg-white">
     <div class="w-full h-full" v-show="!showCountryCodes">
       <div
         id="register"
@@ -437,9 +437,6 @@ export default {
 </script>
 
 <style scoped>
-#register{
-  background-color : rgb(16, 17, 21);
-}
 .special-green {
   background-color: #5fbe64;
 }
@@ -450,7 +447,5 @@ export default {
 .caret-green {
   caret-color: #71bb5b;
 }
-.bck{
-  background-color : rgb(16, 17, 21);
-}
+
 </style>
