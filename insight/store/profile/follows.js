@@ -47,13 +47,11 @@ export const actions = {
       .get(url)
       .then(res => {
         if (res.status === 200) {
-          // console.log(url,res.data);
           commit('setState', res.data)
           commit('setLoading', false)
         }
       })
       .catch(err => {
-        console.log(err)
         commit('setLoading', false)
         this.$router.push('/auth/login')
       })

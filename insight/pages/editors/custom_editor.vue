@@ -116,14 +116,12 @@ export default {
         return url;
     },
     catchInputChange: function(data){
-      //console.log(data);
         if(data.type === "image"){
             for(let file of data.files){
                 this.collection.push({src:this.fileReader(file),contenttype:data.type});
             }
         }else if(data.type === "video" || data.type === "audio"){
             let index = this.collection.presentAt(data.type);
-            //console.log(index);
             if(index === null){
                 this.collection.push({src:this.fileReader(data.files[0]),contenttype:data.type});
             }else{
@@ -163,7 +161,6 @@ export default {
                 assets[asset.getContentType()] = asset.getSrc();
               }
             });
-            console.log(assets)
             this.insertAssets(assets);
             this.$router.push('/post/caption_page')
 

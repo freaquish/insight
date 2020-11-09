@@ -123,26 +123,28 @@ export const actions: ActionTree<RootState, RootState> = {
     if (window.navigator.onLine && state.post != undefined) {
       const firestore = new StorageVaultBeta()
       let assets = state.post.getAssets()
-      firestore.init(JSON.parse(JSON.stringify(assets)), {
-        complete: function(data) {
-          commit('insertAssets', data)
-          func()
-        },
-        progress: function(array) {
-          console.log(array)
-          commit('updateProgress', array)
-        },
-        error: function(error: Error) {
-          // TODO: Failed
-        }
-      })
-      firestore.bulkUpload()
+      if (state.post.post.hobby === undefined) {
+        commit('reset')
+        this.$router.replace('/post/hobby_window')
+      } else {
+        firestore.init(JSON.parse(JSON.stringify(assets)), {
+          complete: function(data) {
+            state.post?.replaceAssets(data)
+            func()
+          },
+          progress: function(array) {
+            commit('updateProgress', array)
+          },
+          error: function(error: Error) {
+            // TODO: Failed
+          }
+        })
+        firestore.bulkUpload()
+      }
     }
   },
 
   sendDataToServer({ state, commit }): void {
-    console.log('Putting Post on server', state.post)
-
     if (state.post != undefined) {
       if (window.navigator.geolocation) {
         window.navigator.geolocation.getCurrentPosition(position => {
@@ -168,8 +170,6 @@ export const actions: ActionTree<RootState, RootState> = {
         .post(url, JSON.stringify(state.post.renderToData(true)))
         .then(res => {
           if (res.status === 201) {
-            console.log(res)
-
             commit('reset')
             this.$router.push('/')
           } else {
@@ -183,7 +183,6 @@ export const actions: ActionTree<RootState, RootState> = {
       state.post != undefined &&
       JSON.stringify(state.post.getAssets()) != '{}'
     ) {
-      console.log(state.post.renderToData(true))
       dispatch('uploadFilesToFirebase', () => {
         dispatch('sendDataToServer')
       })

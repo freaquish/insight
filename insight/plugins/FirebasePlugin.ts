@@ -111,7 +111,7 @@ interface StorageVault {
     revokeUrls(): void
 
     // If isNetUploadComplete is True then call completeListener else pass to next asset
-    firebaseUplaodComplete(task: firebase.storage.UploadTask, type: string): void
+    firebaseUploadComplete(task: firebase.storage.UploadTask, type: string): void
     
     // Remove all urls containing blob at index 0
     sanitizeUrls(): void
@@ -172,8 +172,6 @@ export class StorageVaultBeta implements StorageVault {
     }
     progressListener(index: number, type: string, progress: number, size: number): void {
         if (this.dataAsArray[index].type === type) {
-            console.log(this.dataAsArray[index]);
-            
             this.dataAsArray[index].progress = progress
             this.dataAsArray[index].size = size
         }
@@ -285,9 +283,9 @@ export class StorageVaultBeta implements StorageVault {
         }
     }
 
-    firebaseUplaodComplete(task: firebase.storage.UploadTask, type: string): void {
+    firebaseUploadComplete(task: firebase.storage.UploadTask, type: string): void {
         task.snapshot.ref.getDownloadURL().then(url => {
-            this.insertAssetInUploaded(url, type)
+            this.insertAssetInUploaded(url, type)   
             if (this.isNetUploadComplete()) {
                 this.revokeUrls()
                 this.sanitizeUrls()
@@ -303,7 +301,7 @@ export class StorageVaultBeta implements StorageVault {
             (snapshot) => { this.nextOrObserver(snapshot, index, asset) },
             (error) => { this.firebaseUploadError(error) },
             () => {
-                this.firebaseUplaodComplete(task, asset.type)
+                this.firebaseUploadComplete(task, asset.type)
             }
         )
     }
@@ -329,8 +327,6 @@ export class StorageVaultBeta implements StorageVault {
     }
     bulkUpload(): void {
         this.unpackAssets()
-        console.log(this.dataAsArray);
-        
         Promise.all(this.uploadPromise()).then(() => { })
     }
 

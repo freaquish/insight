@@ -26,7 +26,7 @@ export default Vue.extend({
     progress: {} as PropOptions<ProgressAsset>
   },
   computed: {
-    pecentage(): string {
+    percentage(): string {
       return this.progress.progress.toFixed(0)
     }
   }

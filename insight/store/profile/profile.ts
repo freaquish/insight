@@ -167,7 +167,6 @@ export const actions: ActionTree<RootState, RootState> = {
     let storage = new FrozenStorage()
     let token = storage.get('token')
     const url = `profile`
-    // console.log(token)
     if (token != null) {
       this.$axios.setHeader('Authorization', token)
       this.$axios
@@ -191,8 +190,6 @@ export const actions: ActionTree<RootState, RootState> = {
   // Update profile changes
   async updateProfileData({ commit }, payload): Promise<void> {
     let data = { ...payload }
-    console.log(data);
-    
     commit('setLoadingState', true)
     const storage = new FrozenStorage()
     let token = storage.get('token') as string | null
@@ -204,9 +201,7 @@ export const actions: ActionTree<RootState, RootState> = {
       this.$axios
         .post(url, JSON.stringify(data))
         .then(res => {
-          if (res.status === 202) {
-            console.log(res.data);
-            
+          if (res.status === 202) {   
             commit('insertProfileData', res.data)
             commit('setEditability', true)
             commit('setLoadingState', false)
@@ -225,9 +220,7 @@ export const actions: ActionTree<RootState, RootState> = {
         { images: [payload.src] },
         {
           complete: assets => {
-            if (assets.images != undefined) {
-              console.log(assets);
-              
+            if (assets.images != undefined) { 
               dispatch('updateProfileData', { avatar: assets.images[0] })
               payload.func()
             }
@@ -258,7 +251,6 @@ export const actions: ActionTree<RootState, RootState> = {
     const storage = new FrozenStorage()
     let token = storage.get('token') as string
     const url = `profile/third/${load.aid}`
-    // console.log(token)
     if (token != null) {
       this.$axios.setHeader('Authorization', token)
     }

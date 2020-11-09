@@ -33,6 +33,14 @@ export class Post {
         return { ... this.post.assets }
     }
 
+    replaceAssets(data: Assets): void {
+        if(data.images != undefined){
+            this.post.assets.images = data.images
+        }
+        if(data.video != undefined) this.post.assets.video = data.video
+        if(data.audio != undefined) this.post.assets.audio = data.audio
+    }
+
     isSimilarAsset(asset: Assets): boolean {
         let isSimilarImages = this.isImagePresent() || (asset.images != undefined && this.post.assets.images?.length === asset.images.length)
         let isSimilarVideo = this.isVideoPresent() || (asset.video != undefined && asset.video.length > 0)

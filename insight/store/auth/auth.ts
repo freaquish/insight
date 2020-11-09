@@ -41,7 +41,6 @@ export const actions: ActionTree<RootState, RootState> = {
                 this.$axios.setToken(storage.get('token'))
             }
             this.$axios.post('auth/change_password', JSON.stringify({old_password: state.oldPassword, new_password: state.newPassword})).then(res => {
-                console.log(res.status)
                 if(res.status === 202){
                     storage.set('token',`Token ${res.data['token']}`)
                     commit('resetChangePasswordData')

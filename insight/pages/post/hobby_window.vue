@@ -49,12 +49,10 @@ export default {
   methods: {
     ...mapActions('post/create_post', ['fetchHobbies']),
     searchText: function() {
-      // console.log('p');
       if (this.searchHobby != undefined && this.searchHobby.length > 0) {
         this.searched = this.hobby_list.filter(h => {
           return h.code_name.indexOf(this.searchHobby.toLowerCase()) == 0
         })
-        console.log(this.searched)
       }
     }
   }

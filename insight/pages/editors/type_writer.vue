@@ -22,7 +22,7 @@
     </div>
 
     <!-- Editor -->
-    <div class="w-full h-full flex flex-col-reverse">
+    <div class="w-full h-full flex flex-col-reverse pb-16">
       <!-- ToolBox -->
       <div class="w-full h-12 bg-gray-800 flex justify-around pt-2">
         <i
@@ -200,10 +200,7 @@ export default Vue.extend({
     },
 
     dataPicked(uid: string): void {
-      console.log('working');
-      
       let data = this.$el.querySelector(`#${uid}`) as HTMLInputElement
-      console.log(data.files)
       if (data.files != null && data.files.length > 0) {
         let url = URL.createObjectURL(data.files[0])
         switch (uid) {

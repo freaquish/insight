@@ -372,11 +372,6 @@ export default {
     registerClicked: function() {
       // this.loadingState = true;
       this.verifySecondPageInput()
-      console.log(
-        this.username.length,
-        this.firstName.length,
-        this.lastName.length
-      )
       if (
         this.username.length >= 6 &&
         this.firstName.length >= 3 &&

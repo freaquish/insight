@@ -45,8 +45,6 @@ export default Vue.extend({
       this.$router.push(`/profile/${this.user.username}`)
     },
     onClickFollow(): void {
-      console.log('hello')
-
       this.followactions({
         aid: this.user.account_id,
         onComplete: () => {

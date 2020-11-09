@@ -35,14 +35,14 @@
         <div
           v-for="tab in tabs"
           :key="tab"
-          class="border border-gray-400 border-t-0 border-l-0 border-r-0"
+          class="border-0 border-gray-400 border-t-0 border-l-0 border-r-0"
         >
           <div
             @click="onClickTab(tab)"
             :class="
-              `px-2 mx-1 py-2 font-muli font-semibold border-purple-600 ${
+              `px-2 mx-1 py-2 text-lg font-muli font-semibold border-purple-600 ${
                 currentTab === tab
-                  ? 'border-2 border-t-0 border-r-0 border-l-0'
+                  ? 'border-4 border-t-0 border-r-0 border-l-0'
                   : 'border-0'
               }`
             "
@@ -53,8 +53,8 @@
       </div>
 
       <!-- Body -->
-      <div class="w-full h-full">
-        <div v-if="this.currentTab === 'About'">
+      <div class="w-full h-full pb-16">
+        <div v-if="this.currentTab === 'About' && !this.fullName.includes('undefined')">
           <AboutBox
             :editable="editable"
             :hobbies="hobbies"
