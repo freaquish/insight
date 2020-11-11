@@ -181,7 +181,7 @@ export const actions: ActionTree<RootState, RootState> = {
   createPost({ state, dispatch }) {
     if (
       state.post != undefined &&
-      JSON.stringify(state.post.getAssets()) != '{}'
+      state.post.isAssetUploadable()
     ) {
       dispatch('uploadFilesToFirebase', () => {
         dispatch('sendDataToServer')
