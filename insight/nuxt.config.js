@@ -56,7 +56,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/AppPlugin.js', ssr: false },
-    { src: '~/plugins/FirebasePlugin.js', ssr: false }
+    { src: '~/plugins/FirebasePlugin', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -64,7 +64,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
   ],
   /*
    ** Nuxt.js modules
@@ -72,27 +72,13 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/device',
     '@nuxtjs/svg'
   ],
-
-  /*
- // Auth Module
- auth:{
-  token: {
-      prefix: '_ins.'
-  },
-  localStorage: false,
-  cookie: {
-      options : {
-          path: '/'
-        }
-  }
- },
-*/
 
   vue: {
     config: {

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full grided bg-tint-purple">
     <!-- Header -->
-    <div class="w-full fixed flex flex-col pt-4 px-2">
+    <div class="w-full fixed flex flex-col pt-4 px-2 bg-tint-purple">
       <div class="w-full flex">
         <span @click="goBack()" class="material-icons stroke-current text-white"
           >keyboard_backspace</span
@@ -18,7 +18,7 @@
               class="w-full ml-6 mr-4 py-1 rounded-md focus:outline-none text-white font-muli bg-tint-purple-shallow placeholder-white px-2"
               placeholder="Type name, hobby or tag..."
               v-model="searchText"
-              @input="search(searchText)"
+              @input="onInput()"
             />
           </transition>
         </div>
@@ -49,8 +49,8 @@
 
     <!-- Body -->
     <div
-      class="w-full overflow-y-scroll flex flex-col"
-      style="margin-top:12vh;height:83vh;"
+      class="w-full overflow-y-scroll flex flex-col pb-16"
+      style="margin-top:14vh;height:82vh;"
     >
       <div v-if="this.isTabActive('Tag')">
         <div v-for="tag in tags" :key="tag.tag">
@@ -105,7 +105,9 @@ export default Vue.extend({
       if (this.searchText === undefined && this.showSearchInput === false) {
         this.showSearchInput = true
       } else {
-        this.search(this.searchText)
+        if (this.searchText != undefined) {
+          this.search(this.searchText)
+        }
       }
     },
     selectTab(tab: string): void {
@@ -117,6 +119,11 @@ export default Vue.extend({
     goBack(): void {
       this.clear()
       this.$router.go(-1)
+    },
+    onInput(): void {
+      if (this.searchText != undefined && this.searchText.length > 0) {
+        this.search(this.searchText)
+      }
     }
   }
 })

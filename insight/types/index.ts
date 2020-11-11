@@ -10,6 +10,12 @@ export interface Tag {
     avatar?: string
 }
 
+export interface CollectionPost {
+    post_id: string
+    assets: Assets
+    hobby: string
+  }
+
 export interface User {
     account_id: string
     username?: string
@@ -37,18 +43,23 @@ export interface SearchQuery {
     hobby?: string
 }
 
+export interface TextAsset {
+    data: string
+    bgColor: string
+    fontName: string
+    fontColor: string
+}
+
+
+export interface Assets {
+    images?: string[]
+    video?: string
+    audio?: string
+    text?: TextAsset
+}
+
 export interface ShallowPost {
-    assets: {
-        images?: string[]
-        video?: string
-        audio?: string
-        text?: {
-            data: string
-            bgColor: string
-            fontName: string
-            fontColor: string
-        },
-    },
+    assets: Assets,
     post_id: string
     meta: User
 }
@@ -65,3 +76,54 @@ export interface Leaderboard {
     users: RankCard[]
     selected?: Hobby
 }
+
+export interface Comment {
+    account: User
+    created?: string
+    comment: string
+}
+
+export interface OnePost {
+    created_at: string
+    header: {
+        avatar: string
+        username: string
+        hobby_name: string
+        hobby: string
+        following: number
+        rank: number | null
+        influencer: number
+    },
+    caption: string
+    body: Assets
+    footer: {
+        action_map: {
+            love: number
+            save: number
+            view: number
+            share: number
+            comment: number
+        },
+        comments: Comment[]
+    }
+    meta: {
+        score: number
+        created: string
+        editor?: string
+        account_id: string
+        actions: {
+            loved: number
+            shared: number
+            saved: number
+            viewed: number
+        }
+    }
+    post_id: string
+}
+
+export interface Coords {
+    lat: number
+    long: number
+}
+
+

@@ -1,8 +1,11 @@
 <template>
-  <div class="relative w-full h-32">
+  <div
+    @click="$router.push(`/post/${post.post_id}`)"
+    class="relative w-full h-32"
+  >
     <div class="w-full h-full absolute z-0" v-html="html"></div>
     <div class="w-full h-full absolute z-10 flex flex-col-reverse">
-      <div class="w-full h-auto px-2 flex">
+      <div class="w-full h-auto px-1 pb-1 flex">
         <img :src="getAvatar" class="w-8 h-8 rounded-md" />
         <p class="font-muli ml-2 text-xs mt-1 truncate text-white">
           {{ post.meta.username }}

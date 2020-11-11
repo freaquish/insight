@@ -90,6 +90,7 @@ export const actions = {
                 if (state.phoneNumber != undefined){
                     packet['account_id'] = state.phoneNumber;
                     packet['details']['phone_number'] = state.phoneNumber;
+                    packet['country_code'] = state.countryCode
                 }
                 if(state.coords != undefined){
                     packet['coords'] = state.coords;
@@ -97,7 +98,6 @@ export const actions = {
                 const url = `auth/register`;
                 delete this.$axios.defaults.headers.common["Authorization"];
                 this.$axios.post(url, JSON.stringify(packet)).then((response) => {
-                  console.log(response);
                     if(response.status == 201){
                         let storage = new FrozenStoreage();
                         //this.$auth.setToken('local','Token '+response.data.token);

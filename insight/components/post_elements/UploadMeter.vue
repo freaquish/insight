@@ -1,47 +1,37 @@
 <template>
- <div class="w-full h-auto flex flex-col px-2">
-      <div class="w-full flex justify-center mt-12" style="height:35vh; max-height:40vh;">
-        <img v-if="this.type === 'image'" :src="src" style="width:50%;height:25vh;" />
-        <img v-if="this.type === 'audio'" :src="audImg" style="width:50%;height:25vh;" />
-        <video v-if="this.type === 'video'" :src="src" style="width:50%;height:25vh;" />
+  <div class="w-full px-4 py-2 rounded-md shadow-lg flex my-1 h-16">
+    <div class="inline-block">
+      <span v-if="this.progress.type === 'image'" class="material-icons rounded-full px-1 py-1 bg-green-100 text-green-500 text-3xl">
+        wallpaper
+      </span>
+      <span v-else-if="this.progress.type === 'video'" class="material-icons rounded-full px-1 py-1 bg-red-200 text-red-600 text-3xl mt-1">videocam</span>
+      <span v-else-if="this.progress.type === 'audio'" class="material-icons rounded-full px-1 py-1 bg-blue-100 text-blue-600 text-3xl mt-1">graphic_eq</span>
+    </div>
+    <div class="w-full h-full flex flex-row-reverse">
+      <p class="font-muli text-gray-700 text-sm mt-3">{{progress.progress}}%</p>
+      <div class="w-full h-1 bg-gray-300 mx-3 mt-5 rounded-full">
+        <div v-if="this.progress.progress === 100" class="h-1 rounded-full w-full bg-green-400"></div>
+        <div v-else class="h-1 w-full bg-purple-600 rounded-full" :style="`width: ${percentage}%;`"></div>
       </div>
-
-      <div class="w-full flex h-10">
-        <div class=" w-full h-10 rounded-lg border border-gray-300">
-          <div class="bg-pink-600 h-10 rounded-lg" :style="`width:${percent}%`"></div>
-        </div>
-        <div class="h-full ml-2">
-          <p class="font-muli mt-1 font-bold text-green-400">{{percent}}%</p>
-        </div>
-      </div>
- </div>
+    </div>
+  </div>
 </template>
 
-<script>
-export default{
-  props:['src','type','perc'],
-  data(){
-    return {
-      audImg: 'https://firebasestorage.googleapis.com/v0/b/social-express-103904.appspot.com/o/assets%2Flogo.jpeg?alt=media&token=ac16b5c8-42aa-45a2-ae29-05809fba116f'
-    }
+<script lang="ts">
+import Vue, { PropOptions } from 'vue'
+import { ProgressAsset } from '@/plugins/FirebasePlugin'
+
+export default Vue.extend({
+  props: {
+    progress: {} as PropOptions<ProgressAsset>
   },
-  computed:{
-    percent: function(){
-      if(this.perc === NaN){
-        return 100;
-      }
-      let percentage = this.perc * 100;
-      if(percentage < 100){
-        return percentage.toFixed(0)
-      }
-      return 100;
+  computed: {
+    percentage(): string {
+      return this.progress.progress.toFixed(0)
     }
   }
-}
+})
 </script>
 
 <style scoped>
-.padds{
-  padding: auto ;
-}
 </style>

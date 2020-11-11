@@ -4,7 +4,6 @@ export default function IsInViewport(el) {
 
   this.handler = (entries, observers, callback) => {
     entries.forEach((entry, i) => {
-      // console.log(entry.intersectionRatio);
       callback(entry);
       if (entry.intersectionRatio <= 0.45) {
         let video = entry.target.querySelector('video')

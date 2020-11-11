@@ -16,7 +16,7 @@
 export default {
   props: ['loading' ,'text'],
   mounted(){
-    console.log(this.loading)
+    
   }
 }
 </script>

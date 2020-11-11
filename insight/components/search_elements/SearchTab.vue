@@ -2,7 +2,7 @@
   <div
     @click="$emit('tabbed', text)"
     :class="
-      `w-auto ml-1 h-auto px-2 py-2 ${
+      `w-auto ml-1 h-auto px-2 py-1 ${
         active
           ? 'border-2 border-white border-t-0 border-l-0 border-r-0'
           : 'border-0'
@@ -11,7 +11,9 @@
   >
     <p
       :class="
-        `font-lato text-xl text-white ${active ? 'font-bold' : 'font-normal'}`
+        `font-lato text-xl text-white ${
+          active ? 'font-bold text-white' : 'font-normal'
+        }`
       "
     >
       {{ text }}

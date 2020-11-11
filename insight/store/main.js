@@ -28,7 +28,6 @@ export const mutations = {
       state.links.previous = payload.links.previous;
 
       if(state.links.next != null){
-        // console.log('working at non-null');
         if(state.links.previous === null){
           // First Page reset all indexes
           
@@ -43,7 +42,6 @@ export const mutations = {
           }
           state.posts = state.posts.concat(payload.posts);}}
       else if(state.links.next == null) {
-        // console.log('working');
         state.posts = state.posts.concat(payload.posts);
         }
       }
@@ -51,8 +49,6 @@ export const mutations = {
       state.nextFetchIndex =[];
       state.nextFetchedIndex = [];
       state.posts = payload.posts;}
-
-      // console.log(state);
   },
 
   updateFetchedIndex: function(state, index){
@@ -62,7 +58,6 @@ export const mutations = {
   },
   setPostData: function(state, payload){
     state.onePost = payload;
-    console.log(state)
   },
   setLoadingState: function(val){
     state.loading = val;
@@ -99,7 +94,6 @@ export const mutations = {
         }
         post.footer.action_map = {...action};
         post.meta.actions = {...actionActive};
-        // console.log(payload,action,actionActive);
         Object.assign(state.posts[index],post);
       }
     });
@@ -137,6 +131,9 @@ export const actions = {
     }
     if(token != null){
       this.$axios.setHeader('Authorization',token);
+    }else {
+      storage.logOut()
+      this.$router.replace('/auth/login')
     }
     this.$axios.get(url).then(res=>{
       commit('setAccountData', res.data);
@@ -148,9 +145,8 @@ export const actions = {
       commit('setLoadingState',false);
 
     }).catch(err => {
-      // console.log(err);
-      commit('setLoadingState',false);
-      commit('setErrorState',true);
+      storage.logOut()
+      this.$router.replace('/auth/login')
     })
   },
 
@@ -165,13 +161,11 @@ export const actions = {
       this.$axios.setHeader('Authorization',token);
     }
     this.$axios.get(url).then(res=>{
-      // console.log(res)
       commit('setPostData', res.data);
       commit('setLoadingState',false);
       payload.func();
 
     }).catch(err => {
-      // console.log(err);
       commit('setLoadingState',false);
       commit('setErrorState',true);
     })

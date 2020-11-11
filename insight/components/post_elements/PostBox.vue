@@ -1,17 +1,15 @@
 <template>
   <div
-    class="w-full post-box bg-white my-4 overflow-hidden"
+    class="w-full post-box bg-white my-4 pb-2 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
     style="touch-action: pan-y !important;"
     @scroll="monitorAssets"
     @click="$emit('current-index', index)"
   >
-    <div
-      class="header w-full h-16 px-2 flex flex-row flex-no-wrap py-2 border border-gray-300 border-l-0 border-t-0 border-r-0"
-    >
+    <div class="header w-full h-16 px-4 flex flex-row flex-no-wrap py-2 ">
       <img
         @click="$router.push(`/profile/${username}`)"
         :src="avatar"
-        class="w-12 h-12 rounded-lg border"
+        class="w-12 h-12 rounded-full border"
       />
 
       <div class="w-full h-full flex flex-col  ml-4">
@@ -25,14 +23,17 @@
           {{ hobbyName }}
         </p>
       </div>
+      <!-- <p class="font-lato text-sm text-gray-600">
+        {{ expand_time(created_at) }}
+      </p> -->
       <div class="w-full h-full flex flex-row-reverse px-2">
-        <button
+        <div
           v-if="this.following"
           @click="followClickListener()"
-          class="font-lato font-semibold text-lg text-blue-500 rounded-md h-10 px-4 bg-blue-100"
+          class="font-lato font-semibold pt-1 text-base text-gray-800 rounded-md h-8 px-4 bg-gray-200"
         >
           Follow
-        </button>
+        </div>
       </div>
     </div>
 
@@ -43,36 +44,14 @@
 
     <!-- Footer -->
     <div class="w-full h-auto flex flex-col footer">
-      <!-- truncated Caption -->
-      <div
-        v-if="this.caption != undefined && !this.fullCaption"
-        class="w-full h-auto py-1 px-2 py-2 flex"
-      >
-        <div class="h-full" style="width:73%;">
-          <div
-            class="w-full truncate font-muli font-medium text-base"
-            v-html="caption"
-          ></div>
-        </div>
-        <button
-          v-if="this.caption != undefined && this.caption.length > 0"
-          @click="showFullCaption()"
-          class="px-4 bg-transparent outline-none border-0 text-gray-500 text-sm"
-        >
-          Read More
-        </button>
-      </div>
+      
 
       <!-- Actions -->
-      <div class="w-full h-16 flex overflow-hidden">
-        <div class="w-full h-auto flex px-2 py-2">
+      <div class="w-full px-4 h-16 flex overflow-hidden">
+        <div class="w-full h-auto flex px-0 pt-2">
           <button
             @click="bindAction('love')"
-            :class="
-              `w-auto focus:outline-none h-auto py-0 px-2 ${
-                actions.loved ? 'bg-red-200 rounded-md' : ''
-              }`
-            "
+            :class="`w-auto focus:outline-none h-auto py-0 px-2`"
           >
             <i
               :class="
@@ -82,22 +61,28 @@
               "
             ></i>
             <span
-              class="ml-1 font-muli font-medium text-red-600 text-gray-800 text-sm"
+              :class="
+                `ml-1 font-muli font-medium ${
+                  actions.loved ? 'text-red-600' : 'ext-gray-600'
+                }  t text-sm`
+              "
               >{{ retroText(loves) }}</span
             >
           </button>
-          <button
-            :class="
-              `w-auto ml-1 focus:outline-none h-auto py-0 px-2 ${
-                actions.viewed ? 'bg-purple-200 rounded-md' : ''
-              }`
-            "
-          >
+          <button :class="`w-auto ml-1 focus:outline-none h-auto py-0 px-2`">
             <i
-              class="fa fa-dot-circle-o stroke-current text-purple-700 fa-lg"
+              :class="
+                `fa fa-dot-circle-o stroke-current ${
+                  actions.viewed ? 'text-purple-600' : 'text-gray-800'
+                }  fa-lg`
+              "
             ></i>
             <span
-              class="ml-1 font-muli font-medium text-purple-600 text-gray-800 text-sm"
+              :class="
+                `ml-1 font-muli font-medium ${
+                  actions.viewed ? 'text-purple-600' : 'text-gray-800'
+                } text-sm`
+              "
               >{{ retroText(views) }}</span
             >
           </button>
@@ -105,15 +90,15 @@
           <button
             v-if="this.shareable"
             @click="bindAction('share')"
-            :class="
-              `w-auto focus:outline-none ml-1 h-auto py-0 px-2 ${
-                actions.shared ? 'bg-blue-100 rounded-md' : ''
-              }`
-            "
+            :class="`w-auto focus:outline-none ml-1 h-auto py-0 px-2`"
           >
             <i class="fa fa-share stroke-current text-blue-700 fa-lg"></i>
             <span
-              class="ml-1 font-muli font-medium text-blue-700 text-gray-800 text-sm"
+              :class="
+                `ml-1 font-muli font-medium ${
+                  actions.shared ? 'text-blue-700' : 'text-gray-800'
+                }  text-sm`
+              "
               >{{ retroText(shares) }}</span
             >
           </button>
@@ -131,20 +116,43 @@
           </button>
         </div>
         <button
-          v-if="false"
-          @click="$emit('enable-comment')"
-          class="w-auto focus:outline-none h-12 pt-2 px-2 outline-none bg-black rounded-lg mt-2 mr-2"
+          v-if="this.isComment != undefined && this.isComment === true"
+          @click="onClickComment"
+          class="w-auto focus:outline-none flex h-12 pt-2 px-2 outline-none rounded-lg mt-2 mr-2"
         >
-          <span class="material-icons text-3xl stroke-current text-white">
+          <span class="material-icons text-3xl stroke-current ">
             comment
           </span>
+          <span class="font-montserrat ml-1 text-gray-700 text-sm mt-1">{{
+            sanitize(comments)
+          }}</span>
+        </button>
+      </div>
+
+      <!-- truncated Caption -->
+      <div
+        v-if="this.caption != undefined && !this.fullCaption"
+        class="w-full h-auto px-6 flex"
+      >
+        <div class="h-full" style="width:73%;">
+          <div
+            class="w-full truncate font-muli font-medium text-sm text-gray-800"
+            v-html="caption"
+          ></div>
+        </div>
+        <button
+          v-if="this.caption != undefined && this.caption.length > 0"
+          @click="showFullCaption()"
+          class="px-4 bg-transparent outline-none border-0 text-gray-500 text-xs"
+        >
+          Read More
         </button>
       </div>
 
       <!-- Full Caption -->
       <div
         v-if="this.caption != undefined && this.fullCaption"
-        class="w-full h-auto py-2 px-4 flex flex-col"
+        class="w-full h-auto px-6 flex flex-col"
       >
         <div class="w-full h-auto word">
           <p class="word font-muli font-medium text-base" v-html="caption"></p>
@@ -166,12 +174,17 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import { avatarDefault } from '@/static/js/assets'
 import IsInViewport from '@/static/js/in-viewport.js'
 export default {
-  props: ['commentActive', 'propsAsset', 'index', 'cindex','bind'],
+  props: ['commentActive', 'propsAsset', 'index', 'bind', 'isComment', 'onep'],
   components: {
     AssetSlider
   },
   beforeDestroy() {
-    this.viewMonitor.$unbind(this.$el)
+    if (
+      this.viewMonitor != undefined &&
+      (this.onep === false || this.onep === undefined)
+    ) {
+      this.viewMonitor.$unbind(this.$el)
+    }
   },
   mounted() {
     this.bindDataWithPropsAsset()
@@ -179,20 +192,26 @@ export default {
     this.getCaption()
     let self = this
     this.$nextTick().then(() => {
-      self.viewMonitor = new IsInViewport(this.$el)
-      self.viewMonitor.$init(self.$el, (entry) => {
-        // console.log(self.index,entry.intersectionRatio);
-        if (entry.intersectionRatio >=0.22 && 
-          self.nextFetchIndex.includes(self.index) &&
-          !self.nextFetchedIndex.includes(self.index)
-        ) {
-          // console.log(self.nextFetchIndex, self.nextFetchedIndex, self.index)
-          self.fetchFeed(self.index)
-        }
-        if (entry.intersectionRatio >=0.65 && self.actions.viewed === false) {
-          self.bindAction('view')
-        }
-      })
+      if (this.onep === undefined || this.onep === false) {
+        self.viewMonitor = new IsInViewport(this.$el)
+        self.viewMonitor.$init(self.$el, entry => {
+          // console.log(self.index,entry.intersectionRatio);
+          if (
+            entry.intersectionRatio >= 0.22 &&
+            self.nextFetchIndex.includes(self.index) &&
+            !self.nextFetchedIndex.includes(self.index)
+          ) {
+            // console.log(self.nextFetchIndex, self.nextFetchedIndex, self.index)
+            self.fetchFeed(self.index)
+          }
+          if (
+            entry.intersectionRatio >= 0.65 &&
+            self.actions.viewed === false
+          ) {
+            self.bindAction('view')
+          }
+        })
+      }
     })
   },
   data() {
@@ -220,7 +239,8 @@ export default {
       comments: 0,
       saves: 0,
       views: 0,
-      created: undefined,
+
+      created_at: '',
       actions: {
         loved: false,
         shared: false,
@@ -236,6 +256,7 @@ export default {
   methods: {
     ...mapActions('post/post_actions', ['microActionPost', 'followUser']),
     ...mapMutations('main', ['updateActions', 'updateAssociation']),
+    ...mapMutations('post/one_post', ['updateActionOnePost']),
     ...mapActions('main', ['fetchFeed']),
     bindDataWithPropsAsset: function() {
       this.pid = this.propsAsset.post_id
@@ -246,10 +267,11 @@ export default {
           ? this.avatar
           : avatarDefault
       this.hobbyName = this.propsAsset.header.hobby_name
-      this.created = this.propsAsset.meta.created
+
       this.account_id = this.propsAsset.meta.account_id
       this.assets = this.propsAsset.body
       this.caption = this.propsAsset.caption
+      this.created_at = this.propsAsset.meta.created
       this.bindActionAssets()
       this.userurl = `/post/${this.username}`
       // console.log(this.assets);
@@ -260,6 +282,23 @@ export default {
       } else {
         return text
       }
+    },
+    expand_time(time) {
+      if (time === undefined) {
+        return ''
+      }
+      let t = time
+      if (t.includes('d')) {
+        return t
+      }
+      let number = parseFloat(t.replace('h', ''))
+      // console.log(number * 60)
+      if (number * 60 < 60) {
+        t = `${(number * 60).toFixed(0)}min`
+      } else {
+        t = `${number.toFixed(2)}h`
+      }
+      return t
     },
     bindActionAssets: function() {
       for (let [key, value] of Object.entries(this.propsAsset.meta.actions)) {
@@ -299,19 +338,21 @@ export default {
         }
       }
     },
+    onClickComment() {
+      this.$emit('ecomment', this.pid)
+    },
     followClickListener: function() {
-      this.following = false;
+      this.following = false
       this.followUser({
         fid: this.account_id,
-        action:'follow',
+        action: 'follow',
         func: () => {
           this.updateAssociation({
             aid: this.account_id,
-            action:  'follow'
+            action: 'follow'
           })
         }
       })
-      
     },
     showFullCaption: function() {
       this.fullCaption = true
@@ -320,25 +361,26 @@ export default {
       this.fullCaption = false
     },
 
-    bindAction: function(type) {
-      if(this.bind === false){
-        return null;
+    sanitize(num) {
+      if (num >= 1000) {
+        return `${(num / 1000).toFixed(1)}K`
       }
+      return num.toString()
+    },
+    bindAction: function(type) {
       if (type === 'love') {
         this.microActionPost({
           action: this.actions.loved ? 'un_love' : 'love',
           pid: this.pid,
           action_complete: () => {
-            // this.loves += (this.actions.loved) ? -1 : 1;
-            // console.log(
-            //   this.actions.loved,
-            //   this.actions.loved ? 'un_love' : 'love'
-            // )
-            this.updateActions({
-              pid: this.pid,
-              action: this.actions.loved ? 'un_love' : 'love'
-            })
-            // this.actions.loved = (this.actions.loved) ? false: true;
+            if (this.onep === true) {
+              this.updateActionOnePost(type)
+            } else {
+              this.updateActions({
+                pid: this.pid,
+                action: this.actions.loved ? 'un_love' : 'love'
+              })
+            }
             this.bindActionAssets()
           }
         })
@@ -347,8 +389,12 @@ export default {
           action: 'view',
           pid: this.pid,
           action_complete: () => {
-            this.actions.viewed = true
-            this.updateActions({ pid: this.pid, action: 'view' })
+            if (this.onep === true) {
+              this.updateActionOnePost(type)
+            } else {
+              this.actions.viewed = true
+              this.updateActions({ pid: this.pid, action: 'view' })
+            }
             this.bindActionAssets()
           }
         })
@@ -358,7 +404,7 @@ export default {
           navigator
             .share({
               title: `Post on ${this.hobbyName} by ${this.username}`,
-              text: '',
+              text: `Post on ${this.hobbyName} by ${this.username}`,
               url: shareurl
             })
             .then(() => {
@@ -366,8 +412,12 @@ export default {
                 action: 'share',
                 pid: this.pid,
                 action_complete: () => {
-                  this.actions.shared = true
-                  this.updateActions({ pid: this.pid, action: 'share' })
+                  if (this.onep === true) {
+                    this.updateActionOnePost(type)
+                  } else {
+                    this.actions.shared = true
+                    this.updateActions({ pid: this.pid, action: 'share' })
+                  }
                   this.bindActionAssets()
                 }
               })
@@ -380,8 +430,12 @@ export default {
             action: 'un_save',
             pid: this.pid,
             action_complete: () => {
-              this.actions.saved = false
-              this.updateActions({ pid: this.pid, action: 'un_save' })
+              if (this.onep === true) {
+                this.updateActionOnePost(type)
+              } else {
+                this.actions.saved = false
+                this.updateActions({ pid: this.pid, action: 'un_save' })
+              }
               this.bindActionAssets()
               // this.actions.saved =
             }
@@ -391,8 +445,12 @@ export default {
             action: 'save',
             pid: this.pid,
             action_complete: () => {
-              this.actions.saved = true
-              this.updateActions({ pid: this.pid, action: 'save' })
+              if (this.onep === true) {
+                this.updateActionOnePost(type)
+              } else {
+                this.actions.saved = true
+                this.updateActions({ pid: this.pid, action: 'save' })
+              }
               this.bindActionAssets()
             }
           })
@@ -439,7 +497,6 @@ export default {
 
 .body {
   max-height: 60vh;
-  min-height: 35vh;
 }
 
 .word {

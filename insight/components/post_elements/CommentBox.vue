@@ -1,23 +1,58 @@
 <template>
-  <div v-if="this.active" class="w-full h-auto" style="min-height:32vh;">
-      <div v-for="comment in comments" :key="comments.indexOf(comment)">
-          <comment-text :data="comment" />
+  <div class="w-full mb-4 flex flex-col h-auto py-1 px-2">
+    <div
+      @click="$router.push(`/profile/${comment.account.username}`)"
+      class="h-auto flex"
+    >
+      <ImageBox :src="comment.account.avatar" class="w-10 h-10 rounded-full" />
+      <div class="flex flex-col w-auto h-full">
+        <p class="ml-3 font-lato font-bold truncate">
+          {{ comment.account.name }}
+        </p>
+        <span
+          class="ml-3 text-blue-700 font-montserrat font-medium text-sm truncate"
+          >@{{ comment.account.username }}</span
+        >
       </div>
+      <div class="w-full h-full flex flex-row-reverse pr-4">
+        <p class="font-lato text-sm text-gray-600">
+          {{ expand_time(comment.created) }}
+        </p>
+      </div>
+    </div>
+    <div class="h-auto pr-12 mt-1" style="padding-left:3.2rem;">
+      <p class="font-muli break-words" v-html="comment.comment"></p>
+    </div>
   </div>
 </template>
 
-<script>
-import CommentText from "@/components/post_elements/CommentText.vue";
-export default {
-  props: ['active','comments'],
-  components:{
-      CommentText
+<script lang="ts">
+import Vue, { PropOptions } from 'vue'
+import { Comment } from '@/types/index'
+import ImageBox from '@/components/util/ImageBox.vue'
+
+export default Vue.extend({
+  components: {
+    ImageBox
   },
-  data(){
-      return {
+  props: {
+    comment: {} as PropOptions<Comment>
+  },
+  methods: {
+    expand_time(time: string): string {
+      let t = time
+      if (t.includes('days')) {
+        return t.split(',')[0]
       }
+      let number = parseFloat(t.replace('h', ''))
+      // console.log(number * 60)
+      if (number * 60 < 60) {
+        t = `${(number * 60).toFixed(0)}min`
+      }
+      return t
+    }
   }
-}
+})
 </script>
 
 <style scoped></style>

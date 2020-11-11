@@ -1,13 +1,15 @@
 introduction:
   - un_follow function
-  - comment
-  - search
+
   - discover
   - forgot password
-  - leaderboard
+s
   - notifications
   - add friend
   - add places
 
 refraction:
   - Token Storage from local Storage to safe storage
+
+fix:
+  - whenever any @tag transfers to profile/_aid if no user exist then show error page

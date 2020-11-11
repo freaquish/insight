@@ -1,108 +1,42 @@
 <template>
-  <client-only>
-    <div
-      class="overflow-hidden w-full flex flex-col pt-6"
-      style="margin-bottom:5vh; height:95vh;"
-    >
-      <div class="flex flex-col h-16 w-full px-4">
-        <div class="w-full h-auto flex justify-between">
-          <span @click="$router.go(-1)" class="material-icons"
-            >keyboard_backspace</span
+  <div class="w-full h-screen bg-white flex flex-col">
+    <!-- Header -->
+    <div class="w-full pb-2 px-2 pt-2 flex flex-col justify-between">
+      <div class="w-full h-auto py-2 flex justify-between">
+        <span @click="navBack" class="material-icons">keyboard_backspace</span>
+        <p class="font-lato font-semibold text-lg">Type Writer</p>
+        <button class="px-2 py-1">
+          <span @click="next()" class="material-icons text-purple-600"
+            >east</span
           >
-          <h1 class="font-lato font-semibold text-2xl text-black">
-            Type Writer
-          </h1>
-          <button
-            @click="moveNext"
-            class="px-4 py-2 rounded-md bg-blue-500 text-white font-muli"
-          >
-            Next
-          </button>
-        </div>
-        <p
-          class="font-muli font-bold px-2 py-1 rounded-md w-64 bg-green-400 text-lg text-white mt-1"
-        >
-          Write something innovative
-        </p>
-      </div>
-      <div class="mt-8 px-4 w-full editor-parent">
-        <div
-          contenteditable="true"
-          id="editor"
-          @focus="activateFocus()"
-          @blur="infocus = false"
-          @change="insertDataInState()"
-          class="overflow-auto w-full h-full border-2 font-bold font-lg border-purple-600 focus:outline-none rounded-sm px-4 py-4"
-        >
-          {{ data }}
-        </div>
-      </div>
-      <div
-        v-if="
-          !this.infocus && (this.img != undefined || this.video != undefined)
-        "
-        class="media-deck h-auto flex "
-      >
-        <img
-          v-if="this.img != undefined && this.video === undefined"
-          :src="this.img"
-          class="w-full h-full"
-        />
-        <video
-          v-if="this.video != undefined && this.img === undefined"
-          :src="this.video"
-          class="w-full h-full"
-          controls
-        />
-        <button
-          @click="removeMedia()"
-          class="mx-2 h-16 px-2 py-2 rounded-md shadow-md bg-black"
-        >
-          <delete-svg class="w-10 h-10 stroke-current stroke-4 text-white" />
         </button>
       </div>
 
-      <div
-        v-if="!this.infocus && (this.colorRequired || this.fontRequired)"
-        class="absolute bottom-0 mb-20 w-full h-48 py-4 px-4 "
-      >
+      <div class="flex justify-center">
         <div
-          v-if="this.colorRequired"
-          class="flex w-full h-auto overflow-x-scroll overflow-y-hidden py-2"
+          class="inline-block bg-green-400 px-2 py-1 font-muli text-white font-bold rounded-md"
         >
-          <div v-for="color in assetColors" :key="assetColors.indexOf(color)">
-            <color-box :color="color" @color-selected="selectColor" />
-          </div>
-        </div>
-        <div
-          v-if="this.fontRequired"
-          class="flex w-full h-auto overflow-x-scroll overflow-y-hidden"
-        >
-          <div v-for="font in assetFonts" :key="assetFonts.indexOf(font)">
-            <font-box
-              @font-selected="fontSelected"
-              :font="font"
-              :bgColor="currentBgColor"
-              :txtColor="currentTextColor"
-            />
-          </div>
+          Write something inspiring
         </div>
       </div>
+    </div>
 
-      <div
-        class="absolute bottom-0 rounded-md dash-width h-12 mb-12 py-2 flex justify-around"
-      >
+    <!-- Editor -->
+    <div class="w-full h-full flex flex-col-reverse pb-16">
+      <!-- ToolBox -->
+      <div class="w-full h-12 bg-gray-800 flex justify-around pt-2">
         <i
           @click="pickerClicked('image-picker')"
           class="fa fa-picture-o stroke-current text-white fa-lg px-2 py-2"
           aria-hidden="true"
         ></i>
         <input
+          v-show="false"
           type="file"
           accept="image/*"
           id="image-picker"
           class="display-none"
-          @change="imagePicked()"
+          @change="dataPicked('image-picker')"
         />
         <i
           @click="pickerClicked('video-picker')"
@@ -110,182 +44,232 @@
           aria-hidden="true"
         ></i>
         <input
+          v-show="false"
           type="file"
           accept="video/*"
           id="video-picker"
           class="display-none"
-          @change="videoPicked()"
+          @change="dataPicked('video-picker')"
         />
 
         <i
-          @click="fontTrigger()"
+          @click="pickerClicked('font')"
           class="fa fa-text-width stroke-current text-white fa-lg px-2 py-2"
           aria-hidden="true"
         ></i>
         <i
-          @click="paintText()"
+          @click="pickerClicked('textcolor')"
           class="fa fa-font stroke-current text-white fa-lg px-2 py-2"
           aria-hidden="true"
         ></i>
         <i
-          @click="paintBackground()"
+          @click="pickerClicked('bgcolor')"
           class="fa fa-paint-brush stroke-current text-white fa-lg px-2 py-2"
           aria-hidden="true"
         ></i>
       </div>
+
+      <!-- Preview -->
+      <div v-if="this.showing != undefined" class="w-full h-16 bg-gray-800">
+        <div
+          v-if="this.showing === 'font'"
+          class="flex flex-row overflow-x-scroll"
+        >
+          <div v-for="font in fonts" :key="font">
+            <FontBox :font="font" @font-selected="updateFont" />
+          </div>
+        </div>
+
+        <div
+          v-if="this.showing === 'bgcolor' || this.showing === 'textcolor'"
+          class="flex flex-row overflow-x-scroll pt-1"
+        >
+          <div v-for="color in colors" :key="color">
+            <ColorBox :color="color" @color-selected="updateColor" />
+          </div>
+        </div>
+      </div>
+
+      <!-- MediaSuite -->
+      <div
+        class="h-auto w-full flex justify-center mb-8"
+        v-if="this.image != undefined || this.video != undefined"
+      >
+        <div class="flex">
+          <div v-if="this.image != undefined">
+            <img :src="image" class="w-48 h-32" />
+          </div>
+          <div v-if="this.video != undefined">
+            <video class="w-48 h-32" :src="`${video}#t=1`" controls />
+          </div>
+          <div class="h-32 px-2 flex flex-col justify-center">
+            <span @click="removeMedia()" class="material-icons text-red-600"
+              >delete_outline</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full h-full bg-white">
+        <textarea
+          id="editor"
+          contenteditable="true"
+          v-model="data"
+          placeholder="Write something inspiring!"
+          class="w-full border-2 focus:outline-none border-gray-200 border-l-0 border-r-0 border-b-0 min-height-editor overflow-x-hidden overflow-y-scroll px-1 py-2"
+        ></textarea>
+      </div>
     </div>
-  </client-only>
+  </div>
 </template>
 
-<script>
-import { colors, fonts } from '@/static/js/assets.js'
-import ColorBox from '@/components/editor_elements/ColorBox.vue'
+<script lang="ts">
+import Vue from 'vue'
+import { colors, fonts } from '@/static/js/assets'
+import { TextAsset, Assets } from '@/types/index'
 import FontBox from '@/components/editor_elements/FontBox.vue'
-import DeleteSvg from '@/assets/svg/DeleteSvg.vue'
-import { mapState, mapMutations } from 'vuex'
-export default {
-  updated() {
-    let editor = document.getElementById('editor')
-    editor.style.setProperty('background-color', this.currentBgColor)
-    editor.style.setProperty('color', this.currentTextColor)
-    editor.style.setProperty('font-family', this.currentFont)
-    this.editor = editor
-  },
+import ColorBox from '@/components/editor_elements/ColorBox.vue'
+import { mapMutations } from 'vuex'
+
+export default Vue.extend({
   components: {
-    ColorBox,
     FontBox,
-    DeleteSvg
+    ColorBox
   },
   data() {
     return {
-      fonts: [],
-      img: undefined,
-      video: undefined,
-      assetColors: colors,
-      assetFonts: fonts,
-      colorRequired: false,
-      fontRequired: false,
-      colorTargetFont: false,
+      editor: undefined as HTMLTextAreaElement | undefined,
+      image: undefined as string | undefined,
+      video: undefined as string | undefined,
+      data: undefined as string | undefined,
       currentBgColor: colors[0],
       currentFont: fonts[0],
       currentTextColor: colors[1],
-      data: undefined,
-      editor: undefined,
-      infocus: false
+      fonts: fonts,
+      colors: colors,
+      showing: undefined as string | undefined
     }
   },
-  computed: {
-    ...mapState('post/create', ['text'])
+  mounted() {
+    this.editor = this.$el.querySelector('#editor') as HTMLTextAreaElement
+    this.updateFont(this.currentFont)
+    this.updateBgColor(this.currentBgColor)
+    this.updateTextColor(this.currentTextColor)
+    this.editor.focus()
   },
   methods: {
-    ...mapMutations('post/create', ['insertTextData', 'insertAssets']),
-    activateFocus: function() {
-      this.infocus = true
-    },
-    insertDataInState: function() {
-      this.data = this.editor.innerText
-      this.insertTextData({
-        data: this.data,
-        fontName: this.currentFont,
-        fontColor: this.currentTextColor,
-        bgColor: this.currentBgColor,
-        editor: 'type_writer'
-      })
-    },
-    deactivateFocus: function() {
-      this.editor.blur()
-      this.infocus = false
-    },
-    paintBackground: function() {
-      this.deactivateFocus()
-      this.colorTargetFont = false
-      this.colorRequired = !this.colorRequired
-    },
-    pickerClicked: function(name) {
-      let elem = document.getElementById(name)
-      elem.click()
-    },
-    paintText: function() {
-      this.deactivateFocus()
-      this.colorTargetFont = true
-      this.colorRequired = !this.colorRequired
-    },
-    fontTrigger: function() {
-      this.deactivateFocus()
-      this.fontRequired = !this.fontRequired
-    },
-
-    fontSelected: function(font) {
-      console.log(font)
-      this.currentFont = font
-      this.editor.style.setProperty('font-family', font)
-    },
-    selectColor: function(color) {
-      if (this.colorTargetFont) {
-        this.currentTextColor = color
-        this.editor.style.setProperty('color', this.currentTextColor)
-      } else {
-        this.currentBgColor = color
-        document.execCommand('backColor', false, this.currentBgColor)
+    ...mapMutations('post/create_post', [
+      'insertTextData',
+      'insertAssets',
+      'resetAssets'
+    ]),
+    updateBgColor(colorHex: string): void {
+      if (this.editor != undefined && colorHex.length > 0) {
+        this.currentBgColor = colorHex
         this.editor.style.setProperty('background-color', this.currentBgColor)
       }
     },
-    imagePicked: function() {
-      let imagePicker = document.getElementById('image-picker')
-      let url = window.URL.createObjectURL(imagePicker.files[0])
-      this.deactivateFocus()
+    updateColor(color: string): void {
+      if (this.showing == 'bgcolor') {
+        this.updateBgColor(color)
+      } else {
+        this.updateTextColor(color)
+      }
+    },
+    updateFont(fontName: string): void {
+      if (this.editor != undefined && fontName.length > 0) {
+        this.currentFont = fontName
+        this.editor.style.setProperty('font-family', this.currentFont)
+      }
+    },
+    updateTextColor(colorHex: string): void {
+      if (this.editor != undefined && colorHex.length > 0) {
+        this.currentTextColor = colorHex
+        this.editor.style.setProperty('color', this.currentTextColor)
+      }
+    },
+    removeMedia(): void {
+      if (this.image != undefined) {
+        URL.revokeObjectURL(this.image)
+      }
+      this.image = undefined
+      if (this.video != undefined) {
+        URL.revokeObjectURL(this.video)
+      }
       this.video = undefined
-      this.img = url
     },
-    videoPicked: function() {
-      let videoPicker = document.getElementById('video-picker')
-      let url = window.URL.createObjectURL(videoPicker.files[0])
-      this.deactivateFocus()
-      this.img = undefined
-      this.video = url
-    },
-    removeMedia: function() {
-      this.img = undefined
-      this.video = undefined
-    },
-    moveNext: function() {
-      if (this.editor.innerText.length > 0) {
-        this.insertDataInState()
-        if (this.img != undefined) {
-          this.insertAssets({ images: [this.img], editor: 'type_writer' })
-        } else if (this.video != undefined) {
-          this.insertAssets({ video: this.video, editor: 'type_writer' })
+
+    dataPicked(uid: string): void {
+      let data = this.$el.querySelector(`#${uid}`) as HTMLInputElement
+      if (data.files != null && data.files.length > 0) {
+        let url = URL.createObjectURL(data.files[0])
+        switch (uid) {
+          case 'image-picker':
+            this.removeMedia()
+            this.image = url
+            // Reseting files so to pick the same file again
+            data.files = null
+            break
+          case 'video-picker':
+            this.removeMedia()
+            this.video = url
+            data.files = null
+            break
         }
+      }
+    },
+
+    navBack(): void {
+      this.resetAssets()
+      this.$router.go(-1)
+    },
+
+    pickerClicked(clicked: string): void {
+      let elem
+      switch (clicked) {
+        case 'image-picker':
+          elem = this.$el.querySelector('#image-picker') as HTMLInputElement
+          if (elem != null) elem.click()
+          break
+        case 'video-picker':
+          elem = this.$el.querySelector('#video-picker') as HTMLInputElement
+          if (elem != null) elem.click()
+          break
+        default:
+          if (this.showing === clicked) {
+            this.showing = undefined
+          } else {
+            this.showing = clicked
+          }
+          break
+      }
+    },
+
+    next(): void {
+      if (this.data != undefined && this.data.length > 0) {
+        this.insertTextData({
+          data: this.data,
+          fontName: this.currentFont,
+          fontColor: this.currentTextColor,
+          bgColor: this.currentBgColor
+        })
+
+        if (this.image != undefined) {
+          this.insertAssets({ images: [this.image] })
+        } else if (this.video != undefined) {
+          this.insertAssets({ video: this.video })
+        }
+
         this.$router.push('/post/caption_page')
       }
     }
   }
-}
+})
 </script>
 
 <style scoped>
-.editor-parent {
-  max-height: 60vh;
-  height: 20%;
-}
-
-.dash-width {
-  width: 92%;
-  margin-left: 4%;
-  background-color: #404247;
-}
-
-.display-none {
-  display: none;
-}
-
-.media-deck {
-  width: 60vw;
-  max-height: 25vh;
-  margin: 2rem auto;
-}
-
-.stroke-4 {
-  stroke-width: 4;
+.min-height-editor {
+  /* min-height: 50ch; */
+  min-height: 52vh;
 }
 </style>

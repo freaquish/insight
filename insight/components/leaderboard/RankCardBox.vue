@@ -1,27 +1,23 @@
 <template>
   <div
     @click="$router.push(`/profile/${scorecard.account.username}`)"
-    class="w-full h-auto px-2 py-2 flex justify-between bg-white"
+    class="w-full rounded-md shadow-lg bg-white flex px-2 py-2 mb-1 h-16"
   >
-    <div class="w-auto flex">
-      <img :src="getAvatar" class="w-10 h-10 mt-1 rounded-md" />
-      <div class="w-auto ml-3 flex flex-col h-auto">
-        <p class="text-pink-600">@{{ scorecard.account.username }}</p>
-        <p class="font-muli  mt-0 font-bold">
-          {{ scorecard.account.name }}
-        </p>
-      </div>
+    <p class="inline-block m-auto font-muli text-xl">{{ san_rank }}.</p>
+    <img
+      :src="getAvatar"
+      class="inline-block my-auto rounded-full w-10 h-10 ml-4"
+    />
+    <div class="w-full h-full flex flex-col ml-4 font-muli">
+      <p class="text-sm text-pink-600">@{{ scorecard.account.username }}</p>
+      <p class="font-bold truncate">{{ scorecard.account.name }}</p>
     </div>
-    <p class="font-muli font-bold mt-1 text-green-400">
+    <p
+      v-if="false"
+      class="inline-block m-auto font-muli text-green-400 font-bold"
+    >
       {{ san_score }}
     </p>
-
-    <div class="w-auto flex mt-1 mr-2">
-      <span class="material-icons stroke-current text-pink-600"
-        >emoji_events</span
-      >
-      <span class="font-muli text-pink-600 ml-1">{{ san_rank }}</span>
-    </div>
   </div>
 </template>
 

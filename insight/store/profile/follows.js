@@ -18,6 +18,11 @@ export const mutations = {
   },
   setAccount: function(state, data) {
     state.username = data
+  },
+  resetFollows(state){
+    state.followers = []
+    state.followings = []
+    state.username = undefined
   }
 }
 
@@ -42,13 +47,11 @@ export const actions = {
       .get(url)
       .then(res => {
         if (res.status === 200) {
-          // console.log(url,res.data);
           commit('setState', res.data)
           commit('setLoading', false)
         }
       })
       .catch(err => {
-        console.log(err)
         commit('setLoading', false)
         this.$router.push('/auth/login')
       })
@@ -63,7 +66,6 @@ export const actions = {
       this.$axios.setHeader('Authorization', token)
     }
     this.$axios.get(`association/follow/${payload.aid}`).then(res => {
-      console.log(res)
       payload.onComplete()
     })
   }

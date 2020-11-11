@@ -1,11 +1,16 @@
 <template>
-  <div class="w-full h-full flex flex-col py-2 overflow-hidden bg-gray-200" style="min-height:100vh;">
+  <div
+    class="w-full h-full flex flex-col pt-2 pb-16 overflow-hidden bg-white"
+    style="min-height:90vh;"
+  >
     <!-- Header -->
     <div class="w-full h-16 pt-2 flex">
-      <span @click="$router.go(-1)" class="material-icons text-2xl">keyboard_arrow_left</span>
-     <div class="w-full h-full flex justify-center">
+      <span @click="$router.go(-1)" class="material-icons text-2xl"
+        >keyboard_arrow_left</span
+      >
+      <div class="w-full h-full flex justify-center">
         <p class="font-muli text-lg font-bold text-green-400">Followers</p>
-     </div>
+      </div>
     </div>
     <div class="w-full h-auto overflow-y-scroll flex flex-col px-2">
       <div v-for="follower in followers" :key="follower.account_id">
@@ -26,15 +31,15 @@ export default {
     return {}
   },
   mounted() {
-    this.fetchFollows("followers");
+    this.fetchFollows('followers')
     // this.avatar = this.account.avatar;
     // this.usename = this.account.username;
   },
-  computed:{
-    ...mapState("profile/follows",["followers","loading"]),
+  computed: {
+    ...mapState('profile/follows', ['followers', 'loading'])
   },
-  methods:{
-    ...mapActions("profile/follows",["fetchFollows"]),
+  methods: {
+    ...mapActions('profile/follows', ['fetchFollows'])
   }
 }
 </script>

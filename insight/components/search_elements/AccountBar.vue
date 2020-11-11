@@ -3,7 +3,7 @@
     <img @click="navigation()" :src="getAvatar" class="w-10 h-10 rounded-lg" />
     <div class="w-auto ml-4 h-full flex flex-col">
       <p @click="navigation()" class="font-montserrat text-sm text-blue-500">
-        {{ user.username }}
+        @{{ user.username }}
       </p>
       <p @click="navigation()" class="font-muli font-bold text-white">
         {{ user.name }}
@@ -45,8 +45,6 @@ export default Vue.extend({
       this.$router.push(`/profile/${this.user.username}`)
     },
     onClickFollow(): void {
-      console.log('hello')
-
       this.followactions({
         aid: this.user.account_id,
         onComplete: () => {

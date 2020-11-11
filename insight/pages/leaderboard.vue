@@ -1,5 +1,5 @@
 <template>
-  <div style="height:95vh; margin-bottom:5vh;" class="bg">
+  <div class="bg w-full h-full min-h-screen">
     <!-- Header -->
     <div class="w-full flex pt-4 px-4">
       <span
@@ -8,12 +8,12 @@
         >keyboard_backspace</span
       >
       <div class="w-full flex justify-center">
-        <p class="font-lato font-semibold text-white text-2xl">Leaderboard</p>
+        <p class="font-lato font-bold text-white text-2xl">Leaderboard</p>
       </div>
     </div>
 
     <!-- Hobby -->
-    <div class="w-full mt-4 px-4 overflow-x-scroll flex">
+    <div class="w-full mt-8 px-4 overflow-x-scroll flex">
       <div v-for="hobby in hobbies" :key="hobby.code_name">
         <div v-if="hobby.name != undefined && hobby.name.length > 1">
           <HobbySelector
@@ -27,11 +27,13 @@
 
     <!-- Scoreboard -->
     <div
-      class="w-full mt-10 flex flex-col overflow-y-scroll"
-      style="height:82vh;"
+      class="w-full px-2 bg-white pb-4 mt-10 pt-4 flex flex-col fixed"
+      style="height:82vh;margin-top:18vh;border-top-right-radius:1rem;border-top-left-radius:1rem;"
     >
-      <div v-for="user in users" :key="user.account.account_id">
+      <div class="w-full h-full overflow-y-scroll mb-12">
+        <div v-for="user in users" :key="user.account.account_id">
         <RankCardBox :scorecard="user" />
+        </div>
       </div>
     </div>
   </div>
@@ -66,12 +68,8 @@ export default Vue.extend({
 
 <style scoped>
 .bg {
-  background: linear-gradient(
-    90.53deg,
-    #0868f7 4.13%,
-    rgba(83, 149, 248, 0.89) 92.58%
-  );
+  background: #0868f7 4.13%;
   display: grid;
-  grid-template-rows: 5vh 8vh 82vh;
+  grid-template-rows: 5vh 12vh 80vh;
 }
 </style>

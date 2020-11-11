@@ -1,7 +1,6 @@
 import { ActionTree, MutationTree } from 'vuex'
 import { SearchResult, SearchQuery } from '@/types/index'
 import FrozenStorage from '@/static/js/local_storage'
-import { User } from 'firebase'
 
 
 export const state = (): SearchResult => ({
@@ -40,7 +39,7 @@ export const mutations: MutationTree<RootState> & Mutations = {
 
 export const actions: ActionTree<RootState, RootState> = {
     search({ commit }, text: string) {
-        let query = (text.replaceAll('#', 'h__')).replaceAll('@', 'a__').replaceAll(' ', '+')
+        let query = text.replace(/#/gi, 'h__').replace(/@/gi, 'a__').replace(/\s/gi, '+')
         const storage = new FrozenStorage()
         const url = `search/?q=${query}`
         if (this.$axios.defaults.headers.common['Authorization'] === undefined) {

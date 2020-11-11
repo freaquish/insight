@@ -2,32 +2,23 @@
   <div class="w-full h-full" id="home">
     <loading-container :loading="loading">
       <div
-        class="w-full h-full py-2 flex flex-col overflow-x-hidden overflow-y-scroll"
+        class="w-full h-full pb-2 flex flex-col overflow-x-hidden overflow-y-scroll"
       >
-        <div v-if="this.registered" class="header py-2 flex px-4">
+        <div v-if="this.registered" class="header py-2 flex px-4 shadow-lg bg-purple-700">
           <img
             @click="navigateToSelf"
             :src="avatar"
             class="w-12 h-12 rounded-full"
           />
-          <div class="w-auto ml-4 mt-2 h-full flex flex-col justify-center">
-            <p @click="navigateToSelf" class="font-lato font-semibold text-2xl">
-              {{ firstName }}
+          <div class="w-auto ml-4 mt-0 h-full flex flex-col justify-center">
+            <p @click="navigateToSelf" class="font-lato font-semibold text-lg text-white">
+              <span class="font-normal">Hello! </span>{{ firstName }}
             </p>
           </div>
-          <div class="h-full w-full flex flex-row-reverse px-4 py-2">
-            <button
-              @click="$router.push('/leaderboard')"
-              class="w-8 h-8 pt-1 focus:outline-none"
-            >
-              <div>
-                <span class="material-icons text-3xl">assessment</span>
-              </div>
-            </button>
-          </div>
+          <div class="h-full w-full flex flex-row-reverse px-4 py-2"></div>
         </div>
 
-        <div class="body flex flex-col bg-gray-200">
+        <div class="body flex flex-col pb-16">
           <div v-for="post in posts" :key="posts.indexOf(post)">
             <post-box
               :propsAsset="post"
@@ -35,7 +26,8 @@
               :cindex="cindex"
               :commentActive="true"
               @current-index="updateIndex"
-              @enable-comment="$router.push(`/post/${post.post_id}`)"
+              :isComment="true"
+              @ecomment="enableComment"
             />
           </div>
         </div>
@@ -97,6 +89,9 @@ export default {
           func()
         }
       }
+    },
+    enableComment(post_id) {
+      this.$router.push(`/post/${post_id}`)
     },
     navigateToSelf: function() {
       this.$router.push('/profile/self')

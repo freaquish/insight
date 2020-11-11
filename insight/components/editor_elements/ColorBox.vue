@@ -1,5 +1,5 @@
 <template>
-    <div class="w-16 h-20 border border-gray-500" @click="$emit('color-selected', color)"></div>
+    <div class="px-4 py-4 rounded-full mx-1" @click="$emit('color-selected', color)"></div>
 </template>
 
 <script>

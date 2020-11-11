@@ -22,17 +22,6 @@ export const mutations: MutationTree<RootState> & Mutations = {
     setLeaderBoardData(state, data): void {
         state.hobbies = data.hobbies
         state.selected = data.selected
-        if (state.selected != undefined) {
-            let index = 0
-            for (let i = 0; i < state.hobbies.length; i++) {
-                if (state.hobbies[i].code_name === state.selected.code_name) {
-                    index = i
-                    break
-                }
-            }
-            state.hobbies = [state.selected].concat(state.hobbies.slice(0, index)).concat(state.hobbies.slice(index + 1))
-
-        }
         state.users = data.users
     }
 }

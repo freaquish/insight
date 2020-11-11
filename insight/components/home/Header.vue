@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col">
+  <div class="w-full flex flex-col border-purple-700">
     
     <!-- First Header -->
     <div v-if="this.active" class="w-full h-16 flex px-2 py-2">

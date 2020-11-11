@@ -9,9 +9,9 @@ import {mapMutations} from "vuex";
 export default {
     props: ['hobby'],
     methods:{
-      ...mapMutations("post/create",['setHobby']),
+      ...mapMutations("post/create_post",['insertHobby']),
       onClick: function(){
-        this.setHobby(this.hobby);
+        this.insertHobby(this.hobby);
         this.$router.push(`/editors/editor_window`);
       }
 
