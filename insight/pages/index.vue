@@ -2,9 +2,9 @@
   <div class="w-full h-full" id="home">
     <loading-container :loading="loading">
       <div
-        class="w-full h-full pb-2 flex flex-col overflow-x-hidden overflow-y-scroll"
+        class="w-full h-full bg-gray-300 px-0 pb-2 flex flex-col overflow-x-hidden overflow-y-scroll"
       >
-        <div v-if="this.registered" class="header py-2 flex px-4 shadow-lg bg-purple-700">
+        <div v-if="this.registered" class="header w-full fixed z-10 rounded-b-lg py-2 flex px-4 shadow-lg bg-purple-700">
           <img
             @click="navigateToSelf"
             :src="avatar"
@@ -18,7 +18,7 @@
           <div class="h-full w-full flex flex-row-reverse px-4 py-2"></div>
         </div>
 
-        <div class="body flex flex-col pb-16">
+        <div class="body flex flex-col pt-16 pb-16 px-2">
           <div v-for="post in posts" :key="posts.indexOf(post)">
             <post-box
               :propsAsset="post"

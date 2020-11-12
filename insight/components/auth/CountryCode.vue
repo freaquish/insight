@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div v-if="this.show" class="modal px-8 pt-8 pb-20 overflow-hidden" @click="close()">
-            <div style="height:70vh;" class="relative w-full rounded-md shadow-lg py-2 bg-white flex flex-col">
+            <div style="height:70vh;" class="relative w-full rounded-md shadow-lg py-2 bg-white text-black flex flex-col">
                 <div class="w-full h-10 flex font-lato font-bold justify-center">Select Country</div>
                 <div class="w-full mt-2 h-full overflow-y-scroll flex flex-col">
                     <div v-for="code in codes" :key="code[0]">
@@ -30,7 +30,7 @@ export default Vue.extend({
             this.$emit('close')
         },
         select(code:string[]): void {
-            this.$emit('select', code)
+            this.$emit('select', [code[0], code[1].includes('+')? code[1]: `+${code[1]}`])
         }
     }
 })

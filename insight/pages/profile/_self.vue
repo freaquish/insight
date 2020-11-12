@@ -54,7 +54,11 @@
 
       <!-- Body -->
       <div class="w-full h-full pb-16">
-        <div v-if="this.currentTab === 'About' && !this.fullName.includes('undefined')">
+        <div
+          v-if="
+            this.currentTab === 'About' && !this.fullName.includes('undefined')
+          "
+        >
           <AboutBox
             :editable="editable"
             :hobbies="hobbies"
@@ -80,16 +84,15 @@ import PostComponent from '@/components/profile/PostsComponent.vue'
 import ImageViewer from '@/components/profile/ImageViewer.vue'
 
 export default Vue.extend({
-  
-  asyncData({params}){
-    return {isSelf: params.self === 'self', arg: params.self}
+  asyncData({ params }) {
+    return { isSelf: params.self === 'self', arg: params.self }
   },
 
   mounted() {
-    if(this.$data.isSelf) {
+    if (this.$data.isSelf) {
       this.fetchProfile(() => {})
-    }else{
-      this.fetchThirdProfile({aid: this.$data.arg, func: () => {}})
+    } else {
+      this.fetchThirdProfile({ aid: this.$data.arg, func: () => {} })
     }
   },
   components: {
@@ -178,9 +181,9 @@ export default Vue.extend({
       this.showImageViewer = value
     },
     navigatetoAssociation(link: string): void {
-      if(!this.$data.isSelf){
+      if (!this.$data.isSelf) {
         this.setAccount(this.username)
-      }else{
+      } else {
         this.setAccount(undefined)
       }
       this.$router.push(`/profile/${link}`)

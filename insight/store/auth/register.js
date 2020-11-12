@@ -1,5 +1,5 @@
 import FrozenStoreage from "@/static/js/local_storage";
-import {IncompleteDataException, BadRequestException, AccountExistException} from "@/static/js/exeptions";
+
 
 export const state = () => ({
     firstName: undefined,

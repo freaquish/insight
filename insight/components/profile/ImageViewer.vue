@@ -45,6 +45,9 @@ export default {
       image: this.src
     }
   },
+  updated(){
+    this.image = this.src
+  },
   methods: {
     ...mapActions('profile/profile', ['uploadImageToFirebase']),
     doneClicked: function() {

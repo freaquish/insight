@@ -16,7 +16,7 @@
       
        
       <div class="mx-4 text-white font-bold font-muli text-3xl mt-10">Welcome<br class="mx-4 text-white font-bold font-muli text-3xl" />Back!</div>
-      <div class="mx-4 text-gray-500 font-lato text-md ">Enter your mobile number and password to get access your account</div>
+      <div class="mx-4 text-gray-500 font-lato text-md ">Enter your mobile number without country code and password to get access your account</div>
       <div class="w-auto mx-8 mt-8 h-16 bgc rounded-tl-lg rounded-tr-lg border-b border-gray-700">
           <i class="fa fa-user-circle mt-6 text-white ml-4" aria-hidden="true"></i>
         <input
@@ -31,7 +31,7 @@
       </div>
 
       <div class="flex flex-row justify-between m-12">
-        <div class="mt-3"><a @click="$router.push('/resetpassword/search_account')" class="text-white font-bold text-md font-lato text-center">Forget?</a></div>
+        <div class="mt-3"><a @click="$router.push('/auth/fp/entry')" class="text-white font-bold text-sm font-lato text-center">Forget Password?</a></div>
         <div class="flex flex-row" @click="login">
           <div class="bg-indigo-500 font-muli font-bold focus:outline-none text-white rounded-tl-md rounded-bl-md py-3 px-4 text-center focus:bg-blue-300"><span class="px-4 text-center">Login</span></div>
           <div class="w-full h-full material-icons text-white bg-indigo-600 text-center rounded-br-md rounded-tr-md p-3 py-3">arrow_right_alt</div>

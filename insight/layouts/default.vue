@@ -60,7 +60,7 @@ export default Vue.extend({
     },
 
     restrictedPagesWithoutLogin(): void {
-      let pages = ['auth-login', 'auth-register', 'intro']
+      let pages = ['auth-login', 'auth-register', 'intro','auth-fp-entry', 'auth-fp-otp_in']
       if(this.$route.name != null && !pages.includes(this.$route.name)){
         this.$router.replace('/auth/login')
       }
