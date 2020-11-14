@@ -126,4 +126,12 @@ export interface Coords {
     long: number
 }
 
+export interface Notification {
+    header?: string,
+    avtar?: string,
+    body?: string,
+    time?: string,
+    alert?: number,
+}
+
 

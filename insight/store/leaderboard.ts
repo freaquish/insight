@@ -16,6 +16,7 @@ export type RootState = ReturnType<typeof state>
 
 type Mutations = {
     setLeaderBoardData(state: RootState, data: Leaderboard): void
+    searchRankResult(state:RootState, results:Leaderboard): void
 }
 
 export const mutations: MutationTree<RootState> & Mutations = {
@@ -23,6 +24,11 @@ export const mutations: MutationTree<RootState> & Mutations = {
         state.hobbies = data.hobbies
         state.selected = data.selected
         state.users = data.users
+    },
+    searchRankResult(state, results): void {
+        state.hobbies = results.hobbies
+        state.selected = results.selected
+        state.users = results.users
     }
 }
 

@@ -1,12 +1,13 @@
 <template>
   <div
     @click="navigate()"
-    class="w-full mb-1 h-16 py-2 px-2 flex bg-tint-purple-shallow"
+    class="w-auto mx-2 rounded-lg mb-4 h-12 py-2 px-2 flex shadow-lg"
+    style="background: #FD3F7E;"
   >
-    <p class="px-2 py-1 my-2 rounded-md font-muli text-white bg-pink-600">
+    <p class="w-8 h-8 text-center my-auto ml-2 pt-1 rounded-full font-muli text-pink-600 bg-white">
       {{ getHobbyAvatar }}
     </p>
-    <p class="ml-2 mt-3 font-muli text-white">{{ hobby.name }}</p>
+    <p class="ml-6 mt-1 font-muli text-white">{{ hobby.name }}</p>
   </div>
 </template>
 

@@ -1,13 +1,14 @@
 <template>
   <div
     @click="$router.push(`/post/${post.post_id}`)"
-    class="relative w-full h-32"
+    class="relative w-auto"
+    style="height:7rem; margin:2px;"
   >
-    <div class="w-full h-full absolute z-0" v-html="html"></div>
+    <div class="w-full h-full absolute z-0 mb-12" v-html="html"></div>
     <div class="w-full h-full absolute z-10 flex flex-col-reverse">
       <div class="w-full h-auto px-1 pb-1 flex">
-        <img :src="getAvatar" class="w-8 h-8 rounded-md" />
-        <p class="font-muli ml-2 text-xs mt-1 truncate text-white">
+        <img :src="getAvatar" class="w-8 h-8 rounded-full" />
+        <p class="font-muli ml-2 text-xs mt-2 truncate text-white">
           {{ post.meta.username }}
         </p>
       </div>
