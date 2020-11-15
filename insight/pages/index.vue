@@ -1,10 +1,10 @@
 <template>
   <div class="w-full h-full" id="home">
-    <loading-container :loading="loading">
+
       <div
         class="w-full h-full bg-gray-300 px-0 pb-2 flex flex-col overflow-x-hidden overflow-y-scroll"
       >
-        <div v-if="this.registered" class="header w-full fixed z-10 rounded-b-lg py-2 flex px-4 shadow-lg bg-purple-700">
+        <div v-if="this.registered" class="header w-full fixed z-10 py-2 flex px-4 shadow-lg bg-purple-700">
           <img
             @click="navigateToSelf"
             :src="avatar"
@@ -32,7 +32,6 @@
           </div>
         </div>
       </div>
-    </loading-container>
     <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>

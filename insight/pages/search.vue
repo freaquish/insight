@@ -13,8 +13,8 @@
             >search</span
           >
             <input             
-              class="w-full ml-6 mr-4 rounded-full focus:outline-none font-muli bg-transparent px-4 placeholder-gray-500"
-              placeholder="Type name, hobby or tag..."
+              class="w-full caret ml-6 mr-4 rounded-full focus:outline-none font-muli bg-transparent px-4 placeholder-gray-500"
+              placeholder="Search"
               v-model="searchText"
               @input="onInput()"
             />
@@ -68,9 +68,6 @@
           </div>
         </div>
       </div>
-      <div v-else class="w-auto h-auto mx-4 my-8" >
-        <img src="@/assets/searchImage.svg" alt="">
-      </div>
     </div>
   </div>
 </template>
@@ -103,7 +100,7 @@ export default Vue.extend({
     ...mapActions('search', ['search']),
     ...mapMutations('search', ['clear']),
     onClickSearch(): void {
-        if (this.searchText != undefined) {
+        if (this.searchText != undefined && this.searchText.length > 0) {
           this.search(this.searchText)       
       }
     },
@@ -130,6 +127,10 @@ export default Vue.extend({
 .grided {
   display: grid;
   grid-template-rows: 12vh 83vh;
+}
+
+.caret{
+  caret-color: #805ad5;
 }
 
 .slide-fade-enter-active {

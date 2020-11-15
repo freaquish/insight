@@ -54,13 +54,14 @@ export default Vue.extend({
         (this.$route.name.includes('auth') ||
          this.$route.name.includes('intro') || 
          this.$route.name.includes('type_writer') || 
-         this.$route.name.includes('custom_editor')
+         this.$route.name.includes('custom_editor') || 
+         this.$route.name.includes('leaderboard')
         )
       )
     },
 
     restrictedPagesWithoutLogin(): void {
-      let pages = ['auth-login', 'auth-register', 'intro','auth-fp-entry', 'auth-fp-otp_in']
+      let pages = ['auth-login', 'auth-register', 'intro','auth-fp-entry', 'auth-fp-otp_in','auth-fp-verr','auth-fp-naerr','auth-fp-rsp']
       if(this.$route.name != null && !pages.includes(this.$route.name)){
         this.$router.replace('/auth/login')
       }

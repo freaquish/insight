@@ -2,17 +2,17 @@
   <div
     @click="$emit('tabbed', text)"
     :class="
-      `w-auto h-auto px-2 ml-4 mt-4 ${
+      `w-auto font-muli h-auto px-2 ml-4 mt-4 ${
         active
-          ? 'border-b-4 border-purple-800'
+          ? 'border-b-4 border-purple-600'
           : 'border-0'
       }`
     "
   >
     <p
       :class="
-        `font-roboto text-sm ${
-          active ? 'font-bold text-purple-800' : 'font-normal'
+        `text-lg ${
+          active ? 'font-bold text-purple-600' : 'font-normal'
         }`
       "
     >

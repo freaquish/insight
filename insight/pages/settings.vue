@@ -45,6 +45,7 @@ export default Vue.extend({
     logOut(): void {
       let storage = new FrozenStorage()
       storage.logOut()
+      this.$axios.defaults.headers.common['Authorization'] = undefined
       this.navigate('/')
     },
     navigate(route: string): void {

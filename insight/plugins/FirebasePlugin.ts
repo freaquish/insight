@@ -411,6 +411,9 @@ interface FirebaseAuthenticationInterface{
   // The auth model set by constructor
   fireauth: firebase.auth.Auth
 
+  phoneNumber?: string
+  countryCode?: string
+
   context: AxiosInstance
 
   // Set Language of process default to browser
@@ -420,8 +423,6 @@ interface FirebaseAuthenticationInterface{
   // Invisible or Visible recaptcha can be stated
   setRecaptchaVerifier(
     container: string,
-    countryCode: string,
-    phoneNumber: string,
     visiblity?: string,
     success?: Function
   ): void
@@ -429,15 +430,17 @@ interface FirebaseAuthenticationInterface{
   // Apply recaptcha widget
   applyRecaptchaVerifier(): void
 
+  setDetails(countryCode: string, phoneNumber: string): void
+
   // Reset Recaptcha after failure or fallback
   resetRecaptchaVerifier(): void
 
   // Send Phone number to server for sign-in code
-  signInWithPhoneNumber(countryCode: string, phoneNumber: string): void
+  signInWithPhoneNumber(): void
 
   // Send the phone-number to server for checking the existance of account
   // If returned value if 0 then account exist other-wise route to Register
-  checkAccountExistance(accountId: string): Promise<boolean>
+  checkAccountExistance(accountId: string): Promise<[boolean, string]>
 
 
   signInWithVerificationCode(code: string, callbacks?: {success: AuthenticationSuccess, error: AuthenticationError}): void
@@ -455,6 +458,8 @@ declare global {
 export class FirebaseAuthentication implements FirebaseAuthenticationInterface {
   public fireauth: firebase.auth.Auth
   public context: AxiosInstance
+  public phoneNumber?: string
+  public countryCode?: string
 
   constructor(context:AxiosInstance) {
     this.fireauth = firebase.auth()
@@ -465,10 +470,13 @@ export class FirebaseAuthentication implements FirebaseAuthenticationInterface {
   setDeviceLanguage(): void {
     this.fireauth.useDeviceLanguage()
   }
+
+  setDetails(countryCode: string, phoneNumber: string): void{
+    this.countryCode = countryCode
+    this.phoneNumber = phoneNumber
+  }
   setRecaptchaVerifier(
     container: string,
-    countryCode: string,
-    phoneNumber: string,
     visiblity?:string,
     success?: Function
   ): void {
@@ -476,7 +484,7 @@ export class FirebaseAuthentication implements FirebaseAuthenticationInterface {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(container, {
       size: visiblity === undefined ? 'invisible' : visiblity,
       callback: function(response: any) {
-        self.signInWithPhoneNumber(countryCode, phoneNumber)
+        self.signInWithPhoneNumber()
         if(success != undefined) success()
       },
       'expired-callback': function() {}
@@ -488,18 +496,20 @@ export class FirebaseAuthentication implements FirebaseAuthenticationInterface {
   resetRecaptchaVerifier(): void {
     // throw new Error('Method not implemented.')
   }
-  signInWithPhoneNumber(countryCode: string, phoneNumber: string): void {
-      let number = `${countryCode[0] != '+'? '+': ''}${countryCode}${phoneNumber}`
+  signInWithPhoneNumber(): void {
+    if(this.countryCode != undefined && this.phoneNumber != undefined){
+      let number = `${this.countryCode[0] != '+'? '+': ''}${this.countryCode}${this.phoneNumber}`
       this.fireauth.signInWithPhoneNumber(number, window.recaptchaVerifier).then((result) => {
           window.confirmationResult = result
       }).catch((err) => {
 
       })
+    }
   }
-  checkAccountExistance(accountId: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      this.context.get(`auth/account_check?aid=${accountId}`).then(res => {
-        resolve(res.data.available)
+  checkAccountExistance(): Promise<[boolean, string]> {
+    return new Promise<[boolean, string]>((resolve, reject) => {
+      this.context.get(`auth/account_check?aid=${this.phoneNumber}&rsp`).then(res => {
+        resolve([res.data.available === 0, res.data.token])
       }).then(error => {
         reject(error)
       })

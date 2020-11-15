@@ -43,7 +43,7 @@ export const actions: ActionTree<RootState, RootState> = {
             this.$axios.setHeader('Authorization', storage.get('token'))
         }
         this.$axios.get(url).then(res => {
-            if (res.status === 200) {
+            if (res.status === 200) {                
                 commit('setLeaderBoardData', res.data)
             }
         })
