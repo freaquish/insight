@@ -66,9 +66,10 @@ export interface ShallowPost {
 
 export interface RankCard {
     account: User
-    hobby: string
+    hobby_score: number
     score: number
     rank: number
+    isSelf: number
 }
 
 export interface Leaderboard {
