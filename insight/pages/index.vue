@@ -15,7 +15,13 @@
               <span class="font-normal">Hello! </span>{{ firstName }}
             </p>
           </div>
-          <div class="h-full w-full flex flex-row-reverse px-4 py-2"></div>
+          <div class="h-full w-full flex flex-row-reverse px-4 py-2">
+            <span
+              @click="$router.push('/settings')"
+              class="material-icons text-3xl text-white"
+              >settings</span
+            >
+          </div>
         </div>
 
         <div class="body flex flex-col pt-16 pb-16 px-2">

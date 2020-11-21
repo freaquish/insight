@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full post-box bg-white my-3 rounded-md shadow-md pb-2 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300"
+    :class="`w-full post-box ${onep? '' : 'rounded-md shadow-md'} bg-white my-2 pb-2 overflow-hidden border border-t-0 border-r-0 border-l-0 border-gray-300`"
     style="touch-action: pan-y !important;"
     @scroll="monitorAssets"
     @click="$emit('current-index', index)"
@@ -158,7 +158,7 @@
           <p class="word font-muli font-medium text-base" v-html="caption"></p>
         </div>
         <div class="w-full h-auto">
-          <button @click="truncateCaption()" class="text-base text-gray-600">
+          <button @click="truncateCaption()" class="text-sm text-gray-600">
             Show Less
           </button>
         </div>

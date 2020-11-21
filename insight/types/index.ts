@@ -75,7 +75,8 @@ export interface RankCard {
 export interface Leaderboard {
     hobbies: Hobby[]
     users: RankCard[]
-    selected?: Hobby
+    selected?: Hobby,
+    searched:RankCard[]
 }
 
 export interface Comment {
@@ -135,4 +136,13 @@ export interface Notification {
     alert?: number,
 }
 
+
+export interface DiscoverPost{
+    post_id: string
+    asset: string
+    account: {
+        avatar: string
+        username: string
+    }
+}
 

@@ -49,7 +49,7 @@ export default Vue.extend({
             }
         },
         resetClick(): void {
-            if(this.newPassword != null && this.confirmPassword != null && this.newPassword === this.confirmPassword){
+            if(this.newPassword != null && this.confirmPassword != null && this.newPassword.length >= 6 && this.newPassword === this.confirmPassword){
                 this.isPasswordMatching = true
                 this.changePassword({password:this.newPassword, func: () => {
                     this.loading = true

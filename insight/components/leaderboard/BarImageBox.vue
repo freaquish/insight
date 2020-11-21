@@ -4,6 +4,7 @@
     style="left:0.875rem; top:6.825rem;"
     class="absolute z-10">
       <ImageBox
+        @click="jumpToUser(user2)"
         :src="this.user2.account.avatar"
         class="rounded-full px-2 py-2 bg-white-85"
         style="width: 7rem; height: 7rem"
@@ -14,6 +15,7 @@
      style="left: 9.375rem; top:3.125rem;"
      class="absolute">
       <ImageBox
+      @click="jumpToUser(use1)"
         :src="this.user1.account.avatar"
         class="rounded-full px-2 py-2 bg-white-85"
         style="width: 7rem; height: 7rem"
@@ -24,6 +26,7 @@
     style="left: 18.34375rem; top: 8.625rem;"
     class="absolute">
       <ImageBox
+      @click="jumpToUser(user3)"
         :src="this.user3.account.avatar"
         class="rounded-full px-2 py-2 bg-white-85"
         style="width: 7rem; height: 7rem"
@@ -46,6 +49,11 @@ export default Vue.extend({
     },
     components: {
       ImageBox
+    },
+    methods:{
+      jumpToUser(user: RankCard):void {
+        this.$router.push(`/profile/${user.account.username}`)
+      }
     }
 })
 </script>

@@ -126,7 +126,7 @@ export const actions = {
     let storage = new FrozenStorage();
     let token = storage.get('token');
     let url = 'feed';
-    if (state.links.next != null || state.links.next != undefined){
+    if (state.links.next != null || state.links.next != undefined && state.posts.length > 0){
       url = `${url}${state.links.next}`;
     }
     if(token != null){

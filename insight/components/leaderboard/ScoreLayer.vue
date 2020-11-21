@@ -15,13 +15,23 @@
       id="card-container"
       class="w-full h-full mt-48 flex flex-col pt-4 pb-12 px-0"
     >
-      <div class="w-full sticky flex flex-row-reverse">
+      <div v-if="this.isShowingGps"  class="w-full sticky flex flex-row-reverse">
         <button @click="$emit('scroll-self')" v-if="!this.isContainerOverflown" class="pl-3 pr-4 bg-pink-600 pt-2 rounded-l-full">
           <span class="material-icons text-white"> gps_fixed </span>
         </button>
       </div>
       <div v-for="user in getRestUsers" :key="users.indexOf(user)">
         <ScoreCard :user="user" :containerOverflown="isContainerOverflown" />
+      </div>
+      <div v-if="this.users.length === 0">
+        <div class="w-full h-64 bg-white flex flex-col justify-center">
+          <div class="w-full flex justify-center">
+            <img src="@/assets/svg/astro.svg" class="w-40" />
+          </div>
+          <div class="w-full text-center mt-1">
+            <p class="font-muli text-gray-700">No scores found!</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -57,8 +67,17 @@ export default Vue.extend({
         : undefined
     },
     getRestUsers(): RankCard[] {
+      if (this.users.length < 5){
+        return this.users
+      }
       return this.users.slice(3)
     },
+    isShowingGps():boolean {
+      if(this.users.length < 30){
+        return false
+      }
+      return true
+    }
   },
   methods: {
     onScroll(): void {

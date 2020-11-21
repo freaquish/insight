@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { Hobby, Leaderboard, RankCard } from '@/types/index'
 import FrozenStorage from '@/static/js/local_storage'
 
@@ -7,7 +7,8 @@ import FrozenStorage from '@/static/js/local_storage'
 export const state = (): Leaderboard => ({
     hobbies: [],
     users: [],
-    selected: undefined
+    selected: undefined,
+    searched: [],
 })
 
 
@@ -25,28 +26,27 @@ export const mutations: MutationTree<RootState> & Mutations = {
             state.hobbies = data.hobbies
         }
         state.users = data.scoreboards
+        state.searched = [] as RankCard[]
     },
     setSelectedHobby(state: RootState, hobby: Hobby): void {
         state.selected = hobby
     },
+    insertSearchedData(state: RootState, users: RankCard[]): void {
+        state.searched = users
+    },
+    
 }
 
+export const getter: GetterTree<RootState, RootState> = {
+    getRanks(state: RootState): RankCard[] {
+        if(state.searched.length > 0){
+            return state.searched
+        }
+        return state.users
+    }
+} 
+
 export const actions: ActionTree<RootState, RootState> = {
-    fetch({ commit }, hobbies: string[]): void {
-        let url = `leaderboard/score?`
-        if (hobbies.length > 0) {
-            url = `${url}hobbies=${hobbies.join('+')}`
-        }
-        const storage = new FrozenStorage()
-        if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
-            this.$axios.setHeader('Authorization', storage.get('token'))
-        }
-        this.$axios.get(url).then(res => {
-            if (res.status === 200) {                
-                commit('setLeaderBoardData', res.data)
-            }
-        })
-    },
     fetchLeaderboard({commit, state}, payload: {hobbies?: Hobby[], sort?: string, search?: string}): void {
         let url = `leaderboard/score?`
         if(payload.hobbies != undefined && payload.hobbies.length > 0){
@@ -62,7 +62,7 @@ export const actions: ActionTree<RootState, RootState> = {
         if(payload.search != undefined){
             url += `search=${payload.search.replaceAll('@','')}&`
         }
-        if(state.hobbies.length > 0){
+        if(state.hobbies.length > 1){
             url += 'no_hobby'
         }
 
@@ -73,8 +73,14 @@ export const actions: ActionTree<RootState, RootState> = {
 
         this.$axios.get(url).then(res=> {
             if(res.status === 200){
+                console.log(url, res.data);
+                
                 commit('setLeaderBoardData', res.data)
             }
         })
+    },
+
+    searchUserInLeaderboard({state}, user: string): void {
+        
     }
 }
