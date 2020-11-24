@@ -44,8 +44,4 @@
   width: 10.3124rem;
   height: 32.8438rem;
 }
-
-.pad {
-  padding-bottom: calc(100% 3/4);
-}
 </style>
