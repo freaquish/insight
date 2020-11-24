@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`w-full pt-2 pb-2 px-2 flex-col fixed z-30  ${
+    :class="`w-full pt-2 pb-2 px-2 flex-col fixed z-30 text-black  ${
       isScoreCardOverflowed ? 'bg-white shadow-xl' : 'bg-transparent'
     }`"
   >
@@ -8,15 +8,15 @@
       <span
       @click="$router.go(-1)"
         :class="`material-icons ${
-          isScoreCardOverflowed ? 'text-black' : 'text-white'
+          isScoreCardOverflowed ? 'text-black' : 'text-black'
         } text-3xl`"
         >keyboard_backspace</span
       >
-      <div class="w-full flex flex-row-reverse">
+      <div class="w-full flex flex-row-reverse justify-between">
         <span
           @click="hamOptionClicked"
           :class="`material-icons  ${
-            isScoreCardOverflowed ? 'text-black' : 'text-white'
+            isScoreCardOverflowed ? 'text-black' : 'text-black'
           } text-3xl px-2`"
         >
           menu

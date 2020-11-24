@@ -3,7 +3,7 @@
     @scroll="onScroll"
     class="w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden pt-20"
   >
-    <div class="w-full pb-56">
+    <div class="w-full py-12">
       <BarImageBox
         :user1="getFirstUser"
         :user2="getSecondUser"
@@ -13,7 +13,7 @@
 
     <div
       id="card-container"
-      class="w-full h-full mt-48 flex flex-col pt-4 pb-12 px-0"
+      class="w-full grey h-full mt-6 flex flex-col pt-4 pb-12 px-0"
     >
       <div v-if="this.isShowingGps"  class="w-full sticky flex flex-row-reverse">
         <button @click="$emit('scroll-self')" v-if="!this.isContainerOverflown" class="pl-3 pr-4 bg-pink-600 pt-2 rounded-l-full">
@@ -98,5 +98,9 @@ export default Vue.extend({
 <style >
 .bg-white-85 {
   background: rgba(255, 255, 255, 0.95);
+}
+
+.grey{
+  background-color: rgba(247, 250, 252, 0.85);
 }
 </style>

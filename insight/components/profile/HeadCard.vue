@@ -18,6 +18,7 @@
       <div class="w-full h-auto" v-if="this.associationbtn">
         <button
           v-if="this.followbtn"
+          @click="associationClicked()"
           class="w-full mt-4 rounded-md h-8 font-semibold font-muli text-white bg-purple-600"
         >
           Follow
@@ -25,6 +26,7 @@
 
         <button
           v-else
+          @click="associationClicked()"
           class="w-full mt-4 h-8 rounded-md font-semibold font-muli bg-gray-300 text-gray-800"
         >
           Unfollow
@@ -36,6 +38,7 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import {mapState, mapActions, mapMutations} from "vuex"
 export default Vue.extend({
   props: {
     avatar: '' as PropOptions<string>,
@@ -45,12 +48,26 @@ export default Vue.extend({
     associationbtn: true as PropOptions<boolean>,
     followbtn: true as PropOptions<boolean>
   },
+  computed:{
+    ...mapState('profile/profile', ['account_id'])
+  },
   methods: {
+    ...mapActions('profile/follows', ['followactions']),
+    ...mapMutations('profile/profile', ['alterFollowing']),
     metric(count: number): string {
       if (count >= 1000) {
         return (count / 1000).toFixed(2) + 'K'
       }
       return `${count}`
+    },
+    associationClicked(): void {
+      let self = this
+      this.followactions({
+        aid: self.account_id,
+        onComplete: function(){
+          self.alterFollowing()
+        }
+      })
     }
   }
 })

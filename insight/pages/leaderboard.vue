@@ -91,7 +91,8 @@ export default Vue.extend({
         if(elem != undefined){
             elem.scrollIntoView({block:"center", behavior:"smooth"})
         }
-    }
+    },
+    
   }
 })
 </script>

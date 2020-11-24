@@ -255,6 +255,7 @@ export default {
   },
   methods: {
     ...mapActions('post/post_actions', ['microActionPost', 'followUser']),
+    ...mapActions('profile/follows', ['followactions']),
     ...mapMutations('main', ['updateActions', 'updateAssociation']),
     ...mapMutations('post/one_post', ['updateActionOnePost']),
     ...mapActions('main', ['fetchFeed']),
@@ -343,12 +344,14 @@ export default {
     },
     followClickListener: function() {
       this.following = false
-      this.followUser({
-        fid: this.account_id,
+      let self = this
+      // console.log(self.account_id);
+      this.followactions({
+        aid: self.account_id,
         action: 'follow',
-        func: () => {
+        onComplete: () => {
           this.updateAssociation({
-            aid: this.account_id,
+            aid: self.account_id,
             action: 'follow'
           })
         }

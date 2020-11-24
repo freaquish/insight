@@ -111,7 +111,7 @@ export default Vue.extend({
       'avatar',
       'username',
       'loading',
-      'isFollowing'
+      'isFollowing',
     ]),
     ...mapGetters('profile/profile', ['fullName', 'renderedDescription']),
     showAssociationButtons(): boolean {

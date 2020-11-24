@@ -151,7 +151,7 @@ export const actions = {
         )
         commit('setLoadingState', false)
         if (res.data.posts.length === 0) {
-          this.$router.push('/discover')
+          this.$router.replace('/discover_hobby')
         } else {
           commit('setAccountData', res.data)
           commit('setPosts', res.data)

@@ -140,6 +140,10 @@ export const mutations: MutationTree<RootState> & Mutation = {
     state.isFollowing = val
   },
 
+  alterFollowing(state:RootState):void {
+    state.isFollowing = !state.isFollowing
+  },
+
   insertPosts(state, posts): void {
     state.collections = posts
   },

@@ -69,14 +69,15 @@ export interface RankCard {
     hobby_score: number
     score: number
     rank: number
-    isSelf: number
+    isSelf: number,
+    sort: string
 }
 
 export interface Leaderboard {
     hobbies: Hobby[]
     users: RankCard[]
     selected?: Hobby,
-    searched:RankCard[]
+    searched:RankCard[],
 }
 
 export interface Comment {

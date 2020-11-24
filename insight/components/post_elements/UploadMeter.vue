@@ -27,7 +27,7 @@ export default Vue.extend({
   },
   computed: {
     percentage(): string {
-      return this.progress.progress.toFixed(0)
+      return this.progress.progress.toFixed(1)
     }
   }
 })

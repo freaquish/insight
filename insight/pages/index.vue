@@ -8,11 +8,11 @@
           <img
             @click="navigateToSelf"
             :src="avatar"
-            class="w-12 h-12 rounded-full"
+            class="w-10 h-10 rounded-full"
           />
-          <div class="w-auto ml-4 mt-0 h-full flex flex-col justify-center">
-            <p @click="navigateToSelf" class="font-lato font-semibold text-lg text-white">
-              <span class="font-normal">Hello! </span>{{ firstName }}
+          <div class="w-auto ml-4 mt-0 h-full">
+            <p @click="navigateToSelf" class="font-lato mt-1 font-semibold text-lg text-white">
+              {{ firstName }}
             </p>
           </div>
           <div class="h-full w-full flex flex-row-reverse px-4 py-2">
