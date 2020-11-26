@@ -406,8 +406,6 @@ export default {
         if (navigator.share) {
           navigator
             .share({
-              title: `Post on ${this.hobbyName} by ${this.username}`,
-              text: `Post on ${this.hobbyName} by ${this.username}`,
               url: shareurl
             })
             .then(() => {

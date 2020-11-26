@@ -32,10 +32,12 @@
       @click="jumpToUser(user1)"
     >
       <!-- <p class="w-full text-center font-lato font-bold text-lg">1</p> -->
+      <div class="w-full flex justify-start">
+        <img src="@/assets/svg/crown.svg" class="image w-8 h-8" /></div>
       <ImageBox
         
         :src="this.user1.account.avatar"
-        class="w-24 mt-2 h-24 rounded-full"
+        class="w-24 h-24 rounded-full"
       />
       <p class="mt-1 font-lato font-bold truncate">{{ user1.account.name }}</p>
       <p class="font-muli text-sm text-center truncate text-gray-700">
@@ -135,5 +137,9 @@ export default Vue.extend({
 <style scoped>
 .bg-white-85 {
   background: rgba(255, 255, 255, 0.85);
+}
+
+.image {
+  transform: rotate(-20deg);
 }
 </style>

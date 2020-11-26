@@ -4,7 +4,7 @@
     :data-self="user.isSelf === 1 ? true : false"
     :class="`${
       containerOverflown ? bgColor : 'bg-transparent'
-    } w-full mb-2 px-4 h-auto flex`"
+    } w-full my-2 px-4 h-auto flex xs:text-sm`"
   >
     <p class="font-muli font-semibold text-black block my-auto text-lg h-full">
       {{ user.rank }}
@@ -16,17 +16,19 @@
         :src="user.account.avatar"
         class="w-12 ml-4 h-12 rounded-full"
       />
-      <div class="w-full h-full flex flex-col ml-6">
-        <p class="font-muli font-semibold text-gray-900">
+      <div class="w-full flex justify-between">
+      <div class="w-auto h-full flex flex-col ml-6">
+        <p class="font-muli font-semibold truncate text-gray-900">
           {{ user.account.name }}
         </p>
-        <p class="text-sm text-blue-700">@{{ user.account.username }}</p>
+        <p class="text-sm truncate text-blue-700">@{{ user.account.username }}</p>
       </div>
       <div class="inline-block my-auto font-semibold">
         <p class="flex">
           <span :class="`material-icons mr-1 ${scoreIconColor(user)}`">{{scoreIcon(user)}}</span
           >{{ getScore }}
         </p>
+      </div>
       </div>
     </div>
   </div>
@@ -42,7 +44,7 @@ export default Vue.extend({
   },
   computed: {
     bgColor(): string {
-      return this.user.isSelf === 1 ? 'pink-grad' : 'bg-white'
+      return this.user.isSelf === 1 ? 'pink-grad' : 'bg-transparent'
     },
     getScore(): string {
       if(this.user.score < 1) return this.user.score.toFixed(3)

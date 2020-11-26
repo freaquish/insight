@@ -3,7 +3,7 @@
     <div class="w-full h-full fixed z-0">
       <Background />
     </div>
-    <div class="w-full h-full fixed z-10">
+    <div v-if="false" class="w-full h-full fixed z-10">
       <BarLayer />
     </div>
 

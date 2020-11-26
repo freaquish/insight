@@ -5,7 +5,7 @@
       style="touch-action: pan-y !important;"
     >
       <div
-        class="w-full px-2 py-1  bg-white"
+        class="w-full px-0 py-1  bg-white"
         style="max-height:100%;"
       >
         <!-- <loader-view :loading="loading" > -->
@@ -19,7 +19,7 @@
           <img
             :src="getSrc()"
             v-show="!this.infinite"
-            class="rounded-md w-full"
+            class="rounded-none w-full"
             style="max-height:50vh;touch-action: pan-y !important;"
             @load="loadingComplete"
             @error="changestate({ loading: false, error: true })"

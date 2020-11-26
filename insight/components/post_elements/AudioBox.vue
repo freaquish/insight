@@ -17,7 +17,7 @@
           >
             <div v-if="!this.playing" class="w-full h-full relative">
               <div
-                class="child rounded-md bg-white opacity-75 px-8 pt-4 pb-4 absolute "
+                class="child rounded-none bg-white opacity-75 px-8 pt-4 pb-4 absolute "
                 style="top:50%;left:50%;transform: translate(-50%, -50%);"
               >
                 <i class="fa fa-play fa-lg" aria-hidden="true"></i>

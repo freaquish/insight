@@ -10,7 +10,7 @@
       </div>
 
 
-      <div v-if="this.error" class="h-12 rounded-lg w-full px-4 py-2 bg-red-600 z-10">
+      <div v-if="this.error" class="h-12 w-full px-4 py-2 bg-red-600 z-10">
          <p class="font-lato font-bold text-white">Invalid Credentials, try again</p>
       </div>
       
@@ -26,6 +26,7 @@
       <div class="w-auto mx-8 h-16 border-none bgc rounded-bl-lg rounded-br-lg">
           <i class="fa fa-key mt-6 text-white ml-4" aria-hidden="true"></i>
         <input
+        @keyup.enter="login"
         class="outline-none bg-transparent ml-4 text-gray-500 font-muli"
         type="password" name="password"  placeholder="Password" v-model="password">
       </div>

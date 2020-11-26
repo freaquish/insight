@@ -1,18 +1,23 @@
 import {ActionTree, MutationTree} from 'vuex'
-import {Hobby, DiscoverPost} from "@/types/index"
+import {Hobby, OnePost} from "@/types/index"
 import FrozenStorage from '~/static/js/local_storage'
+// import { Post } from '~/types/CreatePost'
 
 
 export const state = () => ({
-    posts: [] as DiscoverPost[],
+    posts: [] as OnePost[],
     hobbies: [] as Hobby[],
-    next_link: '' as string
+    next_link: '' as string,
+    selected: undefined as Hobby | undefined,
+    nextFetchs: [] as number[],
+    scrollPostition: undefined as number| undefined
+    
 })
 
 type RootState = ReturnType<typeof state>
 
 interface Payload {
-    posts: DiscoverPost[]
+    posts: OnePost[]
     links: {
         next: string
         previous: string
@@ -23,26 +28,91 @@ interface Payload {
 export const mutations: MutationTree<RootState> = {
     setData(state: RootState, payload: Payload): void{
         state.posts = payload.posts
-        state.hobbies = payload.hobbies
-        state.next_link = payload.links.next
+        if(payload.hobbies.length > 0){
+            state.hobbies = payload.hobbies
+        }
+        if(payload.links.next != null){
+            state.next_link = payload.links.next
+        }
+        if(state.posts.length > 0 && state.next_link != null && state.next_link.length > 0){
+            state.nextFetchs.push(state.posts.length - 1)
+        }
+        // console.log(state);
+        
+    },
+    addNextPosts(state: RootState, payload: Payload): void {
+        if(payload.links.next != null){
+            state.next_link = payload.links.next
+        }
+        for(let post of payload.posts){
+            state.posts.push(post)
+        }
+        if(state.posts.length > 0 && state.next_link != null && state.next_link.length > 0){
+            state.nextFetchs.push(state.posts.length - 1)
+        }
+    },
+    selectHobby(state: RootState, hobby: Hobby): void {
+        state.selected = hobby
+        state.posts = [] as OnePost[]
+        state.next_link = ''
+        state.nextFetchs = [] as number[]
+    },
+    insertNextFetch(state: RootState, index: number): void {
+        state.nextFetchs.push(index)
+    },
+    removeNextFetch(state: RootState, index: number): void {
+        state.nextFetchs = state.nextFetchs.filter((value, ind) => value !=index )
+    },
+    setScrollPosition(state: RootState, index: number): void{
+        state.scrollPostition = index
+    },
+    resetNextLink(state: RootState): void{
+        state.next_link = ''
+        state.nextFetchs = [] as number[]
+    },
+    reset(state: RootState): void {
+        state.posts = []
+        state.selected = undefined
+        state.nextFetchs = []
+        state.next_link = ''
     }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-    fetchDiscover({state, commit}, hobby: string | undefined): void {
+    fetchDiscover({state, commit}, payload: {hobby?: Hobby, next?: number}): void {
         let url = 'discover?'
+        if(state.next_link.length > 0 && payload.hobby === undefined){
+            url = url + `${state.next_link.replace('?', '')}&`
+        }
         if(state.hobbies.length > 0){
             url +='no_hobby&'
         }
-        if(hobby != undefined){
-            url += `hobby=${hobby}`
+        if(payload.hobby != undefined){
+            commit('selectHobby', payload.hobby)
         }
+        if(state.selected != undefined){
+            url += `hobby=${state.selected.code_name}&`
+        }
+
         if(this.$axios.defaults.headers.common['Authorization'] === undefined){
             const storage = new FrozenStorage()
-            this.$axios.setToken(storage.get('token'))
+            let token = storage.get('token') as string | null
+            if(token != null){
+                this.$axios.setToken(token)
+            }
         }
         this.$axios.get(url).then(res => {
-            
+            if(res.status === 200) {
+                if(payload.next != undefined){
+                    commit('addNextPosts', res.data)
+                    commit('removeNextFetch',  payload.next)
+                }else{
+                    commit('setData', res.data)
+                    // console.log(res.data, state.selected, payload);
+                    
+                }
+                
+            }
         })
     }
 }

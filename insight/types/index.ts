@@ -73,6 +73,25 @@ export interface RankCard {
     sort: string
 }
 
+export interface DiscoverPost{
+    post_id: string
+    account: {
+        avatar: string
+        username: string
+    },
+    asset: {
+        text ?: {
+            bgColor: string
+            data: string
+            fontName: string
+            fontColor: string
+        },
+        image ?: string
+        video?: string
+        audio?: string
+    }
+}
+
 export interface Leaderboard {
     hobbies: Hobby[]
     users: RankCard[]
@@ -138,12 +157,5 @@ export interface Notification {
 }
 
 
-export interface DiscoverPost{
-    post_id: string
-    asset: string
-    account: {
-        avatar: string
-        username: string
-    }
-}
+
 

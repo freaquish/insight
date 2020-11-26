@@ -73,7 +73,7 @@ export const actions: ActionTree<RootState, RootState> = {
 
         this.$axios.get(url).then(res=> {
             if(res.status === 200){
-                console.log(url, res.data);
+                // console.log(url, res.data);
                 
                 commit('setLeaderBoardData', res.data)
             }
