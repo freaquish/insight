@@ -40,7 +40,7 @@ export const mutations = {
               payload.batch + state.posts.length - 1
             )
           ) {
-            state.nextFetchIndex.push(payload.batch + state.posts.length - 1)
+            state.nextFetchIndex.push(state.posts.length - 1)
           }
           state.posts = state.posts.concat(payload.posts)
         }

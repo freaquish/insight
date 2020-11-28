@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div v-if="!this.isAuthRoute()" class="">
+    <div v-if="!this.showBottomV()" class="">
       <BottomBar />
     </div>
   </div>
@@ -46,7 +46,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    isAuthRoute(): boolean {
+    showBottomV(): boolean {
       //this function tell whether current route is any auth(login/register) route in order to hide bottom bar
       return (
         this.$route.name != undefined &&
@@ -55,13 +55,14 @@ export default Vue.extend({
          this.$route.name.includes('intro') || 
          this.$route.name.includes('type_writer') || 
          this.$route.name.includes('custom_editor') || 
-         this.$route.name.includes('leaderboard')
+         this.$route.name.includes('leaderboard') ||
+         this.$route.name.includes('error')
         )
       )
     },
 
     restrictedPagesWithoutLogin(): void {
-      let pages = ['auth-login', 'auth-register', 'intro','auth-fp-entry', 'auth-fp-otp_in','auth-fp-verr','auth-fp-naerr','auth-fp-rsp']
+      let pages = ['auth-login', 'auth-register', 'intro','auth-fp-entry', 'auth-fp-otp_in','auth-fp-verr','auth-fp-naerr','auth-fp-rsp', 'error-401', 'error-404']
       if(this.$route.name != null && !pages.includes(this.$route.name)){
         this.$router.replace('/auth/login')
       }

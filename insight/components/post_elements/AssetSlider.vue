@@ -5,7 +5,7 @@
       style="touch-action: pan-y !important;"
     >
       <div
-        class="w-full px-0 py-1  bg-white"
+        class="w-full px-0 py-1  bg-transparent"
         style="max-height:100%;"
       >
         <!-- <loader-view :loading="loading" > -->
@@ -80,8 +80,11 @@ import PeripheralDot from '@/components/post_elements/PeripheralDot.vue'
 import TextBox from '@/components/post_elements/TextBox.vue'
 import InfinityLoading from '@/components/InfinityLoading.vue'
 export default {
-  props: ['propAsset'],
+  props: ['propAsset', 'propInfinte'],
   mounted() {
+    if(this.propInfinite != undefined){
+      this.infinite = propInfinite
+    }
     // console.log('asset_slider',this.propAsset);
     this.data = { ...this.propAsset }
     this.assets = []

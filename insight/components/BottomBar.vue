@@ -26,6 +26,7 @@
               class="material-icons text-3xl"
               >search</span
             >
+            <!-- <span class="text-sx font-lato">search</span> -->
           </p>
         </div>
 

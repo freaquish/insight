@@ -1,5 +1,5 @@
 <template>
-  <div :id="post.post_id" class="w-full h-auto my-2" style="max-height: 16rem">
+  <div @click="onClick" :id="post.post_id" class="w-full h-auto my-2" style="max-height: 16rem">
     <!-- Image -->
     <div v-if="getAssetType === 'images'" class="w-full h-full">
       <img
@@ -104,7 +104,9 @@ export default Vue.extend({
             }
         })
     },
-    onClick(): void {}
+    onClick(): void {
+      this.$emit('select', this.index)
+    }
   }
 })
 </script>

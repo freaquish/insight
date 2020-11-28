@@ -56,6 +56,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/AppPlugin.js', ssr: false },
+    {src: '~/plugins/axios'},
     { src: '~/plugins/FirebasePlugin', ssr: false },
   ],
   /*

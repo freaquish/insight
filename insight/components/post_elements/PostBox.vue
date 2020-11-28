@@ -174,7 +174,7 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import { avatarDefault } from '@/static/js/assets'
 import IsInViewport from '@/static/js/in-viewport.js'
 export default {
-  props: ['commentActive', 'propsAsset', 'index', 'bind', 'isComment', 'onep'],
+  props: ['commentActive', 'propsAsset', 'index', 'bind', 'isComment', 'onep', 'discover'],
   components: {
     AssetSlider
   },
@@ -198,11 +198,14 @@ export default {
           // console.log(self.index,entry.intersectionRatio);
           if (
             entry.intersectionRatio >= 0.22 &&
-            self.nextFetchIndex.includes(self.index) &&
-            !self.nextFetchedIndex.includes(self.index)
+            self.nextFetchIndex.includes(self.index)
           ) {
             // console.log(self.nextFetchIndex, self.nextFetchedIndex, self.index)
-            self.fetchFeed(self.index)
+           if(this.discover != undefined && this.discover){
+             this.$emit('next', this,this.index)
+           }else{
+              self.fetchFeed(self.index)
+           }
           }
           if (
             entry.intersectionRatio >= 0.65 &&
@@ -254,7 +257,7 @@ export default {
     ...mapState('main', ['nextFetchIndex', 'nextFetchedIndex'])
   },
   methods: {
-    ...mapActions('post/post_actions', ['microActionPost', 'followUser']),
+    ...mapActions('post/post_actions', ['microActionPost']),
     ...mapActions('profile/follows', ['followactions']),
     ...mapMutations('main', ['updateActions', 'updateAssociation']),
     ...mapMutations('post/one_post', ['updateActionOnePost']),
