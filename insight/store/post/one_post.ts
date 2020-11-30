@@ -54,8 +54,8 @@ export const mutations: MutationTree<RootState> & Mutations = {
 export const actions: ActionTree<RootState, RootState> = {
     fetchPost({ commit }, post_id: string): void {
         const storage = new FrozenStorage()
-        if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
-            this.$axios.setToken(storage.get('token'))
+        if (this.$axios.defaults.headers.common['Authorization'] != undefined) {
+            delete this.$axios.defaults.headers.common['Authorization']
         }
         this.$axios.get(`post/${post_id}`).then(res => {
             if (res.status === 200) {

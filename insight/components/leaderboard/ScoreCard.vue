@@ -23,7 +23,7 @@
         </p>
         <p class="text-sm truncate text-blue-700">@{{ user.account.username }}</p>
       </div>
-      <div class="inline-block my-auto font-semibold">
+      <div v-if="this.showingIcon" class="inline-block my-auto font-semibold">
         <p class="flex">
           <span :class="`material-icons mr-1 ${scoreIconColor(user)}`">{{scoreIcon(user)}}</span
           >{{ getScore }}
@@ -50,6 +50,9 @@ export default Vue.extend({
       if(this.user.score < 1) return this.user.score.toFixed(3)
       return this.user.score.toFixed(1)
     },
+    showingIcon(): boolean{
+      return (this.user.sort === 'loves' || this.user.sort === 'views')
+    }
   },
   props: {
     user: {} as PropOptions<RankCard>,
