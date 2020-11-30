@@ -47,8 +47,12 @@ export default Vue.extend({
       return this.user.isSelf === 1 ? 'pink-grad' : 'bg-transparent'
     },
     getScore(): string {
+      if(this.user.sort === 'net_score'){
       if(this.user.score < 1) return this.user.score.toFixed(3)
       return this.user.score.toFixed(1)
+      }else {
+        return this.user.score.toString()
+      }
     },
     showingIcon(): boolean{
       return (this.user.sort === 'loves' || this.user.sort === 'views')
