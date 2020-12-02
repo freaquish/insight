@@ -103,7 +103,10 @@ export default Vue.extend({
       this.$router.push(`/profile/${user.account.username}`)
     },
     getScore(user: RankCard): string {
-      if (user.score < 1) {
+      if(user.sort === 'loves' || user.sort === 'views'){
+        return this.sanitizeScore(user.score)
+      }
+      else if (user.score < 1) {
         return user.score.toFixed(4)
       }
       return this.sanitizeScore(user.score)
@@ -112,7 +115,7 @@ export default Vue.extend({
       if( num >= 1000){
         return (num/1000).toFixed(2) + 'K'
       }
-      return num.toFixed(2)
+      return num.toString()
     },
     scoreIcon(user: RankCard): string {
       if (user.sort === 'loves') {

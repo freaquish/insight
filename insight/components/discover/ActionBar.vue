@@ -78,6 +78,11 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import { PropOptions } from 'vue/types/umd'
 import { OnePost } from '~/types'
 export default Vue.extend({
+  mounted(){
+    if(this.post.meta.actions.viewed === 0){
+      this.bindAction('view')
+    }
+  },
   props: {
     post: {} as PropOptions<OnePost>,
   },
