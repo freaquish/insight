@@ -1,105 +1,71 @@
 <template>
-    <div class="w-full h-full overflow-y-scroll flex flex-col">
-
-      <!-- First Page -->
-
-         <div class="h-auto w-full px-2 py-2 flex mt-4">
-            <p @click="$router.push('/auth/login')"  class="px-4 py-1 bg-blue-500 text-white shadow-lg rounded-full">
-            <span class="text-lg">Login</span>
-            </p>
-         </div>
-
-
-         <div class="w-full h-full mt-8">
-           <img style="width:60%; height:60%;" class="mx-auto" src="@/assets/intro/freaquish.svg" alt="">
-           <div class="mt-4 text-center">
-              <p class="mt-4"> 
-                <span class="text-xl text-red-500 font-muli font-bold">Stop Searching </span>
-                <span class="text-sm font-muli"> anywhere else....</span>
-                <br>
-                <span class="mt-4 font-muli">The platform is here you waiting for</span>
-              </p>
-             <p class="mt-4"> 
-               <span class="text-xl font-muli font-bold text-blue-700">Freaquish </span>
-                <span class="text-sm font-muli font-bold">a great platform <br> to show the world</span> 
-                <br> 
-                <span class="text-xl">the real of you</span>  
-              </p>
-           </div>         
-         </div>
-
-
-       <!-- Second Page -->
-
-        <div class="w-full h-auto mt-24">
-           <img style="width:60%; height:60%;" class="mx-auto" src="@/assets/intro/hobby.svg" alt="">
-           <div class="mt-4 text-center">
-             <p class="text-xl font-lato font-bold mt-4 text-green-700">Hobby Gallery</p>
-             <p class="mt-4 font-muli px-4 text-sm"> 
-                Explore the exciting and great collections of hobby and become the part of the choice of your hobby.
-              </p>
-           </div>         
-         </div>
-
-
-       <!-- Third Page -->
-        <div class="w-full h-auto mt-24">
-           <img style="width:60%; height:60%;" class="mx-auto" src="@/assets/intro/discover.svg" alt="">
-           <div class="mt-4 text-center">
-             <p class="text-xl font-lato font-bold mt-4 text-purple-700">Discover</p>
-             <p class="mt-4 font-muli px-4 text-sm"> 
-                Discover great post around the great hobbies, make friends and do creative things.
-              </p>
-           </div>         
-         </div>
-
-
-       <!-- Fourth Page -->
-       <div class="w-full h-auto mt-24">
-           <img style="width:60%; height:60%;" class="mx-auto" src="@/assets/intro/leaderboard.svg" alt="">
-           <div class="mt-4 text-center">
-             <p class="text-xl font-lato font-bold mt-4 text-yellow-700">LeaderBoard</p>
-             <p class="mt-4 font-muli px-4 text-sm"> 
-                Show your talent, post in your favorite hobby and get ranked.
-                <br class="mt-4">
-                Get inspired and inspire everyone.
-              </p>
-           </div>         
+  <div
+    class="w-full h-screen overflow-hidden flex justify-center md:px-32 py-12 md:py-16 font-lato text-white   transient-bg"
+  >
+    <div class="flex flex-col ">
+      <!-- Header -->
+      <div class="navbar w-auto flex justify-center h-auto">
+        <div class="flex">
+          <img src="@/static/favicon.png" class="w-12 h-12 md:w-16 md:h-16" />
+          <button
+          @click="onLoginClick"
+            class="px-4 py-2 md:my-2 mx-4 md:mx-0 border-2 md:ml-10 outline-none font-semibold border-purple-600 bg-transparent rounded-sm hover:bg-purple-600 hover:text-white"
+          >
+            SKIP TO LOGIN
+          </button>
         </div>
+      </div>
+      <!-- Header Ends Here -->
 
-        <!-- fifth page -->
-        <div class="w-full h-auto mt-24 mb-24">
-           <img style="width:60%; height:60%;" class="mx-auto" src="@/assets/intro/engaged.svg" alt="">
-           <div class="mt-4 text-center">
-             <p class="text-xl font-lato font-bold mt-4 text-blue-700">Get Engaged</p>
-             <p class="mt-4 font-muli px-4"> 
-                Get engaged with us and see the world of hobby that you dreamt about.
-              </p>
-           </div>                    
-         </div>
-         <div class="h-auto w-auto px-2 py-2 mb-16 mr-4 ml-auto">
-              <p @click="$router.push('/auth/register')"  class="px-4 py-1 bg-red-600 shadow-xl rounded-full">
-                <span class="text-lg text-white">Register</span>
-              </p>
-          </div>
+      <!-- Main Page starts here -->
+
+      <Home />
+      <!-- <Discover /> -->
     </div>
+  </div>
 </template>
 
-<script>
-import FrozenStorage from "@/static/js/local_storage.js";
-export default{
-  mounted() {
-    this.insetDataInStorage();
+<script lang="ts">
+import Vue from 'vue'
+import Home from '@/components/intro/Home.vue'
+import Discover from '@/components/intro/Discover.vue'
+import FrozenStorage from "@/static/js/local_storage"
+export default Vue.extend({
+  components: {
+    Home,
+    Discover,
   },
-  methods:{
-    insetDataInStorage: function(){
-      let storage = new FrozenStorage();
-      storage.set('vintro','1');
+  mounted(){
+    let storage = new FrozenStorage();
+    storage.set('vintro', true)
+  },
+  data() {
+    return {
+      current_tab: '#Home' as string,
     }
-  }
-}
+  },
+  computed: {
+    currentTab(): string {
+      return this.current_tab
+    },
+  },
+  methods: {
+    setCurrentTab(ref: string): void {
+      this.current_tab = ref
+    },
+    onLoginClick(): void {
+      this.$router.push('/auth/login')
+    }
+  },
+})
 </script>
 
-<style scoped>
+<style>
+.nav-item:hover {
+  border-bottom: 2px solid white;
+}
 
+.transient-bg {
+  background: linear-gradient(90deg, #080808 2.88%, rgb(31, 31, 31) 100%);
+}
 </style>
