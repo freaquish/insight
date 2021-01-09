@@ -1,3 +1,5 @@
+
+
 export interface Hobby {
     code_name: string
     name?: string
@@ -157,5 +159,33 @@ export interface Notification {
 }
 
 
+export interface PostData {
+    hobby: string
+    assets: Assets
+    caption: string
+    hastags: string[]
+    atags: string[]
+    is_global: number
+    coords?: Coords
+  }
 
-
+export interface CompetitonInterface {
+    key?: string
+    tag: string
+    name: string
+    is_host: boolean
+    post_count?: number
+    participated?: boolean
+    is_active?: boolean
+    start?: Date
+    end?: Date
+    result?: Date
+    images: string[]
+    hobbies?: Hobby[]
+    details? : object
+    user_host?: string
+    judged_by_user?: boolean
+    is_public_competition?: boolean
+    banned_users?: string[]| User[]
+    banned_posts?: string[] | PostData[]
+}
