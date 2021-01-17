@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@capacitor/core": "2.4.6",
+    "@ionic-native/app-preferences": "^5.30.0",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
+    "cordova-plugin-app-preferences": "^0.99.3",
     "core-js": "^3.6.5",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"
