@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "ostream": "cpp"
-    },
-    "extensions.ignoreRecommendations": true,
-    "files.autoSave": "off",
-    "debug.allowBreakpointsEverywhere": true
-}

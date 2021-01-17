@@ -1,0 +1,7 @@
+{
+  "name": "insight",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
