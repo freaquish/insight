@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { Post } from '@/types/CreatePost'
 import { Assets, Hobby, TextAsset } from '@/types/index'
 import { StorageVaultBeta, ProgressAsset } from '@/plugins/FirebasePlugin'
@@ -17,6 +17,12 @@ export const state = () => ({
 })
 
 export type RootState = ReturnType<typeof state>
+
+export const getters: GetterTree<RootState, RootState> = {
+  hobbies(state: RootState): Hobby[] {
+    return state.hobby_list
+  }
+}
 
 type Mutations = {
   // Insert Hobby list in store for hobby_window
@@ -50,6 +56,10 @@ export const mutations: MutationTree<RootState> & Mutations = {
     state.hobby_list = hobbies.filter(h => {
       return h.name != undefined && h.name.length > 0 && h.code_name.length > 0
     })
+  },
+
+  flushPostHobbies(state: RootState): void {
+    state.hobby_list = [] as Hobby[];
   },
 
   insertTextData(state, payload): void {
@@ -104,18 +114,21 @@ export const mutations: MutationTree<RootState> & Mutations = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  fetchHobbies: function({ commit }): void {
+  fetchHobbies: function({ state, commit }, func?: Function): void {
     if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
       const storage = new FrozenStorage()
       this.$axios.setToken(storage.get('token'))
     }
-    this.$axios.get('fetch_hobby').then(res => {
-      if (res.status === 200) {
-        commit('insertHobbies', res.data.hobbies)
-      } else {
-        commit('insertHobbies', [])
-      }
-    })
+    if (state.hobby_list.length === 0) {
+      this.$axios.get('fetch_hobby').then(res => {
+        if (res.status === 200) {
+          commit('insertHobbies', res.data.hobbies)
+        } else {
+          commit('insertHobbies', [])
+        }
+        if (func != undefined) func()
+      })
+    }
   },
 
   uploadFilesToFirebase({ commit, state }, func: Function): void {
@@ -179,10 +192,7 @@ export const actions: ActionTree<RootState, RootState> = {
     }
   },
   createPost({ state, dispatch }) {
-    if (
-      state.post != undefined &&
-      state.post.isAssetUploadable()
-    ) {
+    if (state.post != undefined && state.post.isAssetUploadable()) {
       dispatch('uploadFilesToFirebase', () => {
         dispatch('sendDataToServer')
       })

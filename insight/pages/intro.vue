@@ -9,7 +9,7 @@
           <img src="@/static/favicon.png" class="w-12 h-12 md:w-16 md:h-16" />
           <button
           @click="onLoginClick"
-            class="px-4 py-2 md:my-2 mx-4 md:mx-0 border-2 md:ml-10 outline-none font-semibold border-purple-600 bg-transparent rounded-sm hover:bg-purple-600 hover:text-white"
+            class="px-4 login-btn py-2 md:my-2 mx-4 md:mx-0 border-2 md:ml-10 outline-none font-semibold border-purple-600 bg-transparent rounded-sm hover:bg-purple-600 hover:text-white"
           >
             SKIP TO LOGIN
           </button>

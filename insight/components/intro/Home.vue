@@ -1,5 +1,5 @@
 <template>
- <div class="w-full break-words flex flex-col justify-end" style="min-height:70vh;">
+ <div class="w-full home break-words flex flex-col justify-end" style="min-height:70vh;">
    <div class="w-full h-auto px-4">
      <h1 class="font-semibold font-muli text-5xl md:text-8xl">creativity surge</h1>
      <h2 class="mt-4 md:w-2/3 text-xl md:text-4xl">A simple and easy way to express yourself, share your creativity, thoughts with friends and family, and compete for the throne of greatness.</h2>

@@ -56,7 +56,7 @@
           </p>
         </div>
 
-        <div
+        <!-- <div
           :class="`${
             isCurrentRoute('leaderboard') ? 'block pb-1 text-indigo-700' : ''
           }`"
@@ -68,7 +68,7 @@
               >assessment</span
             >
           </p>
-        </div>
+        </div> -->
       </div>
     </section>
   </client-only>
