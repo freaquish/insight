@@ -2,6 +2,7 @@ import { MutationTree, ActionTree, Store, GetterTree } from 'vuex'
 import Competition, { ViewJson } from '@/static/api/Competition'
 import FrozenStorage from '~/static/js/local_storage'
 import { Hobby } from '~/types'
+import { Listener, StorageData, StorageVaultBeta } from '~/plugins/FirebasePlugin'
 
 export const state = () => ({
   competitions: [] as Competition[],
@@ -44,6 +45,11 @@ export const mutations: MutationTree<RootState> = {
   ): void {
     state.competition = new Competition(data.tag, data.name, [data.image], 1)
   },
+  setCompetitionImages(state: RootState, images: string[]):void {
+    if(state.competition != undefined){
+      state.competition.images = images
+    }
+  },
   setCompetitionHobbies(state: RootState, hobbies: Hobby[]): void {
     if (state.competition != undefined && state.tagIsUnique === true) {
       state.competition.setHobbies(hobbies)
@@ -53,8 +59,11 @@ export const mutations: MutationTree<RootState> = {
   },
   selectHobby(state: RootState, hobby: Hobby): void {
     state.hobbies.push(hobby)
-
-    console.log(state)
+  },
+  setCompetitionDetails(state: RootState,details: object ): void {
+    if(state.competition != undefined){
+      state.competition.setDetails(details);
+    }
   },
   flushHobbies(state: RootState): void {
     state.hobbies = [] as Hobby[]
@@ -86,13 +95,7 @@ export const mutations: MutationTree<RootState> = {
       state.competition.setResultDate(dates.result)
     }
   },
-  setCompetitionDetails(state: RootState, details: object): void {
-    if (state.competition != undefined) {
-      for (const [key, value] of Object.entries(details)) {
-        state.competition.setDetail(key, value)
-      }
-    }
-  },
+
   setTagIsUnique(state: RootState, unique: boolean): void {
     state.tagIsUnique = unique
   }
@@ -113,7 +116,7 @@ interface SearchData {
 }
 
 interface StoreInheritingFunction {
-  (store: Store<RootState>): any
+  (store?: Store<RootState>): any
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -155,23 +158,53 @@ export const actions: ActionTree<RootState, RootState> = {
       }
     })
   },
-  createCompetition({ state, commit }, next?: StoreInheritingFunction): void {
+  uploadImage({state, dispatch, commit}, next?: StoreInheritingFunction): void {
+    const storage = new StorageVaultBeta();
+    if(state.competition != null && state.competition != undefined){
+      storage.init({
+        "images": state.competition?.images
+      }, {
+        complete: (data: StorageData) =>{
+          if(state.competition != undefined && data.images != undefined){
+            console.log(data, state);
+            
+            commit('setCompetitionImages',data.images);
+            dispatch("createCompetitionOnServer", next);
+          }
+        },
+        progress: (data) => {},
+        error: () => {}
+
+      } );
+      storage.bulkUpload();
+    }
+  },
+  createCompetitionOnServer({state, commit}, next?: StoreInheritingFunction): void {
     if (state.competition != undefined) {
+      // Setting hobbies
+      commit('setCompetitionHobbies', state.hobbies);
       let json = state.competition.toJson()
       if (this.$axios.defaults.headers.common['Authorization'] === undefined) {
         const storage = new FrozenStorage()
         this.$axios.setHeader('Authorization', storage.get('token'))
       }
       this.$axios.post('competition/create', JSON.stringify(json)).then(res => {
+        console.log(res);
+        
         switch (res.status) {
           case 201:
-            if (next != undefined) next(this)
-            break
+            if (next != undefined) next(this);
+            break;
           case 406:
             this.$router.replace('/competition/error')
-            break
+            break;
         }
       })
+    }
+  },
+  createCompetition({ state, dispatch}, next?: StoreInheritingFunction): void {
+    if(state.competition != undefined){
+      dispatch('uploadImage', next);
     }
   },
   fetchCompetitionView(

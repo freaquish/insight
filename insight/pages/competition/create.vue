@@ -7,9 +7,14 @@
       <MultipleHobbySelection @next="onNextInHobbySelection" @exit="onBackInHobbySelection" />
     </div>
     <div v-else-if="this.index === 3">
-      <Dates />
+      <Dates @index="updatePageIndex" />
     </div>
-    <div v-else-if="this.index === 4"></div>
+    <div v-else-if="this.index === 4">
+      <Description @index="updatePageIndex" />
+    </div>
+    <div v-else-if="this.index ===5">
+      <CreationLoader />
+    </div>
   </div>
 </template>
 
@@ -19,15 +24,20 @@ import Vue from 'vue'
 import NameAndImages from '@/components/competition/NameAndImages.vue'
 import MultipleHobbySelection from "@/components/competition/MultipleHobbySelection.vue"
 import Dates from "@/components/competition/Dates.vue"
+import Description from "@/components/competition/Description.vue"
+import CreationLoader from "@/components/competition/CreationLoader.vue"
+
 export default Vue.extend({
   components: {
     NameAndImages,
     MultipleHobbySelection,
-    Dates
+    Dates,
+    Description,
+    CreationLoader
   },
   data() {
     return {
-      index: 3 as number,
+      index: 1 as number,
     }
   },
   methods: {

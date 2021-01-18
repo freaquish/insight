@@ -329,7 +329,7 @@ export default class Competition implements AbstractCompetition {
   }
 
   static formatDate(time: Date): string {
-    return time.toUTCString()
+    return `${time.getDate()}-${time.getMonth() +1}-${time.getFullYear()} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${time.getTimezoneOffset()}`;
   }
 
 
@@ -356,6 +356,12 @@ export default class Competition implements AbstractCompetition {
       key,
       value
     )
+  }
+
+  setDetails(details:object): void {
+    for(const [key, value] of Object.entries(details)){
+      this.setDetail(key,value);
+    }
   }
 
   static boolOperator(val: number | unknown): boolean {

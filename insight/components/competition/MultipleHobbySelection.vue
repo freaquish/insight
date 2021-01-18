@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-screen h-full overflow-x-hidden overflow-y-scroll flex flex-col"
+    class="w-screen h-full overflow-x-hidden overflow-y-scroll pb-32 flex flex-col"
   >
     <div class="w-full py-4 flex justify-between px-4">
       <span @click="onClickBack" class="material-icons"

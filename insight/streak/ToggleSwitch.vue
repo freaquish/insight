@@ -1,5 +1,5 @@
 <template>
-  <div @click="onClick" class="relative w-12 h-4">
+  <div @click="onClick" class="relative toggle-switch w-12 h-4">
     <div :class="`absolute z-0 w-10 rounded-md ${active ? 'bg-green-200': 'bg-red-200'}  bar`" ></div>
     <div
       :class="`absolute z-10 rounded-full w-4 h-4 ${

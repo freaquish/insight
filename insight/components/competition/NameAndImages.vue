@@ -7,9 +7,9 @@
     </div>
     <div class="relative w-full mt-4 h-64 bg-gray-200 rounded-md">
       <div v-if="this.imageExist" class="w-full h-full absolute z-0">
-        <img class="w-full h-full" :src="this.getImage" />
+        <img class="w-full banner-image h-full" :src="this.getImage" />
       </div>
-      <div @click="onImagePickerClick" class="absolute z-10 insert-svg">
+      <div @click="onImagePickerClick" class="absolute image-picker-btn z-10 insert-svg">
         <span  class="material-icons text-6xl text-gray-800"
           >insert_photo</span
         >
@@ -25,16 +25,16 @@
         <input
           v-model="tag"
           @input="onInputCompetitionTag"
-          class="w-full font-muli px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-r-0 border-l-0 border-t-0 border-gray-800"
+          class="w-full tag-input font-muli px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-r-0 border-l-0 border-t-0 border-gray-800"
         />
         <span
           v-if="this.tagIsUnique === false"
-          class="material-icons text-red-600"
+          class="material-icons clear text-red-600"
           >clear</span
         >
         <span
           v-else-if="this.tagIsUnique === true && this.tag.length > 6"
-          class="material-icons text-green-600"
+          class="material-icons done text-green-600"
           >done</span
         >
       </div>
@@ -46,7 +46,7 @@
       >
       <input
         v-model="name"
-        class="w-full px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-r-0 border-l-0 border-t-0 border-gray-800"
+        class="w-full name-input px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-r-0 border-l-0 border-t-0 border-gray-800"
       />
     </div>
 
@@ -60,7 +60,7 @@
     <div class="w-full mt-6">
       <button
       @click="onNextClick"
-        class="bg-cremson-red font-lato text-xl text-white font-semibold w-full py-3 rounded-md"
+        class="bg-cremson-red next-btn font-lato text-xl text-white font-semibold w-full py-3 rounded-md"
       >
         NEXT
       </button>

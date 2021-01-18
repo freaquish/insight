@@ -6,6 +6,10 @@
       >
     </div>
 
+    <div v-if="this.error" class="w-full bg-red-500 py-2 px-4 my-4">
+      <p class="font-muli text-white font-semibold">Dates must have difference of one day</p>
+    </div>
+
     <div class="w-full flex flex-col px-4 pt-4">
       <form class="bg-white pt-6 pb-8" @submit.prevent>
         <div class="mb-4 relative">
@@ -88,6 +92,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import {mapMutations} from "vuex"
 
 interface VCalenderAttribute {
   highlight: boolean
@@ -112,6 +117,7 @@ export default Vue.extend({
         input: 'YYYY-MM-DD',
       },
       showing: null as null | string,
+      error: false as boolean
     }
   },
   computed: {
@@ -141,7 +147,10 @@ export default Vue.extend({
     },
   },
   methods: {
-    onBackClick(): void {},
+    ...mapMutations("competition", ['setCompetitionDates']),
+    onBackClick(): void {
+        this.$emit('index', 2);
+    },
     onDayClick(day: any): void {
       if (this.showing != null) {
         this.range[this.showing] = day.date
@@ -160,7 +169,11 @@ export default Vue.extend({
     },
     onNextClick():void {
         if(this.verifyDates()){
-            
+            this.error = false;
+            this.setCompetitionDates(this.range);
+            this.$emit('index', 4)
+        }else{
+          this.error = true;
         }
     }
   },
