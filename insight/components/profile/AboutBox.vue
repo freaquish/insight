@@ -113,7 +113,7 @@ export default Vue.extend({
     },
     validateChanges(): boolean {
       return (
-        this.name != this.fullName ||
+        this.name != this.propName ||
         this.description != this.renderedDescription
       )
     },
@@ -128,8 +128,14 @@ export default Vue.extend({
     },
     onClickSave(): void {   
       if (this.validateChanges() || true) {
+        if(this.name.length == 0){
+          this.name = this.propName;
+        }
         let nameSplit = this.name.split(' ') as string[]
         this.changing = false
+        if(this.newDescription.length == 0){
+          this.newDescription = this.propDescription;
+        }
         this.$emit('change', {
           first_name: nameSplit[0],
           last_name: nameSplit[1],

@@ -15,7 +15,7 @@
       <div class="w-full h-full flex flex-col  ml-4">
         <p
           @click="$router.push(`/profile/${username}`)"
-          class="block font-lato font-bold text-black text-base xs:text-sm"
+          class="block font-lato truncate font-bold text-black text-base xs:text-sm"
         >
           {{ username }}
         </p>
