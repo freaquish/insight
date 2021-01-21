@@ -1,6 +1,6 @@
 <template>
     <div @click="onClick" class="px-2 py-1" :id="hobby.code_name">
-        <p :class="`bg-transparent ${active? 'font-bold font-lato text-xl pt-0 border-b-4 border-pink-600' :'font-muli text-lg pt-2'} ${isScoreContainerOverflown? 'text-black ' : 'text-gray-800'} `" style="white-space:nowrap;">{{hobby.name}}</p>
+        <p :class="`font-lato font-bold px-3 py-2 rounded-md  ${active? 'bg-pink-600 text-white' :'text-gray-800 bg-cream-gray'}  `" style="white-space:nowrap;">{{hobby.name}}</p>
     </div>
 </template>
 
@@ -21,3 +21,9 @@ export default Vue.extend({
     }
 })
 </script>
+
+<style>
+.bg-cream-gray{
+    background-color: #F2F2F2;
+}
+</style>

@@ -5,7 +5,7 @@
         >keyboard_backspace</span
       >
     </div>
-    <div class="relative w-full mt-4 h-64 bg-gray-200 rounded-md">
+    <div class="relative w-full mt-4 h-64 bg-gray-200 rounded-md" >
       <div v-if="this.imageExist" class="w-full h-full absolute z-0">
         <img class="w-full banner-image h-full" :src="this.getImage" />
       </div>
@@ -25,7 +25,7 @@
         <input
           v-model="tag"
           @input="onInputCompetitionTag"
-          class="w-full tag-input font-muli px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-r-0 border-l-0 border-t-0 border-gray-800"
+          class="w-full tag-input font-muli px-2 pt-2 hover:outline-none bg-gray-200 outline-none border-b-0 border border-r-0 border-l-0 border-t-0 border-gray-800"
         />
         <span
           v-if="this.tagIsUnique === false"
@@ -46,7 +46,7 @@
       >
       <input
         v-model="name"
-        class="w-full name-input px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-r-0 border-l-0 border-t-0 border-gray-800"
+        class="w-full name-input px-2 pt-2 hover:outline-none bg-gray-200 outline-none border border-b-0 border-r-0 border-l-0 border-t-0 border-gray-800"
       />
     </div>
 

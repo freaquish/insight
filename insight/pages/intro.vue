@@ -1,15 +1,15 @@
 <template>
   <div
-    class="w-full h-screen overflow-hidden flex justify-center md:px-32 py-12 md:py-16 font-lato text-white   transient-bg"
+    class="w-full relative h-screen overflow-hidden"
   >
-    <div class="flex flex-col ">
+    <div class="flex flex-col">
       <!-- Header -->
-      <div class="navbar w-auto flex justify-center h-auto">
+      <div class="navbar nem pb-4 w-full absolute z-20 pt-4 flex justify-center h-auto">
         <div class="flex">
           <img src="@/static/favicon.png" class="w-12 h-12 md:w-16 md:h-16" />
           <button
           @click="onLoginClick"
-            class="px-4 login-btn py-2 md:my-2 mx-4 md:mx-0 border-2 md:ml-10 outline-none font-semibold border-purple-600 bg-transparent rounded-sm hover:bg-purple-600 hover:text-white"
+            class="px-4 login-btn py-2 md:my-2 mx-4 md:mx-0 border-2 md:ml-10 outline-none font-semibold text-white border-purple-600 bg-purple-600 rounded-sm hover:bg-purple-600 hover:text-white"
           >
             SKIP TO LOGIN
           </button>
@@ -55,7 +55,7 @@ export default Vue.extend({
     },
     onLoginClick(): void {
       this.$router.push('/auth/login')
-    }
+    },
   },
 })
 </script>
@@ -67,5 +67,13 @@ export default Vue.extend({
 
 .transient-bg {
   background: linear-gradient(90deg, #080808 2.88%, rgb(31, 31, 31) 100%);
+}
+
+.nem{
+  background: rgba( 0, 0, 0, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+/* border-radius: 10px; */
 }
 </style>

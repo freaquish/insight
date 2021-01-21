@@ -21,6 +21,7 @@ export default function FrozenStorage() {
     this.remove('token')
     this.remove('first_name')
     this.remove('avatar')
+    this.remove('vintro')
     this.remove('fault_attempts')
   }
 }

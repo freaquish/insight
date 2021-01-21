@@ -35,10 +35,10 @@
             {{ getDateString(range.start) }}
           </div>
 
-          <span class="material-icons my-4 text-gray-700"> arrow_downward </span>
+          <!-- <span class="material-icons my-4 text-gray-700"> arrow_downward </span> -->
           <!-- End -->
           <span
-            class="block text-gray-600 text-sm text-left font-bold font-muli"
+            class="block text-gray-600 text-sm mt-6 text-left font-bold font-muli"
           >
             End Date
           </span>
@@ -57,11 +57,11 @@
             {{ getDateString(range.end) }}
           </div>
 
-          <span class="material-icons my-4 text-gray-700"> arrow_downward </span>
+          <!-- <span class="material-icons my-4 text-gray-700"> arrow_downward </span> -->
 
           <!-- Results -->
           <span
-            class="block text-gray-600 text-sm text-left font-bold font-muli"
+            class="block text-gray-600 text-sm mt-6 text-left font-bold font-muli"
           >
             Result Date
           </span>

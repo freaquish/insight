@@ -31,14 +31,14 @@
         type="password" name="password"  placeholder="Password" v-model="password">
       </div>
 
-      <div class="flex flex-row justify-between m-12">
+      <div class="flex flex-row justify-between mt-6 mx-8">
         <div class="mt-3"><a @click="$router.push('/auth/fp/entry')" class="text-white font-bold text-sm font-lato text-center">Forget Password?</a></div>
         <div class="flex login-btn flex-row" @click="login">
           <div class="bg-indigo-500 font-muli font-bold focus:outline-none text-white rounded-tl-md rounded-bl-md py-3 px-4 text-center focus:bg-blue-300"><span class="px-4 text-center">Login</span></div>
           <div class="w-full h-full material-icons text-white bg-indigo-600 text-center rounded-br-md rounded-tr-md p-3 py-3">arrow_right_alt</div>
         </div>
       </div>
-      <div class="ml-8 mr-8 text-gray-600 mt-20">
+      <div class="ml-8 mr-8 mt-10 text-gray-600">
         <div class="text-sm">Don't have any account?</div>
         <h1><a @click="$router.push('/auth/register')" class="mt-0  text-white font-bold text-sm font-lato">CREATE ACCOUNT</a></h1>
       </div>
@@ -103,7 +103,7 @@ export default {
 <style scoped>
 .formpnl {
   margin: auto;
-  margin-top: 15%;
+  margin-top: 10%;
   overflow: hidden;
 }
 
