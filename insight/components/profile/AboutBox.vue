@@ -31,10 +31,11 @@
     <!-- Name -->
     <div class="px-4 mt-2 flex flex-col w-full">
       <label class="font-montserrat  text-purple-600 font-semibold">Name</label>
-      <input
-        type="text"
-        v-model="name"
-        :readonly="!changing"
+      <div
+        id="name-input"
+        v-html="name"
+        @input="nameInput"
+        :contenteditable="changing"
         :class="
           `py-2 focus:outline-none ${
             changing
@@ -42,7 +43,7 @@
               : ''
           }`
         "
-      />
+      ></div>
     </div>
 
     <!-- Description -->
@@ -105,7 +106,11 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('profile/profile', ['fullName', 'renderedDescription'])
+    ...mapGetters('profile/profile', ['fullName', 'renderedDescription']),
+    getName():string{
+      let name = this.$el.querySelector('#name-input') as HTMLDivElement;
+      return name.innerText;
+    }
   },
   methods: {
     toggleChangeState(): void {
@@ -113,9 +118,13 @@ export default Vue.extend({
     },
     validateChanges(): boolean {
       return (
-        this.name != this.propName ||
+        this.getName != this.propName ||
         this.description != this.renderedDescription
       )
+    },
+    nameInput():void{
+      let el = this.$el.querySelector('#name-input') as HTMLDivElement;
+              
     },
     textInput(): void {
       let textBox = this.$el.querySelector('#text-box') as HTMLDivElement
@@ -123,15 +132,17 @@ export default Vue.extend({
     },
     onClickCancel(): void {
       this.name = this.propName
+      let name = this.$el.querySelector('#name-input') as HTMLDivElement;
+      name.innerText = this.propName;
       this.description = this.propDescription
       this.changing = false
     },
     onClickSave(): void {   
       if (this.validateChanges() || true) {
-        if(this.name.length == 0){
-          this.name = this.propName;
+        if(this.getName.length == 0){
+          this.getName = this.propName;
         }
-        let nameSplit = this.name.split(' ') as string[]
+        let nameSplit = this.getName.split(' ') as string[]
         this.changing = false
         if(this.newDescription.length == 0){
           this.newDescription = this.propDescription;
