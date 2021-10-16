@@ -7,7 +7,7 @@ import { AxiosInstance } from 'axios'
 
 // TODO: Transfer every key to .env
 var firebaseConfig = {
-  apiKey: 'AIzaSyBAEkJI3NqBpXMh4ZdhG4oLj6Ar-Tz_b0o',
+  apiKey: '',
   authDomain: 'social-express-103904.firebaseapp.com',
   databaseURL: 'https://social-express-103904.firebaseio.com',
   projectId: 'social-express-103904',
