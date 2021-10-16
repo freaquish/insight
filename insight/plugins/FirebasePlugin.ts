@@ -8,13 +8,13 @@ import { AxiosInstance } from 'axios'
 // TODO: Transfer every key to .env
 var firebaseConfig = {
   apiKey: '',
-  authDomain: 'social-express-103904.firebaseapp.com',
-  databaseURL: 'https://social-express-103904.firebaseio.com',
-  projectId: 'social-express-103904',
-  storageBucket: 'social-express-103904.appspot.com',
-  messagingSenderId: '1008243500476',
-  appId: '1:1008243500476:web:baeeb56c63dfcd707337b9',
-  measurementId: 'G-2S9ZEH4HL7'
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
+  measurementId: ''
 }
 // Initialize Firebase
 if (!firebase.apps.length) {
